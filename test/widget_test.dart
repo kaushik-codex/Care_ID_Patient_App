@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:care_id_patient_app/main.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/create_account_page.dart';
+import 'package:care_id_patient_app/features/auth/presentation/pages/mobile_number_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
 
@@ -76,5 +77,66 @@ void main() {
     // Enter full name
     await tester.enterText(find.widgetWithText(TextField, 'Enter your full name'), 'Kaushik Doe');
     expect(find.text('Kaushik Doe'), findsOneWidget);
+  });
+
+  testWidgets('MobileNumberPage renders step indicator, OTP cells, cards, and autofill', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MobileNumberPage(),
+      ),
+    );
+
+    // Header & Step Indicator
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0)); // Default tester surface width is 800.0
+
+    expect(find.text('VERIFICATION STEP'), findsOneWidget);
+    expect(find.text('Step 2 of 6'), findsOneWidget);
+    expect(find.text('Verify your mobile number'), findsOneWidget);
+
+    // Masked phone card
+    expect(find.text('Recipient Number'), findsOneWidget);
+    expect(find.text('+91 ••••• ••890'), findsOneWidget);
+    expect(find.text('Change'), findsOneWidget);
+
+    // Autofill Chip
+    final autofillFinder = find.byWidgetPredicate(
+      (widget) => widget is RichText && widget.text.toPlainText().contains('Autofill code: 482910'),
+    );
+    expect(autofillFinder, findsOneWidget);
+
+    // OTP Header & Encrypted text
+    expect(find.text('Enter verification code'), findsOneWidget);
+    expect(find.text('Encrypted OTP'), findsOneWidget);
+
+    // Error Alert Banner
+    expect(find.text('Incorrect verification code'), findsOneWidget);
+    expect(find.text('Please check the SMS code received and try again.'), findsOneWidget);
+
+    // Resend & Call buttons
+    expect(find.text("Didn't receive the code?"), findsOneWidget);
+    expect(find.text('Resend SMS'), findsOneWidget);
+    expect(find.text('Call me with code'), findsOneWidget);
+
+    // Primary Action
+    expect(find.text('Verify & Continue'), findsOneWidget);
+    expect(find.text('Preview Verified Confirmation Screen →'), findsOneWidget);
+
+    // Clinical Safeguard Card & Footer
+    expect(find.text('Two-Step Clinical Safeguard'), findsOneWidget);
+    expect(find.text('Having trouble? '), findsOneWidget);
+    expect(find.text('Contact Care ID Support'), findsOneWidget);
+
+    // Tap Autofill code
+    await tester.tap(autofillFinder);
+    await tester.pump();
   });
 }
