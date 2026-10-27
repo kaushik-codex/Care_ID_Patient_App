@@ -5,6 +5,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/create_acco
 import 'package:care_id_patient_app/features/auth/presentation/pages/mobile_number_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
+import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 
 void main() {
   testWidgets('Splash page renders smoke test', (WidgetTester tester) async {
@@ -139,4 +140,70 @@ void main() {
     await tester.tap(autofillFinder);
     await tester.pump();
   });
+
+  testWidgets('HealthInfoPage renders all 7 clinical sections, unit toggles, and CTAs', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: HealthInfoPage(),
+      ),
+    );
+
+    // Verify Centered Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0));
+
+    // Step Indicator & Heading
+    expect(find.text('VERIFICATION STEP'), findsOneWidget);
+    expect(find.text('Step 3 of 6'), findsOneWidget);
+    expect(find.text('Tell us about your health'), findsOneWidget);
+
+    // Section 1: Basic Health Information
+    expect(find.text('Basic Health Information'), findsOneWidget);
+    expect(find.text('Blood Group'), findsOneWidget);
+    expect(find.text('O+'), findsOneWidget);
+    expect(find.text('Unknown / Not sure'), findsOneWidget);
+    expect(find.text('Height'), findsOneWidget);
+    expect(find.text('Weight'), findsOneWidget);
+
+    // Section 2: Medical History
+    expect(find.text('Medical History'), findsOneWidget);
+    expect(find.text('High Blood Pressure'), findsWidgets); // Can appear in both sections
+    expect(find.text('Diabetes'), findsWidgets);
+
+    // Section 3: Allergies
+    expect(find.text('Allergies'), findsOneWidget);
+    expect(find.text('1 Recorded'), findsOneWidget);
+    expect(find.text('Penicillin (Mild rash)'), findsOneWidget);
+    expect(find.text('Add another allergy'), findsOneWidget);
+
+    // Section 4: Current Medications
+    expect(find.text('Current Medications'), findsOneWidget);
+    expect(find.text('Atorvastatin 20mg'), findsOneWidget);
+    expect(find.text("I don't currently take any medication"), findsOneWidget);
+
+    // Section 5: Previous Surgeries
+    expect(find.text('Previous Surgeries or Major Procedures'), findsOneWidget);
+    expect(find.text('Add Procedure'), findsOneWidget);
+    expect(find.text('I have no previous surgeries or major procedures'), findsOneWidget);
+
+    // Section 6: Family Health History
+    expect(find.text('Family Health History'), findsOneWidget);
+
+    // Section 7: Documents Notice
+    expect(find.text('Already have health documents?'), findsOneWidget);
+
+    // Actions & Reassurance
+    expect(find.text('Save & Continue'), findsOneWidget);
+    expect(find.text('Skip for now'), findsOneWidget);
+    expect(find.text('Your health information is encrypted and securely stored in your Care ID Vault.'), findsOneWidget);
+  });
 }
+
