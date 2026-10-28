@@ -5,6 +5,7 @@ import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/auth/presentation/pages/welcome_page.dart';
 import '../../features/onboarding/presentation/pages/add_insurance_page.dart';
 import '../../features/onboarding/presentation/pages/health_info_page.dart';
+import '../../features/onboarding/presentation/pages/privacy_consents_page.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -16,6 +17,7 @@ class AppRoutes {
   static const String healthInfo = '/health-info';
   static const String addInsurance = '/add-insurance';
   static const String privacyConsents = '/privacy-consents';
+  static const String confirmedScreen = '/confirmed-screen';
   static const String login = '/login';
 
   static Map<String, WidgetBuilder> get routes => {
@@ -25,7 +27,8 @@ class AppRoutes {
         mobileNumber: (context) => const MobileNumberPage(),
         healthInfo: (context) => const HealthInfoPage(),
         addInsurance: (context) => const AddInsurancePage(),
-        privacyConsents: (context) => const Scaffold(body: Center(child: Text('Privacy & Consents Step'))),
+        privacyConsents: (context) => const PrivacyConsentsPage(),
+        confirmedScreen: (context) => const Scaffold(body: Center(child: Text('Account Confirmed'))),
         login: (context) => const Scaffold(body: Center(child: Text('Login Flow'))),
       };
 }

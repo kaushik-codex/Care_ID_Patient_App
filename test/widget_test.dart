@@ -7,6 +7,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
+import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
 
 void main() {
   testWidgets('Splash page renders smoke test', (WidgetTester tester) async {
@@ -257,6 +258,95 @@ void main() {
     expect(find.text('BCBS-98421049'), findsOneWidget);
     expect(find.text('GRP-00482'), findsOneWidget);
   });
+
+  testWidgets('PrivacyConsentsPage renders all 6 sections, validates mandatory checkboxes, and reflects consent summary', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: PrivacyConsentsPage(),
+      ),
+    );
+
+    // Verify Centered Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0));
+
+    // Step Indicator & Heading
+    expect(find.text('STEP 5 OF 6'), findsOneWidget);
+    expect(find.text('Privacy & Consents'), findsOneWidget);
+    expect(
+      find.text('Review and customize how your health information is protected and managed in your private Care ID Vault.'),
+      findsOneWidget,
+    );
+
+    // Section 1: Required for Your Care ID
+    expect(find.text('Required for Your Care ID'), findsOneWidget);
+    expect(find.text('MANDATORY'), findsOneWidget);
+    expect(find.text('Terms of Service'), findsOneWidget);
+    expect(find.text('Privacy Policy'), findsOneWidget);
+
+    // Section 2: Health Information
+    expect(find.text('Health Information'), findsOneWidget);
+    expect(find.text('End-to-End Encrypted'), findsOneWidget);
+    expect(find.text('Zero-Knowledge Storage'), findsOneWidget);
+
+    // Section 3: Healthcare Sharing Permission
+    expect(find.text('Healthcare Sharing Permission'), findsOneWidget);
+    expect(find.text('Explicit Clinical Authorization'), findsOneWidget);
+
+    // Section 4: Communication Preferences
+    expect(find.text('Communication Preferences'), findsOneWidget);
+    expect(find.text('Service & Product Updates'), findsOneWidget);
+    expect(find.text('Appointment & Clinical Reminders'), findsOneWidget);
+    expect(find.text('Account Security Alerts'), findsOneWidget);
+    expect(find.text('REQUIRED'), findsOneWidget);
+
+    // Section 5: Data Control Information
+    expect(find.text("You're always in control"), findsOneWidget);
+
+    // Section 6: Consent Summary Card
+    expect(find.text('Consent Summary'), findsOneWidget);
+    expect(find.text('ACTIVE SESSION'), findsOneWidget);
+    // Initially, Terms and Privacy are Pending
+    expect(find.text('Pending'), findsNWidgets(2));
+
+    // Verify Checkboxes can be toggled
+    // Find checkboxes for Terms & Privacy
+    final checkBoxes = find.byType(Checkbox);
+    expect(checkBoxes, findsNWidgets(4)); // Terms, Privacy, Service Updates, Reminders
+
+    // Tap Terms checkbox
+    await tester.tap(checkBoxes.at(0));
+    await tester.pump();
+
+    // Now only 1 Pending (Privacy is still pending)
+    expect(find.text('Pending'), findsOneWidget);
+    expect(find.text('Accepted'), findsOneWidget);
+
+    // Tap Privacy checkbox
+    await tester.tap(checkBoxes.at(1));
+    await tester.pump();
+
+    // Both are now Accepted
+    expect(find.text('Accepted'), findsNWidgets(2));
+    expect(find.text('Pending'), findsNothing);
+
+    // Actions & Security footnote
+    expect(find.text('Accept & Continue'), findsOneWidget);
+    expect(find.text('Review later'), findsOneWidget);
+    expect(
+      find.text('Bank-grade 256-bit AES encryption • HIPAA compliant architecture'),
+      findsOneWidget,
+    );
+  });
 }
+
 
 
