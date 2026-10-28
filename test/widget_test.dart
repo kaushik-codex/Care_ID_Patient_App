@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:care_id_patient_app/main.dart';
+import 'package:care_id_patient_app/features/auth/presentation/pages/biometric_setup_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/create_account_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/mobile_number_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page.dart';
@@ -432,7 +433,84 @@ void main() {
     expect(find.text('Enter Care ID'), findsOneWidget);
     expect(find.text('Complete Later'), findsOneWidget);
   });
+
+  testWidgets('BiometricSetupPage renders hero composition, typography, and actions', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: BiometricSetupPage(),
+      ),
+    );
+
+    // Verify Centered Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0));
+
+    // Verify Hero Illustration Asset
+    final heroFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/biometric_shield_hero.png',
+    );
+    expect(heroFinder, findsOneWidget);
+
+    // Verify Button Fingerprint Icon Asset
+    final fpIconFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/figma_button_fingerprint.png',
+    );
+    expect(fpIconFinder, findsOneWidget);
+
+    // Verify Security Shield Icon Asset
+    final shieldIconFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/figma_security_shield.png',
+    );
+    expect(shieldIconFinder, findsOneWidget);
+
+    // Verify Value Proposition
+    expect(find.text('Secure Your CareID Vault'), findsOneWidget);
+    expect(
+      find.text('Enable Biometrics for instant, secure\naccess to your health records.'),
+      findsOneWidget,
+    );
+
+    // Verify Action Buttons
+    expect(find.text('Enable Biometrics'), findsOneWidget);
+    expect(find.text('Maybe Later'), findsOneWidget);
+    expect(find.text('Skip for Now'), findsOneWidget);
+
+    // Verify Security Badge
+    expect(find.text('MILITARY-GRADE ENCRYPTION'), findsOneWidget);
+
+    // Tap "Enable Biometrics" to test dialog interaction
+    await tester.tap(find.text('Enable Biometrics'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Biometrics Activated'), findsOneWidget);
+    expect(find.text('Enter Care ID Vault'), findsOneWidget);
+
+    // Tap Enter Care ID Vault in dialog
+    await tester.tap(find.text('Enter Care ID Vault'));
+    await tester.pumpAndSettle();
+  });
 }
+
 
 
 
