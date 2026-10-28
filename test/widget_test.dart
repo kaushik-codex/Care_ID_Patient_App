@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:care_id_patient_app/main.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/biometric_setup_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/create_account_page.dart';
+import 'package:care_id_patient_app/features/auth/presentation/pages/login_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/mobile_number_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
@@ -509,7 +510,76 @@ void main() {
     await tester.tap(find.text('Enter Care ID Vault'));
     await tester.pumpAndSettle();
   });
+
+  testWidgets('LoginPage renders header, inputs, buttons, security badge, and handles interactions', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: LoginPage(),
+      ),
+    );
+
+    // Verify Centered Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0));
+
+    // Verify Typography
+    expect(find.text('Welcome Back'), findsOneWidget);
+    expect(
+      find.text('Secure access to your medical\necosystem.'),
+      findsOneWidget,
+    );
+
+    // Verify Form Fields
+    expect(find.text('Mobile Number'), findsOneWidget);
+    expect(find.text('+1'), findsOneWidget);
+    expect(find.text('(555) 000-0000'), findsOneWidget);
+    expect(find.text('Need help?'), findsOneWidget);
+    expect(find.text('Send OTP'), findsOneWidget);
+    expect(find.text('OR'), findsOneWidget);
+    expect(find.text('Login with Biometrics'), findsOneWidget);
+
+    // Verify Sign Up footer
+    expect(find.textContaining("Don't have a vault?"), findsOneWidget);
+    expect(find.textContaining('Create Account'), findsOneWidget);
+
+    // Verify AES-256 Security Card
+    expect(
+      find.text('Your health information is protected using AES-256 encryption.'),
+      findsOneWidget,
+    );
+
+    // Verify Security Badge & Links
+    expect(find.text('END-TO-END ENCRYPTED STORAGE'), findsOneWidget);
+    expect(find.text('Privacy Policy'), findsOneWidget);
+    expect(find.text('Terms of Service'), findsOneWidget);
+    expect(find.text('Compliance'), findsOneWidget);
+
+    // Enter a valid phone number
+    await tester.enterText(find.byType(TextField), '5551234567');
+    await tester.pump();
+    expect(find.text('5551234567'), findsOneWidget);
+
+    // Tap Login with Biometrics
+    await tester.tap(find.text('Login with Biometrics'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Biometrics Recognized'), findsOneWidget);
+    expect(find.text('Continue to Vault'), findsOneWidget);
+
+    // Tap Continue to Vault in dialog
+    await tester.tap(find.text('Continue to Vault'));
+    await tester.pumpAndSettle();
+  });
 }
+
 
 
 

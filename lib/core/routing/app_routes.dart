@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../features/auth/presentation/pages/biometric_setup_page.dart';
 import '../../features/auth/presentation/pages/create_account_page.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/mobile_number_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/auth/presentation/pages/welcome_page.dart';
@@ -22,6 +23,8 @@ class AppRoutes {
   static const String confirmedScreen = '/confirmed-screen';
   static const String biometricSetup = '/biometric-setup';
   static const String login = '/login';
+  static const String loginOtp = '/login-otp';
+  static const String accountRecovery = '/account-recovery';
   static const String home = '/home';
 
   static Map<String, WidgetBuilder> get routes => {
@@ -34,7 +37,9 @@ class AppRoutes {
         privacyConsents: (context) => const PrivacyConsentsPage(),
         confirmedScreen: (context) => const ConfirmedScreenPage(),
         biometricSetup: (context) => const BiometricSetupPage(),
-        login: (context) => const Scaffold(body: Center(child: Text('Login Flow'))),
+        login: (context) => const LoginPage(),
+        loginOtp: (context) => const Scaffold(body: Center(child: Text('Login OTP Verification'))),
+        accountRecovery: (context) => const Scaffold(body: Center(child: Text('Account Recovery'))),
         home: (context) => const Scaffold(body: Center(child: Text('Home Dashboard'))),
       };
 }
