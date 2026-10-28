@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:care_id_patient_app/main.dart';
+import 'package:care_id_patient_app/features/auth/presentation/pages/account_recovery_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/biometric_setup_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/create_account_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/login_page.dart';
@@ -648,7 +649,51 @@ void main() {
     expect(find.text('Identity Verified'), findsOneWidget);
     expect(find.text('Redirecting to your Health Vault...'), findsOneWidget);
   });
+
+  testWidgets('AccountRecoveryPage renders centered logo, form, error validation, and AES indicator', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: AccountRecoveryPage(),
+      ),
+    );
+
+    // Verify Centered Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0));
+
+    // Verify Titles
+    expect(find.text('Recover Mobile\nAccess'), findsOneWidget);
+    expect(find.text('Enter your registered mobile number.'), findsOneWidget);
+
+    // Verify Input Fields
+    expect(find.text('+1'), findsOneWidget);
+    expect(find.text('(555) 000-0000'), findsOneWidget);
+    expect(find.text('Send Recovery Code'), findsOneWidget);
+    expect(find.text('Back to Login'), findsOneWidget);
+
+    // Verify Footer Compliance
+    expect(find.text('PROTECTED BY AES-256 ENCRYPTION'), findsOneWidget);
+
+    // Tap Send Recovery Code when empty -> shows SnackBar
+    await tester.tap(find.text('Send Recovery Code'));
+    await tester.pump();
+    expect(find.text('Please enter a valid 10-digit mobile number'), findsOneWidget);
+
+    // Enter 10 digits
+    await tester.enterText(find.byType(TextField), '5559876543');
+    await tester.pump();
+    expect(find.text('5559876543'), findsOneWidget);
+  });
 }
+
 
 
 

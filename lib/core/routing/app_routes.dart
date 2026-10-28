@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../features/auth/presentation/pages/account_recovery_page.dart';
 import '../../features/auth/presentation/pages/biometric_setup_page.dart';
 import '../../features/auth/presentation/pages/create_account_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
@@ -44,7 +45,7 @@ class AppRoutes {
           final phoneNumber = args is String ? args : null;
           return OtpVerificationPage(phoneNumber: phoneNumber);
         },
-        accountRecovery: (context) => const Scaffold(body: Center(child: Text('Account Recovery'))),
+        accountRecovery: (context) => const AccountRecoveryPage(),
         home: (context) => const Scaffold(body: Center(child: Text('Home Dashboard'))),
       };
 }
