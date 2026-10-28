@@ -7,6 +7,7 @@ import '../../features/auth/presentation/pages/mobile_number_page.dart';
 import '../../features/auth/presentation/pages/otp_verification_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/auth/presentation/pages/welcome_page.dart';
+import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/onboarding/presentation/pages/add_insurance_page.dart';
 import '../../features/onboarding/presentation/pages/confirmed_screen_page.dart';
 import '../../features/onboarding/presentation/pages/health_info_page.dart';
@@ -46,6 +47,6 @@ class AppRoutes {
           return OtpVerificationPage(phoneNumber: phoneNumber);
         },
         accountRecovery: (context) => const AccountRecoveryPage(),
-        home: (context) => const Scaffold(body: Center(child: Text('Home Dashboard'))),
+        home: (context) => const HomePage(),
       };
 }

@@ -9,6 +9,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/mobile_numb
 import 'package:care_id_patient_app/features/auth/presentation/pages/otp_verification_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
+import 'package:care_id_patient_app/features/home/presentation/pages/home_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
@@ -692,7 +693,79 @@ void main() {
     await tester.pump();
     expect(find.text('5559876543'), findsOneWidget);
   });
+
+  testWidgets('HomePage renders top bar, hero health card, bento grids, upcoming activity, and bottom nav', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: HomePage(),
+      ),
+    );
+
+    // Top App Bar Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+
+    // Hero Digital Health Card details
+    expect(find.text('DIGITAL HEALTH ID'), findsOneWidget);
+    expect(find.text('Richard\nMalouf'), findsOneWidget);
+    expect(find.text('Member since 2021'), findsOneWidget);
+    expect(find.text('ICE Active'), findsOneWidget);
+    expect(find.text('DOB'), findsOneWidget);
+    expect(find.text('15 May 1985'), findsOneWidget);
+    expect(find.text('BLOOD GROUP'), findsOneWidget);
+    expect(find.text('O Positive'), findsOneWidget);
+    expect(find.text('Add to Wallet'), findsOneWidget);
+
+    // Provider invitation link
+    expect(find.text('Provider not registered?'), findsOneWidget);
+    expect(find.text('Click here to invite your provider to CareID'), findsOneWidget);
+
+    // Health Records 2x2 Bento Grid
+    expect(find.text('Health Records'), findsOneWidget);
+    expect(find.text('Medical'), findsOneWidget);
+    expect(find.text('Lab result & scans'), findsOneWidget);
+    expect(find.text('Dental'), findsOneWidget);
+    expect(find.text('Checkup & X-rays'), findsOneWidget);
+    expect(find.text('Vision'), findsOneWidget);
+    expect(find.text('Eye Checkups'), findsOneWidget);
+    expect(find.text('Pets'), findsOneWidget);
+    expect(find.text('Pet Checkups'), findsOneWidget);
+
+    // Quick Actions 2x2 Grid
+    expect(find.text('Quick Actions'), findsOneWidget);
+    expect(find.text('Insurance Card'), findsOneWidget);
+    expect(find.text('Add Family Member'), findsOneWidget);
+    expect(find.text('Book Appointment'), findsOneWidget);
+    expect(find.text('PRIMARY'), findsOneWidget);
+    expect(find.text('Emergency'), findsOneWidget);
+    expect(find.text('SOS'), findsOneWidget);
+
+    // Upcoming Section
+    expect(find.text('Upcoming'), findsOneWidget);
+    expect(find.text('View All'), findsOneWidget);
+    expect(find.text('Dental Appointment'), findsOneWidget);
+    expect(find.text('City Hospital · 9:00 AM'), findsOneWidget);
+    expect(find.text('Prescription Collection'), findsOneWidget);
+    expect(find.text('Dr. Smith · 11:30 AM'), findsOneWidget);
+
+    // Bottom Navigation Bar
+    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Records'), findsOneWidget);
+    expect(find.text('Doctor'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
+
+    // Tap Records tab in bottom nav
+    await tester.tap(find.text('Records'));
+    await tester.pump();
+  });
 }
+
 
 
 
