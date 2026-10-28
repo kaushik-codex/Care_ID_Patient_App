@@ -8,6 +8,7 @@ import '../../features/auth/presentation/pages/otp_verification_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/auth/presentation/pages/welcome_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/home/presentation/pages/smart_digital_health_card_page.dart';
 import '../../features/onboarding/presentation/pages/add_insurance_page.dart';
 import '../../features/onboarding/presentation/pages/confirmed_screen_page.dart';
 import '../../features/onboarding/presentation/pages/health_info_page.dart';
@@ -29,6 +30,7 @@ class AppRoutes {
   static const String loginOtp = '/login-otp';
   static const String accountRecovery = '/account-recovery';
   static const String home = '/home';
+  static const String smartHealthCard = '/smart-health-card';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -48,5 +50,6 @@ class AppRoutes {
         },
         accountRecovery: (context) => const AccountRecoveryPage(),
         home: (context) => const HomePage(),
+        smartHealthCard: (context) => const SmartDigitalHealthCardPage(),
       };
 }

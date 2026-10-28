@@ -10,6 +10,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/otp_verific
 import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
 import 'package:care_id_patient_app/features/home/presentation/pages/home_page.dart';
+import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
@@ -763,6 +764,68 @@ void main() {
     // Tap Records tab in bottom nav
     await tester.tap(find.text('Records'));
     await tester.pump();
+  });
+
+  testWidgets('SmartDigitalHealthCardPage renders card, credentials, wallet buttons, and actions',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SmartDigitalHealthCardPage(),
+      ),
+    );
+
+    // Verify Patient Name & ID
+    expect(find.text('Richard'), findsOneWidget);
+    expect(find.text('CI-882-0911'), findsOneWidget);
+    expect(find.text('DIGITAL HEALTH SIGNATURE'), findsOneWidget);
+    expect(find.text('ENCRYPTED CAREID'), findsOneWidget);
+
+    // Verify Wallet Action Buttons
+    expect(find.text('Add to Apple Wallet'), findsOneWidget);
+    expect(find.text('Add to Google Wallet'), findsOneWidget);
+
+    // Verify Patient Credentials Bento Card
+    expect(find.text('Patient Credentials'), findsOneWidget);
+    expect(find.text('CareID VERIFIED'), findsOneWidget);
+    expect(find.text('DATE OF BIRTH'), findsOneWidget);
+    expect(find.text('12 May 1992'), findsOneWidget);
+    expect(find.text('BLOOD GROUP'), findsOneWidget);
+    expect(find.text('O Positive (O+)'), findsOneWidget);
+    expect(find.text('INSURANCE STATUS'), findsOneWidget);
+    expect(find.text('Active'), findsOneWidget);
+    expect(find.text('EMERGENCY CONTACT'), findsOneWidget);
+    expect(find.text('John Doe (+1 555-0123)'), findsOneWidget);
+    expect(find.text('KNOWN ALLERGIES'), findsOneWidget);
+    expect(find.text('Penicillin, Peanuts, Latex'), findsOneWidget);
+
+    // Verify Last Updated & Refresh QR
+    expect(find.textContaining('Last Updated:'), findsOneWidget);
+    expect(find.text('Refresh QR'), findsOneWidget);
+
+    // Verify Secondary Actions
+    expect(find.text('Download PDF'), findsOneWidget);
+    expect(find.text('Share QR Code'), findsOneWidget);
+    expect(find.text('Encrypted Access'), findsOneWidget);
+
+    // Verify Persistent Bottom Navigation Bar
+    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Records'), findsOneWidget);
+    expect(find.text('Doctor'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
+
+    // Interact with Refresh QR
+    await tester.tap(find.text('Refresh QR'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 700));
+
+    // Interact with Wallet buttons
+    await tester.tap(find.text('Add to Apple Wallet'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    await tester.tap(find.text('Add to Google Wallet'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
   });
 }
 

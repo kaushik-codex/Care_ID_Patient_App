@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/routing/app_routes.dart';
+
 /// Page 13: Home - Option 6 (Figma node 20:19552)
 ///
 /// Central hub of the CareID Patient Experience featuring:
@@ -531,40 +533,46 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(height: 12),
 
                             // "Add to Wallet" Button
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.08),
-                                borderRadius: BorderRadius.circular(9999),
-                                border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.20),
-                                ),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Color(0x1A000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(AppRoutes.smartHealthCard);
+                              },
+                              behavior: HitTestBehavior.opaque,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.08),
+                                  borderRadius: BorderRadius.circular(9999),
+                                  border: Border.all(
+                                    color: Colors.white.withValues(alpha: 0.20),
                                   ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/icons/home_wallet.svg',
-                                    width: 12,
-                                    height: 12,
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    'Add to Wallet',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Color(0x1A000000),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/home_wallet.svg',
+                                      width: 12,
+                                      height: 12,
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      'Add to Wallet',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
