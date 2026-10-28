@@ -5,6 +5,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/create_acco
 import 'package:care_id_patient_app/features/auth/presentation/pages/mobile_number_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
+import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 
 void main() {
@@ -205,5 +206,57 @@ void main() {
     expect(find.text('Skip for now'), findsOneWidget);
     expect(find.text('Your health information is encrypted and securely stored in your Care ID Vault.'), findsOneWidget);
   });
+
+  testWidgets('AddInsurancePage renders camera scan card, form fields, and navigation', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: AddInsurancePage(),
+      ),
+    );
+
+    // Verify Centered Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0));
+
+    // Step Indicator & Heading
+    expect(find.text('VERIFICATION STEP'), findsOneWidget);
+    expect(find.text('Step 4 of 6'), findsOneWidget);
+    expect(find.text('Add your insurance'), findsOneWidget);
+
+    // Scan Insurance Card Hero Card
+    expect(find.text('Scan Insurance Card'), findsOneWidget);
+    expect(find.text('Quickly capture your card details'), findsOneWidget);
+    expect(find.text('Open Camera'), findsOneWidget);
+
+    // Manual Insurance Details Form Card
+    expect(find.text('Insurance Details'), findsOneWidget);
+    expect(find.text('Insurance Provider'), findsOneWidget);
+    expect(find.text('Member ID'), findsOneWidget);
+    expect(find.text('Group Number (Optional)'), findsOneWidget);
+
+    // Action CTAs & Vault Note
+    expect(find.text('Save & Continue'), findsOneWidget);
+    expect(find.text("I'll do this later"), findsOneWidget);
+    expect(
+      find.text('Your insurance data is encrypted and stored in your private Care ID Vault.'),
+      findsOneWidget,
+    );
+
+    // Tap Open Camera simulator and verify auto-fill
+    await tester.tap(find.text('Open Camera'));
+    await tester.pump();
+    expect(find.text('Blue Cross Blue Shield'), findsOneWidget);
+    expect(find.text('BCBS-98421049'), findsOneWidget);
+    expect(find.text('GRP-00482'), findsOneWidget);
+  });
 }
+
 
