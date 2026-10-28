@@ -5,6 +5,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/biometric_s
 import 'package:care_id_patient_app/features/auth/presentation/pages/create_account_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/login_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/mobile_number_page.dart';
+import 'package:care_id_patient_app/features/auth/presentation/pages/otp_verification_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
@@ -578,7 +579,77 @@ void main() {
     await tester.tap(find.text('Continue to Vault'));
     await tester.pumpAndSettle();
   });
+
+  testWidgets('OtpVerificationPage renders cells, timer, cards, error state, and success overlay', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: OtpVerificationPage(phoneNumber: '+1 555-123-4567'),
+      ),
+    );
+
+    // Verify Centered Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0));
+
+    // Verify Heading & Subtitle
+    expect(find.text('Verify Account'), findsOneWidget);
+    expect(find.textContaining('+1 555-123-4567'), findsOneWidget);
+
+    // Verify 4 OTP input fields
+    final textFields = find.byType(TextField);
+    expect(textFields, findsNWidgets(4));
+
+    // Verify Timer and Verify CTA
+    expect(find.textContaining('Resend in 00:'), findsOneWidget);
+    expect(find.text('Verify'), findsOneWidget);
+
+    // Verify Contextual Cards
+    expect(find.text('Secure Vault'), findsOneWidget);
+    expect(find.text('Your data is encrypted with AES-256 standard.'), findsOneWidget);
+    expect(find.text('Need Help?'), findsOneWidget);
+    expect(find.text('Contact our 24/7 clinical support team.'), findsOneWidget);
+
+    // Tap Need Help? Card to open Clinical Support modal
+    await tester.tap(find.text('Need Help?'));
+    await tester.pumpAndSettle();
+    expect(find.text('Clinical Support Team'), findsOneWidget);
+    await tester.tap(find.text('Close'));
+    await tester.pumpAndSettle();
+
+    // Trigger Connection Error State by entering '0000'
+    for (int i = 0; i < 4; i++) {
+      await tester.enterText(textFields.at(i), '0');
+    }
+    await tester.pump();
+    await tester.tap(find.text('Verify'));
+    await tester.pump();
+    expect(find.text('Connection error. Please try again.'), findsOneWidget);
+    expect(find.text('Retry'), findsOneWidget);
+
+    // Enter valid code '1234' and verify
+    await tester.enterText(textFields.at(0), '1');
+    await tester.enterText(textFields.at(1), '2');
+    await tester.enterText(textFields.at(2), '3');
+    await tester.enterText(textFields.at(3), '4');
+    await tester.pump();
+
+    await tester.tap(find.text('Verify'));
+    await tester.pump();
+
+    // Verify Success Overlay appears
+    expect(find.text('Identity Verified'), findsOneWidget);
+    expect(find.text('Redirecting to your Health Vault...'), findsOneWidget);
+  });
 }
+
 
 
 

@@ -3,6 +3,7 @@ import '../../features/auth/presentation/pages/biometric_setup_page.dart';
 import '../../features/auth/presentation/pages/create_account_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/mobile_number_page.dart';
+import '../../features/auth/presentation/pages/otp_verification_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/auth/presentation/pages/welcome_page.dart';
 import '../../features/onboarding/presentation/pages/add_insurance_page.dart';
@@ -38,7 +39,11 @@ class AppRoutes {
         confirmedScreen: (context) => const ConfirmedScreenPage(),
         biometricSetup: (context) => const BiometricSetupPage(),
         login: (context) => const LoginPage(),
-        loginOtp: (context) => const Scaffold(body: Center(child: Text('Login OTP Verification'))),
+        loginOtp: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final phoneNumber = args is String ? args : null;
+          return OtpVerificationPage(phoneNumber: phoneNumber);
+        },
         accountRecovery: (context) => const Scaffold(body: Center(child: Text('Account Recovery'))),
         home: (context) => const Scaffold(body: Center(child: Text('Home Dashboard'))),
       };
