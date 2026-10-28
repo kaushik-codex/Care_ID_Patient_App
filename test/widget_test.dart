@@ -8,6 +8,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_pag
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
+import 'package:care_id_patient_app/features/onboarding/presentation/pages/confirmed_screen_page.dart';
 
 void main() {
   testWidgets('Splash page renders smoke test', (WidgetTester tester) async {
@@ -346,7 +347,93 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets('ConfirmedScreenPage renders profile credential, disciplines, completion meter, and CTAs', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ConfirmedScreenPage(),
+      ),
+    );
+
+    // Verify Centered Logo
+    final logoFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.image is AssetImage &&
+          (widget.image as AssetImage).assetName ==
+              'assets/images/care_id_logo_wordmark.png',
+    );
+    expect(logoFinder, findsOneWidget);
+    final logoCenter = tester.getCenter(logoFinder);
+    expect(logoCenter.dx, equals(400.0));
+
+    // Stepper Card: Step 6 of 6
+    expect(find.text('Step 6 of 6'), findsOneWidget);
+    expect(find.text('Setup Finished'), findsOneWidget);
+    expect(find.text('Account'), findsOneWidget);
+    expect(find.text('Mobile'), findsOneWidget);
+    expect(find.text('History'), findsOneWidget);
+    expect(find.text('Consents'), findsOneWidget);
+    expect(find.text('Vault'), findsOneWidget);
+
+    // Hero Status Header
+    expect(find.text('Onboarding Complete • Vault Activated'), findsOneWidget);
+    expect(find.text('Your Care ID Vault is ready'), findsOneWidget);
+
+    // Section 1: Digital Credential Card
+    expect(find.text('CARE ID CREDENTIAL'), findsOneWidget);
+    expect(find.text('Secure Vault ID'), findsOneWidget);
+    expect(find.text('Sarah Jenkins'), findsOneWidget);
+    expect(find.text('O+'), findsOneWidget);
+    expect(find.text('#CI-920512'), findsOneWidget);
+    expect(find.text('Date of Birth'), findsOneWidget);
+    expect(find.text('12/05/1992'), findsOneWidget);
+    expect(find.text('Blood Group'), findsOneWidget);
+    expect(find.text('O Positive (O+)'), findsOneWidget);
+    expect(find.text('Mobile Contact'), findsOneWidget);
+    expect(find.text('+91 ••••• ••890'), findsOneWidget);
+    expect(find.text('Registered Email'), findsOneWidget);
+    expect(find.text('sarah.j@email.com'), findsOneWidget);
+    expect(find.text('Edit Profile Details'), findsOneWidget);
+
+    // Tap #CI-920512 to test copy feedback
+    await tester.tap(find.text('#CI-920512'));
+    await tester.pump();
+    expect(find.text('Copied'), findsOneWidget);
+
+    // Section 2: Vault Disciplines
+    expect(find.text('Your Care ID Vault'), findsOneWidget);
+    expect(find.text('Medical Records'), findsOneWidget);
+    expect(find.text('Dental Records'), findsOneWidget);
+    expect(find.text('Vision Records'), findsOneWidget);
+    expect(find.text('Pet Records'), findsOneWidget);
+    expect(find.text('Insurance Records'), findsOneWidget);
+    expect(find.text('Pet ready'), findsOneWidget);
+    expect(find.text('AI OCR ready'), findsOneWidget);
+
+    // Section 3: Health Profile Completion Meter
+    expect(find.text('Health Profile Status'), findsOneWidget);
+    expect(find.text('90% Configured'), findsOneWidget);
+    expect(find.text('Personal details'), findsOneWidget);
+    expect(find.text('Health history'), findsOneWidget);
+    expect(find.text('Known allergies'), findsOneWidget);
+    expect(find.text('Medications list'), findsOneWidget);
+    expect(find.text('Health sharing consents'), findsOneWidget);
+    expect(find.text('Complete 100%'), findsOneWidget);
+
+    // Section 4: Privacy & Ownership Control
+    expect(find.text('Your information, your control'), findsOneWidget);
+    expect(find.text('Manage Privacy & Consents'), findsOneWidget);
+
+    // Section 5: Security Trust Badge
+    expect(find.text('Care ID Vault Protection'), findsOneWidget);
+
+    // Primary Call-to-Actions
+    expect(find.text('Enter Care ID'), findsOneWidget);
+    expect(find.text('Complete Later'), findsOneWidget);
+  });
 }
+
 
 
 
