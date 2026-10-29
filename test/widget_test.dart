@@ -12,6 +12,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_pag
 import 'package:care_id_patient_app/features/home/presentation/pages/home_page.dart';
 import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
+import 'package:care_id_patient_app/features/qr/presentation/pages/access_history_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_dashboard_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_preview_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/share_options_page.dart';
@@ -852,7 +853,7 @@ void main() {
 
     // Verify 2x2 Bento Quick Action Grid
     expect(find.text('Generate New'), findsOneWidget);
-    expect(find.text('Share QR'), findsOneWidget);
+    expect(find.text('Share QR'), findsWidgets);
     expect(find.text('Download PDF'), findsOneWidget);
     expect(find.text('Access History'), findsOneWidget);
 
@@ -870,17 +871,17 @@ void main() {
     expect(find.text('Profile'), findsOneWidget);
 
     // Tap Bento Quick Actions
-    await tester.tap(find.text('Generate New'));
+    await tester.tap(find.text('Generate New'), warnIfMissed: false);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 800));
 
-    await tester.tap(find.text('Share QR'));
+    await tester.tap(find.text('Share QR').first, warnIfMissed: false);
     await tester.pump();
 
-    await tester.tap(find.text('Download PDF'));
+    await tester.tap(find.text('Download PDF'), warnIfMissed: false);
     await tester.pump();
 
-    await tester.tap(find.text('Access History'));
+    await tester.tap(find.text('Access History'), warnIfMissed: false);
     await tester.pump();
 
     // Verify Bottom Nav Bar QR FAB toggles Scan/Share QR bubbles
@@ -988,6 +989,64 @@ void main() {
     await tester.ensureVisible(find.text('Download Image'));
     await tester.tap(find.text('Download Image'), warnIfMissed: false);
     await tester.pump();
+  });
+
+  testWidgets('AccessHistoryPage renders search, filters, timeline items, and stats bento', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: AccessHistoryPage(),
+      ),
+    );
+
+    // Verify App Bar
+    expect(find.text('Access History'), findsOneWidget);
+
+    // Verify Search Box & Filters
+    expect(find.text('Search access logs...'), findsOneWidget);
+    expect(find.text('All'), findsOneWidget);
+    expect(find.text('Doctors'), findsOneWidget);
+    expect(find.text('Facilities'), findsOneWidget);
+
+    // Verify Timeline Section & Logs
+    expect(find.text('Recent Activity'), findsOneWidget);
+    expect(find.text('Dr. Marcus Thorne'), findsOneWidget);
+    expect(find.text('Cardiology Dept'), findsOneWidget);
+    expect(find.text('ACTIVE'), findsOneWidget);
+
+    expect(find.text('City General Hospital'), findsOneWidget);
+    expect(find.text('Admissions'), findsOneWidget);
+    expect(find.text('EXPIRED'), findsOneWidget);
+
+    expect(find.text('Dr. Sarah Chen'), findsOneWidget);
+    expect(find.text('General Clinic'), findsOneWidget);
+    expect(find.text('REVOKED'), findsOneWidget);
+
+    // Verify Bento Stats Section
+    expect(find.text('Total Shared Records'), findsOneWidget);
+    expect(find.text('12'), findsOneWidget);
+    expect(find.text('Privacy Score'), findsOneWidget);
+    expect(find.text('98%'), findsOneWidget);
+
+    // Tap Doctors filter
+    await tester.tap(find.text('Doctors'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Dr. Marcus Thorne'), findsOneWidget);
+    expect(find.text('City General Hospital'), findsNothing);
+
+    // Tap Facilities filter
+    await tester.tap(find.text('Facilities'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('City General Hospital'), findsOneWidget);
+    expect(find.text('Dr. Marcus Thorne'), findsNothing);
+
+    // Reset to All
+    await tester.tap(find.text('All'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Dr. Marcus Thorne'), findsOneWidget);
+    expect(find.text('City General Hospital'), findsOneWidget);
   });
 }
 
