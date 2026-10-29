@@ -13,6 +13,7 @@ import 'package:care_id_patient_app/features/home/presentation/pages/home_page.d
 import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_dashboard_page.dart';
+import 'package:care_id_patient_app/features/qr/presentation/pages/share_options_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/confirmed_screen_page.dart';
@@ -889,6 +890,59 @@ void main() {
       expect(find.text('Scan OCR'), findsOneWidget);
       expect(find.text('Share QR'), findsWidgets); // Bento tile + bubble
     }
+  });
+
+  testWidgets('ShareOptionsPage renders 7 module cards, duration selector, and CTA',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ShareOptionsPage(),
+      ),
+    );
+
+    // Verify Header
+    expect(find.text('Choose Sharing Type'), findsOneWidget);
+    expect(find.textContaining('What would you like to'), findsOneWidget);
+    expect(
+      find.textContaining('Select the data modules you wish to include in'),
+      findsOneWidget,
+    );
+
+    // Verify 7 Module Cards
+    expect(find.text('Entire Health Card'), findsOneWidget);
+    expect(find.text('Medical Records'), findsOneWidget);
+    expect(find.text('Dental Records'), findsOneWidget);
+    expect(find.text('Vision Records'), findsOneWidget);
+    expect(find.text('Insurance Information'), findsOneWidget);
+    expect(find.text('Family Member Access'), findsOneWidget);
+    expect(find.text('Pet Records'), findsOneWidget);
+
+    // Verify Duration Selector
+    expect(find.text('ACCESS DURATION'), findsOneWidget);
+    expect(find.text('Temporary (24h)'), findsOneWidget);
+    expect(find.text('Permanent'), findsOneWidget);
+
+    // Tap Duration toggle
+    await tester.tap(find.text('Permanent'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Temporary (24h)'));
+    await tester.pumpAndSettle();
+
+    // Toggle a card (Medical Records)
+    await tester.tap(find.text('Medical Records'));
+    await tester.pumpAndSettle();
+
+    // Verify Primary Action Button & Footnote
+    expect(find.text('Generate Secure QR'), findsOneWidget);
+    expect(
+      find.text('End-to-end encrypted sharing protocol active'),
+      findsOneWidget,
+    );
+
+    // Tap CTA
+    await tester.tap(find.text('Generate Secure QR'));
+    await tester.pump();
   });
 }
 

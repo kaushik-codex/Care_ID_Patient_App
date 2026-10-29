@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
 
 /// Page 15: QR Dashboard (Figma node 20:22771)
@@ -87,21 +88,7 @@ class _QrDashboardPageState extends State<QrDashboardPage> {
   }
 
   void _onShareQr() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Opening Secure Share Options...',
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: const Color(0xFF006D76),
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    Navigator.of(context).pushNamed(AppRoutes.shareOptions);
   }
 
   void _onDownloadPdf() {
