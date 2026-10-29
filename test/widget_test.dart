@@ -13,6 +13,7 @@ import 'package:care_id_patient_app/features/home/presentation/pages/home_page.d
 import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/access_history_page.dart';
+import 'package:care_id_patient_app/features/qr/presentation/pages/manage_shared_access_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_dashboard_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_preview_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/share_options_page.dart';
@@ -1047,6 +1048,66 @@ void main() {
 
     expect(find.text('Dr. Marcus Thorne'), findsOneWidget);
     expect(find.text('City General Hospital'), findsOneWidget);
+  });
+
+  testWidgets('ManageSharedAccessPage renders hero banner, active card, pending requests, and sessions', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ManageSharedAccessPage(),
+      ),
+    );
+
+    // Verify App Bar
+    expect(find.text('Manage Access'), findsOneWidget);
+
+    // Verify Hero Banner
+    expect(find.text('Secure Sharing Hub'), findsOneWidget);
+    expect(find.textContaining('Control who sees your medical history'), findsOneWidget);
+
+    // Verify Currently Shared Section
+    expect(find.text('CURRENTLY SHARED'), findsOneWidget);
+    expect(find.text('1 Active'), findsOneWidget);
+    expect(find.text('Dr. Marcus Thorne'), findsOneWidget);
+    expect(find.text('Cardiology Specialist'), findsOneWidget);
+    expect(find.text('Live'), findsOneWidget);
+    expect(find.text('Full Access'), findsOneWidget);
+    expect(find.text('Active for 18h'), findsOneWidget);
+    expect(find.text('Revoke Access'), findsOneWidget);
+
+    // Verify Pending Requests Section
+    expect(find.text('PENDING REQUESTS'), findsOneWidget);
+    expect(find.text('Metro General Lab'), findsOneWidget);
+    expect(find.text('Requested: Lab Results Only'), findsOneWidget);
+    expect(find.text('Approve'), findsOneWidget);
+    expect(find.text('Decline'), findsOneWidget);
+
+    // Verify Recent Sessions Section
+    expect(find.text('RECENT SESSIONS'), findsOneWidget);
+    expect(find.text('St. Jude Radiology'), findsOneWidget);
+    expect(find.text('Dr. Sarah Jenkins'), findsOneWidget);
+    expect(find.text('PhysioCare Clinic'), findsOneWidget);
+    expect(find.text('Extend'), findsNWidgets(3));
+
+    // Scroll so Pending Requests and Revoke Access are well above bottom nav bar
+    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -450));
+    await tester.pumpAndSettle();
+
+    // Tap Approve on Metro General Lab
+    await tester.tap(find.text('Approve'), warnIfMissed: false);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Metro General Lab'), findsNothing);
+
+    // Tap Revoke Access on Dr. Marcus Thorne -> shows dialog
+    await tester.tap(find.text('Revoke Access'), warnIfMissed: false);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Revoke Access?'), findsOneWidget);
+    await tester.tap(find.text('Revoke'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('0 Active'), findsOneWidget);
+    expect(find.text('No active sharing sessions.'), findsOneWidget);
   });
 }
 
