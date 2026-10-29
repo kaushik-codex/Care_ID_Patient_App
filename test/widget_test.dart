@@ -12,6 +12,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_pag
 import 'package:care_id_patient_app/features/home/presentation/pages/home_page.dart';
 import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
+import 'package:care_id_patient_app/features/qr/presentation/pages/qr_dashboard_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/confirmed_screen_page.dart';
@@ -826,6 +827,68 @@ void main() {
     await tester.tap(find.text('Add to Google Wallet'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
+  });
+
+  testWidgets('QrDashboardPage renders card, refreshed layout, bento grid, and bottom nav',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: QrDashboardPage(),
+      ),
+    );
+
+    // Verify Header
+    expect(find.text('QR Sharing'), findsOneWidget);
+
+    // Verify Main QR Card
+    expect(find.text('Active & Encrypted'), findsOneWidget);
+    expect(find.text('Eliza V. Reed'), findsOneWidget);
+    expect(find.text('CID-9928'), findsOneWidget);
+    expect(find.textContaining('Last Updated:'), findsOneWidget);
+
+    // Verify 2x2 Bento Quick Action Grid
+    expect(find.text('Generate New'), findsOneWidget);
+    expect(find.text('Share QR'), findsOneWidget);
+    expect(find.text('Download PDF'), findsOneWidget);
+    expect(find.text('Access History'), findsOneWidget);
+
+    // Verify Informational Banner
+    expect(find.text('Data Privacy Guard'), findsOneWidget);
+    expect(
+      find.text('Your QR code expires automatically every 24 hours to ensure your health data stays secure.'),
+      findsOneWidget,
+    );
+
+    // Verify Unified Bottom Navigation Bar
+    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Records'), findsOneWidget);
+    expect(find.text('Doctor'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
+
+    // Tap Bento Quick Actions
+    await tester.tap(find.text('Generate New'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 800));
+
+    await tester.tap(find.text('Share QR'));
+    await tester.pump();
+
+    await tester.tap(find.text('Download PDF'));
+    await tester.pump();
+
+    await tester.tap(find.text('Access History'));
+    await tester.pump();
+
+    // Verify Bottom Nav Bar QR FAB toggles Scan/Share QR bubbles
+    final fabFinder = find.byType(AnimatedContainer);
+    if (fabFinder.evaluate().isNotEmpty) {
+      await tester.tap(fabFinder.first);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      expect(find.text('Scan OCR'), findsOneWidget);
+      expect(find.text('Share QR'), findsWidgets); // Bento tile + bubble
+    }
   });
 }
 

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+
 /// Page 14: Smart Digital Health Card (Figma node 20:19873)
 ///
 /// Expanded full-credential view of the patient's Smart Digital Health Card.
@@ -154,12 +156,12 @@ class _SmartDigitalHealthCardPageState extends State<SmartDigitalHealthCardPage>
             child: _buildTopAppBar(),
           ),
 
-          // 3. Fixed Bottom Navigation Bar
-          Positioned(
+          // 3. Fixed Unified Bottom Navigation Bar
+          const Positioned(
             bottom: 0,
             left: 0,
             right: 0,
-            child: _buildBottomNavBar(),
+            child: CareIDBottomNavBar(currentIndex: 0),
           ),
         ],
       ),
@@ -1044,183 +1046,6 @@ class _SmartDigitalHealthCardPageState extends State<SmartDigitalHealthCardPage>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  /// Persistent Bottom Navigation Bar
-  Widget _buildBottomNavBar() {
-    return SizedBox(
-      height: 84,
-      child: Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.bottomCenter,
-        children: [
-          // Glassmorphic Nav Bar Container
-          ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-              child: Container(
-                height: 68,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.85),
-                  border: Border(
-                    top: BorderSide(
-                      color: Colors.white.withValues(alpha: 0.80),
-                      width: 1.0,
-                    ),
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x0A3F1D8B),
-                      blurRadius: 24,
-                      offset: Offset(0, -8),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    // Tab 0: Home
-                    Expanded(
-                      child: _buildNavItem(
-                        label: 'Home',
-                        iconPath: 'assets/icons/nav_home_clean.svg',
-                        isActive: true,
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                    ),
-
-                    // Tab 1: Records
-                    Expanded(
-                      child: _buildNavItem(
-                        label: 'Records',
-                        iconPath: 'assets/icons/nav_records_clean.svg',
-                        isActive: false,
-                        onTap: () {},
-                      ),
-                    ),
-
-                    // Central gap for Floating Action Button
-                    const SizedBox(width: 60),
-
-                    // Tab 2: Doctor
-                    Expanded(
-                      child: _buildNavItem(
-                        label: 'Doctor',
-                        iconPath: 'assets/icons/nav_doctor_clean.svg',
-                        isActive: false,
-                        onTap: () {},
-                      ),
-                    ),
-
-                    // Tab 3: Profile
-                    Expanded(
-                      child: _buildNavItem(
-                        label: 'Profile',
-                        iconPath: 'assets/icons/nav_profile_clean.svg',
-                        isActive: false,
-                        onTap: () {},
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          // Central Elevated Floating Action Button for Instant QR Scan/Share
-          Positioned(
-            top: -2,
-            child: GestureDetector(
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'CareID QR Scanner opening...',
-                      style: GoogleFonts.plusJakartaSans(fontSize: 13),
-                    ),
-                    backgroundColor: const Color(0xFF5B14B8),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              },
-              child: Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF5B14B8),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 4),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x665B14B8),
-                      blurRadius: 16,
-                      offset: Offset(0, 6),
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: SvgPicture.asset(
-                    'assets/icons/nav_qr_scan.svg',
-                    width: 20,
-                    height: 22,
-                    colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// Single Nav Item
-  Widget _buildNavItem({
-    required String label,
-    required String iconPath,
-    required bool isActive,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 54,
-              height: 29,
-              decoration: BoxDecoration(
-                color: isActive ? const Color(0xCC75F2FE) : Colors.transparent,
-                borderRadius: BorderRadius.circular(14.5),
-              ),
-              child: Center(
-                child: SvgPicture.asset(
-                  iconPath,
-                  width: 20,
-                  height: 20,
-                  colorFilter: ColorFilter.mode(
-                    isActive ? const Color(0xFF002022) : const Color(0xFF494552),
-                    BlendMode.srcIn,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 3),
-            Text(
-              label,
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 10,
-                fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-                color: isActive ? const Color(0xFF0B1C30) : const Color(0xFF494552),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
