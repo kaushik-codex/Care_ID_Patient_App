@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
 
 /// Page 19: Manage Shared Access (Figma node 20:23597)
@@ -463,51 +464,55 @@ class _ManageSharedAccessPageState extends State<ManageSharedAccessPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 56,
-                                height: 56,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFD3E4FE),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    'assets/icons/manage_stethoscope.svg',
-                                    width: 25,
-                                    height: 25,
+                          child: GestureDetector(
+                            onTap: () => Navigator.of(context).pushNamed(AppRoutes.accessVerification),
+                            behavior: HitTestBehavior.opaque,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 56,
+                                  height: 56,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFD3E4FE),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      'assets/icons/manage_stethoscope.svg',
+                                      width: 25,
+                                      height: 25,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Dr. Marcus Thorne',
-                                      style: GoogleFonts.plusJakartaSans(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color(0xFF0B1C30),
-                                        height: 20 / 20,
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Dr. Marcus Thorne',
+                                        style: GoogleFonts.plusJakartaSans(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xFF0B1C30),
+                                          height: 20 / 20,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      'Cardiology Specialist',
-                                      style: GoogleFonts.plusJakartaSans(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xFF494552),
-                                        height: 20 / 14,
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Cardiology Specialist',
+                                        style: GoogleFonts.plusJakartaSans(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: const Color(0xFF494552),
+                                          height: 20 / 14,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:care_id_patient_app/main.dart';
+import 'package:care_id_patient_app/core/routing/app_routes.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/account_recovery_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/biometric_setup_page.dart';
 import 'package:care_id_patient_app/features/auth/presentation/pages/create_account_page.dart';
@@ -13,6 +14,7 @@ import 'package:care_id_patient_app/features/home/presentation/pages/home_page.d
 import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/access_history_page.dart';
+import 'package:care_id_patient_app/features/qr/presentation/pages/access_verification_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/manage_shared_access_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_dashboard_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_preview_page.dart';
@@ -952,13 +954,20 @@ void main() {
 
   testWidgets('QrPreviewPage renders vault access card, details, buttons, and bottom nav', (WidgetTester tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
-        home: QrPreviewPage(
-          arguments: QrPreviewArguments(
-            sharingType: 'Full Medical Record',
-            expiryText: 'Expires in 23h 58m 58s',
-          ),
-        ),
+      MaterialApp(
+        onGenerateRoute: (settings) {
+          if (settings.name == AppRoutes.accessVerification) {
+            return MaterialPageRoute(builder: (_) => const SizedBox());
+          }
+          return MaterialPageRoute(
+            builder: (_) => const QrPreviewPage(
+              arguments: QrPreviewArguments(
+                sharingType: 'Full Medical Record',
+                expiryText: 'Expires in 23h 58m 58s',
+              ),
+            ),
+          );
+        },
       ),
     );
 
@@ -1108,6 +1117,43 @@ void main() {
 
     expect(find.text('0 Active'), findsOneWidget);
     expect(find.text('No active sharing sessions.'), findsOneWidget);
+  });
+
+  testWidgets('AccessVerificationPage renders hero shield, text hierarchy, badges, and Done CTA', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        initialRoute: AppRoutes.accessVerification,
+        routes: AppRoutes.routes,
+      ),
+    );
+
+    // Verify Hero Shield composition and floating badge
+    expect(find.text('SECURE'), findsOneWidget);
+
+    // Verify Title & Personalized Subtitle
+    expect(find.text('Verified'), findsOneWidget);
+    expect(find.textContaining('Your health records have been'), findsOneWidget);
+    expect(find.textContaining('Dr. Marcus Thorne'), findsOneWidget);
+
+    // Verify Encrypted Session ID Card
+    expect(find.text('Encrypted Session ID: HV-90210-X'), findsOneWidget);
+
+    // Verify 3 Verification Badges
+    expect(find.text('Identity Verified'), findsOneWidget);
+    expect(find.text('Doctor Verified'), findsOneWidget);
+    expect(find.text('Secure Encryption'), findsOneWidget);
+
+    // Scroll down to reveal Done CTA & Security Footnote
+    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -600));
+    await tester.pumpAndSettle();
+
+    // Verify Done CTA & Security Footnote
+    expect(find.text('Done'), findsOneWidget);
+    expect(find.textContaining('This session is protected by end-to-end medical grade encryption'), findsOneWidget);
+
+    // Tap Done CTA
+    await tester.tap(find.text('Done'), warnIfMissed: false);
+    await tester.pumpAndSettle();
   });
 }
 

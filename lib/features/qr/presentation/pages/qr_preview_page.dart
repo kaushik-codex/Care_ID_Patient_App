@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
 
 /// Navigation arguments passed to [QrPreviewPage] from [ShareOptionsPage].
@@ -27,21 +28,7 @@ class QrPreviewPage extends StatelessWidget {
   });
 
   void _handleShareSecureLink(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Encrypted temporary link copied to clipboard!',
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: const Color(0xFF5B14B8),
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    Navigator.of(context).pushNamed(AppRoutes.accessVerification);
   }
 
   void _handleDownloadImage(BuildContext context) {
