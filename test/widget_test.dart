@@ -13,6 +13,7 @@ import 'package:care_id_patient_app/features/home/presentation/pages/home_page.d
 import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_dashboard_page.dart';
+import 'package:care_id_patient_app/features/qr/presentation/pages/qr_preview_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/share_options_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
@@ -288,7 +289,8 @@ void main() {
     expect(logoCenter.dx, equals(400.0));
 
     // Step Indicator & Heading
-    expect(find.text('STEP 5 OF 6'), findsOneWidget);
+    expect(find.text('VERIFICATION STEP'), findsOneWidget);
+    expect(find.text('Step 5 of 6'), findsOneWidget);
     expect(find.text('Privacy & Consents'), findsOneWidget);
     expect(
       find.text('Review and customize how your health information is protected and managed in your private Care ID Vault.'),
@@ -408,6 +410,7 @@ void main() {
     await tester.tap(find.text('#CI-920512'));
     await tester.pump();
     expect(find.text('Copied'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 4));
 
     // Section 2: Vault Disciplines
     expect(find.text('Your Care ID Vault'), findsOneWidget);
@@ -942,6 +945,48 @@ void main() {
 
     // Tap CTA
     await tester.tap(find.text('Generate Secure QR'));
+    await tester.pump();
+  });
+
+  testWidgets('QrPreviewPage renders vault access card, details, buttons, and bottom nav', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: QrPreviewPage(
+          arguments: QrPreviewArguments(
+            sharingType: 'Full Medical Record',
+            expiryText: 'Expires in 23h 58m 58s',
+          ),
+        ),
+      ),
+    );
+
+    // Verify App Bar
+    expect(find.text('QR Preview'), findsOneWidget);
+
+    // Verify Premium QR Card
+    expect(find.text('SECURE VAULT ACCESS'), findsOneWidget);
+    expect(find.text('End-to-End Encrypted'), findsOneWidget);
+
+    // Verify Details Section
+    expect(find.text('Sharing Type'), findsOneWidget);
+    expect(find.text('Full Medical Record'), findsOneWidget);
+    expect(find.text('Expiry'), findsOneWidget);
+    expect(find.text('Expires in 23h 58m 58s'), findsOneWidget);
+
+    // Verify Action Buttons
+    expect(find.text('Share Secure Link'), findsOneWidget);
+    expect(find.text('Download Image'), findsOneWidget);
+
+    // Verify Security Notice Footer
+    expect(find.textContaining('This QR is temporary and will rotate'), findsOneWidget);
+
+    // Scroll and tap Share Secure Link and Download Image
+    await tester.ensureVisible(find.text('Share Secure Link'));
+    await tester.tap(find.text('Share Secure Link'), warnIfMissed: false);
+    await tester.pump();
+
+    await tester.ensureVisible(find.text('Download Image'));
+    await tester.tap(find.text('Download Image'), warnIfMissed: false);
     await tester.pump();
   });
 }

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import 'qr_preview_page.dart';
 
 /// Page 16: Share Options (Figma node 20:23195)
 ///
@@ -65,23 +67,44 @@ class _ShareOptionsPageState extends State<ShareOptionsPage> {
       return;
     }
 
-    // Navigate to Page 17 (QR Preview) if registered, otherwise show confirmation feedback
-    final durationLabel = _selectedDuration == AccessDuration.temporary24h
-        ? 'Temporary (24h)'
-        : 'Permanent';
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Generating secure QR with ${_selectedModules.length} module(s) ($durationLabel)...',
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: const Color(0xFF5B14B8),
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 2),
+    // Compute sharing summary title
+    String sharingTypeSummary;
+    if (_selectedModules.contains('entire_card') || _selectedModules.contains('medical_records')) {
+      sharingTypeSummary = 'Full Medical Record';
+    } else if (_selectedModules.length == 1) {
+      final single = _selectedModules.first;
+      switch (single) {
+        case 'dental_records':
+          sharingTypeSummary = 'Dental Records';
+          break;
+        case 'vision_records':
+          sharingTypeSummary = 'Vision Records';
+          break;
+        case 'insurance_info':
+          sharingTypeSummary = 'Insurance Information';
+          break;
+        case 'family_access':
+          sharingTypeSummary = 'Family Member Access';
+          break;
+        case 'pet_records':
+          sharingTypeSummary = 'Pet Records';
+          break;
+        default:
+          sharingTypeSummary = 'Full Medical Record';
+      }
+    } else {
+      sharingTypeSummary = '${_selectedModules.length} Selected Records';
+    }
+
+    final expirySummary = _selectedDuration == AccessDuration.temporary24h
+        ? 'Expires in 23h 58m 58s'
+        : 'Permanent Access';
+
+    Navigator.of(context).pushNamed(
+      AppRoutes.qrPreview,
+      arguments: QrPreviewArguments(
+        sharingType: sharingTypeSummary,
+        expiryText: expirySummary,
       ),
     );
   }

@@ -11,6 +11,7 @@ import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/home/presentation/pages/smart_digital_health_card_page.dart';
 import '../../features/onboarding/presentation/pages/add_insurance_page.dart';
 import '../../features/qr/presentation/pages/qr_dashboard_page.dart';
+import '../../features/qr/presentation/pages/qr_preview_page.dart';
 import '../../features/qr/presentation/pages/share_options_page.dart';
 import '../../features/onboarding/presentation/pages/confirmed_screen_page.dart';
 import '../../features/onboarding/presentation/pages/health_info_page.dart';
@@ -35,6 +36,7 @@ class AppRoutes {
   static const String smartHealthCard = '/smart-health-card';
   static const String qrDashboard = '/qr-dashboard';
   static const String shareOptions = '/share-options';
+  static const String qrPreview = '/qr-preview';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -57,5 +59,6 @@ class AppRoutes {
         smartHealthCard: (context) => const SmartDigitalHealthCardPage(),
         qrDashboard: (context) => const QrDashboardPage(),
         shareOptions: (context) => const ShareOptionsPage(),
+        qrPreview: (context) => const QrPreviewPage(),
       };
 }
