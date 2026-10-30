@@ -883,7 +883,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                onTap: () => _onQuickActionTapped('Emergency SOS'),
+                onTap: () => Navigator.of(context).pushNamed(AppRoutes.emergencyCenter),
               ),
             ),
           ],

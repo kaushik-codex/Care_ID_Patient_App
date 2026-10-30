@@ -1238,6 +1238,86 @@ void main() {
     expect(find.text('Insurance Policy Notice'), findsOneWidget);
     expect(find.text('3 days ago'), findsOneWidget);
   });
+
+  testWidgets('EmergencyCenterPage renders SOS button, Medical ID, ICE contacts, hospital widget, and actions', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        initialRoute: AppRoutes.emergencyCenter,
+        routes: AppRoutes.routes,
+      ),
+    );
+
+    // Verify Top App Bar
+    expect(find.text('Emergency Center'), findsOneWidget);
+
+    // Verify Hero SOS Section
+    expect(find.text('SOS'), findsOneWidget);
+    expect(
+      find.textContaining('Tap once to trigger emergency'),
+      findsOneWidget,
+    );
+
+    // Verify Medical ID Quick View Card
+    expect(find.text('Sarah Jenkins'), findsWidgets); // Appears in card & Primary ICE
+    expect(find.text('DOB: 12/05/1992'), findsOneWidget);
+    expect(find.text('Blood: O+'), findsOneWidget);
+    expect(find.text('Penicillin'), findsOneWidget);
+    expect(find.text('Peanuts'), findsOneWidget);
+    expect(find.textContaining('Organ Donor:'), findsOneWidget);
+    expect(find.textContaining('Type 1 Diabetes'), findsOneWidget);
+
+    // Verify Emergency Contacts Section
+    expect(find.text('Emergency Contacts'), findsOneWidget);
+    expect(find.text('Primary ICE (Spouse)'), findsOneWidget);
+    expect(find.text('Arthur Thompson'), findsOneWidget);
+    expect(find.text('Secondary ICE (Father)'), findsOneWidget);
+
+    // Tap SOS button -> opens bottom sheet
+    await tester.tap(find.text('SOS'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Emergency SOS Triggered'), findsOneWidget);
+    expect(find.textContaining('Alerting emergency contacts'), findsOneWidget);
+
+    // Cancel SOS Alert
+    await tester.tap(find.textContaining('Cancel Alert'));
+    await tester.pumpAndSettle();
+
+    // Scroll down to see Nearby Hospitals Map Widget & Share Emergency QR
+    await tester.drag(find.byKey(const Key('emergency_scroll_view')), const Offset(0, -1500));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Closest Facility'), findsOneWidget);
+    expect(find.text('City General Hospital'), findsOneWidget);
+    expect(find.textContaining('0.8 miles away • Open 24/7'), findsOneWidget);
+    expect(find.text('ER Waiting: 12 min'), findsOneWidget);
+    expect(find.text('Get Directions'), findsOneWidget);
+
+    // Tap "Get Directions" -> opens routing dialog
+    await tester.tap(find.text('Get Directions'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Start Route'), findsOneWidget);
+    await tester.tap(find.text('Close'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Share Emergency QR'), findsOneWidget);
+    expect(
+      find.textContaining('Grants instant, temporary access to your'),
+      findsOneWidget,
+    );
+
+    // Tap "Share Emergency QR" -> opens bottom sheet
+    await tester.tap(find.text('Share Emergency QR'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Emergency Offline QR Pass'), findsOneWidget);
+    expect(find.text('Done'), findsOneWidget);
+
+    // Close bottom sheet
+    await tester.tap(find.text('Done'));
+    await tester.pumpAndSettle();
+  });
 }
 
 

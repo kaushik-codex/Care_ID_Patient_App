@@ -7,6 +7,7 @@ import '../../features/auth/presentation/pages/mobile_number_page.dart';
 import '../../features/auth/presentation/pages/otp_verification_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/auth/presentation/pages/welcome_page.dart';
+import '../../features/emergency/presentation/pages/emergency_center_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/home/presentation/pages/smart_digital_health_card_page.dart';
 import '../../features/notifications/presentation/pages/notification_center_page.dart';
@@ -45,6 +46,7 @@ class AppRoutes {
   static const String manageSharedAccess = '/manage-shared-access';
   static const String accessVerification = '/access-verification';
   static const String notificationCenter = '/notification-center';
+  static const String emergencyCenter = '/emergency-center';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -72,5 +74,6 @@ class AppRoutes {
         manageSharedAccess: (context) => const ManageSharedAccessPage(),
         accessVerification: (context) => const AccessVerificationPage(),
         notificationCenter: (context) => const NotificationCenterPage(),
+        emergencyCenter: (context) => const EmergencyCenterPage(),
       };
 }
