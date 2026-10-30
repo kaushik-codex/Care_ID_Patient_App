@@ -217,16 +217,7 @@ class _HomePageState extends State<HomePage> {
               // Notification Bell Button with Red Unread Dot
               GestureDetector(
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Notifications opening...',
-                        style: GoogleFonts.plusJakartaSans(fontSize: 13),
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      duration: const Duration(seconds: 1),
-                    ),
-                  );
+                  Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
                 },
                 child: Container(
                   width: 40,

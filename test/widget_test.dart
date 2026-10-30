@@ -14,7 +14,6 @@ import 'package:care_id_patient_app/features/home/presentation/pages/home_page.d
 import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/access_history_page.dart';
-import 'package:care_id_patient_app/features/qr/presentation/pages/access_verification_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/manage_shared_access_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_dashboard_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/qr_preview_page.dart';
@@ -1154,6 +1153,90 @@ void main() {
     // Tap Done CTA
     await tester.tap(find.text('Done'), warnIfMissed: false);
     await tester.pumpAndSettle();
+  });
+
+  testWidgets('NotificationCenterPage renders top bar, filters, Today cards, Recent cards, and bottom nav', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        initialRoute: AppRoutes.notificationCenter,
+        routes: AppRoutes.routes,
+      ),
+    );
+
+    // Verify Top App Bar
+    expect(find.text('Notifications'), findsOneWidget);
+    expect(find.text('5'), findsOneWidget); // Unread badge counter
+
+    // Verify Category Filter Chips
+    expect(find.text('All'), findsOneWidget);
+    expect(find.text('Unread'), findsOneWidget);
+    expect(find.text('Medication'), findsOneWidget);
+    expect(find.text('Appointments'), findsOneWidget);
+    expect(find.text('Insurance'), findsOneWidget);
+    expect(find.text('Family'), findsOneWidget);
+    expect(find.text('Emergency'), findsOneWidget);
+
+    // Test Category Filter Selection
+    await tester.tap(find.text('Medication'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Medication Reminder'), findsOneWidget);
+    expect(find.text('Emergency Alert'), findsNothing);
+    expect(find.text('Medical Record Added'), findsNothing);
+
+    // Switch back to All filter
+    await tester.tap(find.text('All'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Medication Reminder'), findsOneWidget);
+    expect(find.text('Emergency Alert'), findsOneWidget);
+
+    // Verify Today Section
+    expect(find.text('Today'), findsOneWidget);
+    expect(find.text('2 NEW'), findsOneWidget);
+
+    // Verify Medication Reminder Card
+    expect(find.text('Medication Reminder'), findsOneWidget);
+    expect(find.text('8:30 AM'), findsOneWidget);
+    expect(find.textContaining('Lisinopril 10mg'), findsOneWidget);
+    expect(find.text('Mark as Taken'), findsOneWidget);
+    expect(find.text('Snooze 15m'), findsOneWidget);
+
+    // Verify Emergency Alert Card
+    expect(find.text('Emergency Alert'), findsOneWidget);
+    expect(find.text('11:15 AM'), findsOneWidget);
+    expect(find.textContaining('Security Update:'), findsOneWidget);
+    expect(find.text('Review Activity Details'), findsOneWidget);
+
+    // Tap "Mark as Taken"
+    await tester.tap(find.text('Mark as Taken'));
+    await tester.pump();
+    expect(find.text('Taken today at 8:30 AM'), findsOneWidget);
+
+    // Scroll "Review Activity Details" above bottom nav bar into center and tap it
+    await tester.drag(find.byKey(const Key('notification_scroll_view')), const Offset(0, -450));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Review Activity Details'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Unrecognized Login Attempt'), findsOneWidget);
+    expect(find.text('Secure Account'), findsOneWidget);
+
+    // Close bottom sheet
+    await tester.tap(find.text('It Was Me'));
+    await tester.pumpAndSettle();
+
+    // Scroll down further to see Recent Section
+    await tester.drag(find.byKey(const Key('notification_scroll_view')), const Offset(0, -350));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Recent'), findsOneWidget);
+    expect(find.text('Medical Record Added'), findsOneWidget);
+    expect(find.text('Yesterday'), findsOneWidget);
+    expect(find.text('Family Consent Approved'), findsOneWidget);
+    expect(find.text('2 days ago'), findsOneWidget);
+    expect(find.text('Insurance Policy Notice'), findsOneWidget);
+    expect(find.text('3 days ago'), findsOneWidget);
   });
 }
 
