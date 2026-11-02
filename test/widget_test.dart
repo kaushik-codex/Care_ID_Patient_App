@@ -22,14 +22,30 @@ import 'package:care_id_patient_app/features/qr/presentation/pages/share_options
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/confirmed_screen_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/add_health_record_page.dart';
 import 'package:care_id_patient_app/features/records/presentation/pages/dental_record_detail_page.dart';
 import 'package:care_id_patient_app/features/records/presentation/pages/dental_records_page.dart';
 import 'package:care_id_patient_app/features/records/presentation/pages/document_viewer_page.dart';
 import 'package:care_id_patient_app/features/records/presentation/pages/health_records_landing_page.dart';
 import 'package:care_id_patient_app/features/records/presentation/pages/medical_records_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/ocr_processing_report_page.dart';
 import 'package:care_id_patient_app/features/records/presentation/pages/record_details_hub_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/record_saved_success_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/review_health_record_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/scan_reports_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/upload_medical_record_page.dart';
 import 'package:care_id_patient_app/features/records/presentation/pages/vision_record_detail_page.dart';
 import 'package:care_id_patient_app/features/records/presentation/pages/vision_records_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/add_family_member_access_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/add_family_member_form_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/add_family_member_review_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/family_consent_requests_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/family_dashboard_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/family_member_list_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/invitation_sent_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/member_permissions_sharing_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/shared_health_card_dependent_page.dart';
+import 'package:care_id_patient_app/features/family/presentation/pages/shared_medical_records_page.dart';
 
 void main() {
   testWidgets('Splash page renders smoke test', (WidgetTester tester) async {
@@ -1595,6 +1611,262 @@ void main() {
     await tester.tap(find.byIcon(Icons.remove_rounded));
     await tester.pumpAndSettle();
     expect(find.text('100%'), findsOneWidget);
+  });
+
+  testWidgets('UploadMedicalRecordPage renders categories and source options', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: UploadMedicalRecordPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Upload Health Record'), findsOneWidget);
+    expect(find.text('Select Record Category'), findsOneWidget);
+    expect(find.text('Medical Record'), findsOneWidget);
+    expect(find.text('Dental Record'), findsOneWidget);
+    expect(find.text('Vision Record'), findsOneWidget);
+    expect(find.text('Pet Record'), findsOneWidget);
+    expect(find.text('Document Source'), findsOneWidget);
+    expect(find.text('Scan Camera'), findsOneWidget);
+    expect(find.text('Gallery'), findsOneWidget);
+    expect(find.text('PDF / DICOM'), findsOneWidget);
+    expect(find.byKey(const Key('upload_continue_to_ocr_button')), findsOneWidget);
+  });
+
+  testWidgets('ScanReportsPage renders viewport guides and controls', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ScanReportsPage(),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(find.text('Scan Report'), findsOneWidget);
+    expect(find.text('Align report within the frame'), findsOneWidget);
+    expect(find.text('Flash'), findsOneWidget);
+    expect(find.text('Gallery'), findsOneWidget);
+    expect(find.text('SECURE OCR PROCESSING'), findsOneWidget);
+    expect(find.byKey(const Key('scan_report_shutter_button')), findsOneWidget);
+  });
+
+  testWidgets('OcrProcessingReportPage renders scanning animation and status', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: OcrProcessingReportPage(),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 500));
+
+    expect(find.text('Extracting Report Information...'), findsOneWidget);
+    expect(find.text('AES-256 Encrypted'), findsOneWidget);
+    expect(find.text('Cloud Sync Active'), findsOneWidget);
+    expect(find.byKey(const Key('ocr_processing_proceed_button')), findsOneWidget);
+  });
+
+  testWidgets('ReviewHealthRecordPage renders vitals, symptoms, and actions', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ReviewHealthRecordPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Oct 24, 2023 • 09:45 AM'), findsOneWidget);
+    expect(find.text('REVIEW'), findsOneWidget);
+    expect(find.text('Vitals Summary'), findsOneWidget);
+    expect(find.text('120/80'), findsOneWidget);
+    expect(find.text('72'), findsOneWidget);
+    expect(find.text('36.6'), findsOneWidget);
+    expect(find.text('Logged Symptoms'), findsOneWidget);
+    expect(find.text('Headache'), findsOneWidget);
+    expect(find.text('Fever'), findsOneWidget);
+    expect(find.text('Personal Notes'), findsOneWidget);
+    expect(find.text('ATTACHMENTS (1)'), findsOneWidget);
+    expect(find.byKey(const Key('review_record_save_button')), findsOneWidget);
+    expect(find.byKey(const Key('review_record_edit_button')), findsOneWidget);
+  });
+
+  testWidgets('AddHealthRecordPage renders interactive editable fields', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: AddHealthRecordPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Add to Records'), findsOneWidget);
+    expect(find.text('UNIT: METRIC'), findsOneWidget);
+    expect(find.text('Blood Pressure'), findsOneWidget);
+    expect(find.text('Heart Rate'), findsOneWidget);
+    expect(find.text('Temperature'), findsOneWidget);
+    expect(find.text('Symptoms'), findsOneWidget);
+    expect(find.text('Notes'), findsOneWidget);
+    expect(find.text('Attachments'), findsOneWidget);
+    expect(find.byKey(const Key('add_health_record_save_button')), findsOneWidget);
+  });
+
+  testWidgets('RecordSavedSuccessPage renders success screen and navigation buttons', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: RecordSavedSuccessPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Record Saved\nSuccessfully'), findsOneWidget);
+    expect(find.text('#RX-99421'), findsOneWidget);
+    expect(find.byKey(const Key('record_saved_view_all_button')), findsOneWidget);
+    expect(find.byKey(const Key('record_saved_back_home_button')), findsOneWidget);
+    expect(find.text('END-TO-END ENCRYPTED'), findsOneWidget);
+  });
+
+  // Phase 4: Family Health & Dependents tests
+  testWidgets('FamilyDashboardPage renders hero vault card and family circle', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: FamilyDashboardPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Family Health Circle'), findsOneWidget);
+    expect(find.text('Family Health 360°'), findsOneWidget);
+    expect(find.text('Family Members (4)'), findsOneWidget);
+    expect(find.text('Leo Jenkins'), findsOneWidget);
+    expect(find.text('Recent Family Activity'), findsOneWidget);
+  });
+
+  testWidgets('FamilyMemberListPage renders filter chips and member cards', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: FamilyMemberListPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Family & Dependents'), findsOneWidget);
+    expect(find.text('All (4)'), findsOneWidget);
+    expect(find.text('Dependents (2)'), findsOneWidget);
+    expect(find.text('Adults (2)'), findsOneWidget);
+    expect(find.text('Leo Jenkins'), findsOneWidget);
+  });
+
+  testWidgets('AddFamilyMemberFormPage renders 6-field form inputs', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: AddFamilyMemberFormPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Add Family Member'), findsOneWidget);
+    expect(find.text('Legal Full Name'), findsOneWidget);
+    expect(find.text('Relationship'), findsOneWidget);
+    expect(find.text('Date of Birth'), findsOneWidget);
+    expect(find.text('Gender'), findsOneWidget);
+    expect(find.text('Blood Type'), findsOneWidget);
+    expect(find.text('Emergency Contact Phone'), findsOneWidget);
+  });
+
+  testWidgets('AddFamilyMemberAccessPage renders access tiers and granular domain switches', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: AddFamilyMemberAccessPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Permissions & Access Tier'), findsOneWidget);
+    expect(find.text('Full Management'), findsOneWidget);
+    expect(find.text('View Only Access'), findsOneWidget);
+    expect(find.text('Emergency SOS Only'), findsOneWidget);
+    expect(find.text('Granular Domain Sharing'), findsOneWidget);
+  });
+
+  testWidgets('AddFamilyMemberReviewPage renders summary card and consent check', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: AddFamilyMemberReviewPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Review & Confirm Member'), findsOneWidget);
+    expect(find.text('Legal & HIPAA Data Delegation Notice'), findsOneWidget);
+    expect(find.text('Send Invitation & Activate Key'), findsOneWidget);
+  });
+
+  testWidgets('InvitationSentPage renders pairing code and invitation link buttons', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: InvitationSentPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Invitation Sent!'), findsOneWidget);
+    expect(find.text('CARE-FAM-8821'), findsOneWidget);
+    expect(find.text('View Health Card'), findsOneWidget);
+    expect(find.text('Back to Family Dashboard'), findsOneWidget);
+  });
+
+  testWidgets('FamilyConsentRequestsPage renders 3 tabs (Pending, Active, History)', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: FamilyConsentRequestsPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Consent & Requests'), findsOneWidget);
+    expect(find.text('Pending (1)'), findsOneWidget);
+    expect(find.text('Active Grants (4)'), findsOneWidget);
+    expect(find.text('Audit History'), findsOneWidget);
+  });
+
+  testWidgets('MemberPermissionsSharingPage renders member permissions header and danger zone', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MemberPermissionsSharingPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Sharing Permissions'), findsOneWidget);
+    expect(find.text('Leo Jenkins'), findsOneWidget);
+    expect(find.text('Category Level Access Controls'), findsOneWidget);
+    expect(find.text('Danger Zone'), findsOneWidget);
+  });
+
+  testWidgets('SharedHealthCardDependentPage renders pediatric card and bento items', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SharedHealthCardDependentPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Leo Jenkins'), findsAtLeastNWidgets(1));
+    expect(find.text('CARE ID PEDIATRIC PASSPORT'), findsOneWidget);
+    expect(find.text('CRITICAL PEDIATRIC ALERTS'), findsOneWidget);
+    expect(find.text('View Shared Medical Records'), findsOneWidget);
+    expect(find.text('Primary Pediatrician'), findsOneWidget);
+  });
+
+  testWidgets('SharedMedicalRecordsPage renders vault hero card and records timeline', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SharedMedicalRecordsPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Leo Jenkins'), findsOneWidget);
+    expect(find.text('AES-256 DEPENDENT VAULT'), findsOneWidget);
+    expect(find.text('Leo\'s Pediatric Health Records'), findsOneWidget);
+    expect(find.text('MMR Booster & Pediatric Wellness Exam'), findsOneWidget);
+    expect(find.text('Upload for Leo'), findsOneWidget);
   });
 }
 

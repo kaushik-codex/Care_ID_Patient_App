@@ -121,16 +121,16 @@ class _CareIDBottomNavBarState extends State<CareIDBottomNavBar>
         Navigator.of(context).pushNamed(AppRoutes.recordDetailsHub);
       }
     } else if (index == 2) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Doctor / Family care opening...',
-            style: GoogleFonts.plusJakartaSans(fontSize: 13),
-          ),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 1),
-        ),
-      );
+      if (widget.currentIndex == 2) {
+        final currentRoute = ModalRoute.of(context)?.settings.name;
+        if (currentRoute == AppRoutes.familyDashboard) return;
+        Navigator.of(context).popUntil((route) => route.settings.name == AppRoutes.familyDashboard || route.isFirst);
+        return;
+      }
+      final currentRoute = ModalRoute.of(context)?.settings.name;
+      if (currentRoute != AppRoutes.familyDashboard) {
+        Navigator.of(context).pushNamed(AppRoutes.familyDashboard);
+      }
     } else if (index == 3) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

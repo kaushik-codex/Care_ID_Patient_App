@@ -89,7 +89,7 @@ class _HealthRecordsLandingPageState extends State<HealthRecordsLandingPage> {
                 subtitle: 'Auto-edge detection and OCR enhancement',
                 onTap: () {
                   Navigator.of(modalContext).pop();
-                  _showMockUploadSuccess('Document scanned and verified');
+                  Navigator.of(context).pushNamed(AppRoutes.scanReports);
                 },
               ),
               const SizedBox(height: 12),
@@ -99,7 +99,7 @@ class _HealthRecordsLandingPageState extends State<HealthRecordsLandingPage> {
                 subtitle: 'Supports PDF, DICOM, JPEG, PNG up to 50MB',
                 onTap: () {
                   Navigator.of(modalContext).pop();
-                  _showMockUploadSuccess('File imported and encrypted');
+                  Navigator.of(context).pushNamed(AppRoutes.uploadMedicalRecord);
                 },
               ),
               const SizedBox(height: 12),

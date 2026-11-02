@@ -13,12 +13,18 @@ import '../../features/home/presentation/pages/smart_digital_health_card_page.da
 import '../../features/medication/presentation/pages/medication_reminder_detail_page.dart';
 import '../../features/notifications/presentation/pages/notification_center_page.dart';
 import '../../features/onboarding/presentation/pages/add_insurance_page.dart';
+import '../../features/records/presentation/pages/add_health_record_page.dart';
 import '../../features/records/presentation/pages/dental_record_detail_page.dart';
 import '../../features/records/presentation/pages/dental_records_page.dart';
 import '../../features/records/presentation/pages/document_viewer_page.dart';
 import '../../features/records/presentation/pages/health_records_landing_page.dart';
 import '../../features/records/presentation/pages/medical_records_page.dart';
+import '../../features/records/presentation/pages/ocr_processing_report_page.dart';
 import '../../features/records/presentation/pages/record_details_hub_page.dart';
+import '../../features/records/presentation/pages/record_saved_success_page.dart';
+import '../../features/records/presentation/pages/review_health_record_page.dart';
+import '../../features/records/presentation/pages/scan_reports_page.dart';
+import '../../features/records/presentation/pages/upload_medical_record_page.dart';
 import '../../features/records/presentation/pages/vision_record_detail_page.dart';
 import '../../features/records/presentation/pages/vision_records_page.dart';
 import '../../features/qr/presentation/pages/access_history_page.dart';
@@ -30,6 +36,16 @@ import '../../features/qr/presentation/pages/share_options_page.dart';
 import '../../features/onboarding/presentation/pages/confirmed_screen_page.dart';
 import '../../features/onboarding/presentation/pages/health_info_page.dart';
 import '../../features/onboarding/presentation/pages/privacy_consents_page.dart';
+import '../../features/family/presentation/pages/add_family_member_access_page.dart';
+import '../../features/family/presentation/pages/add_family_member_form_page.dart';
+import '../../features/family/presentation/pages/add_family_member_review_page.dart';
+import '../../features/family/presentation/pages/family_consent_requests_page.dart';
+import '../../features/family/presentation/pages/family_dashboard_page.dart';
+import '../../features/family/presentation/pages/family_member_list_page.dart';
+import '../../features/family/presentation/pages/invitation_sent_page.dart';
+import '../../features/family/presentation/pages/member_permissions_sharing_page.dart';
+import '../../features/family/presentation/pages/shared_health_card_dependent_page.dart';
+import '../../features/family/presentation/pages/shared_medical_records_page.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -65,6 +81,22 @@ class AppRoutes {
   static const String visionRecords = '/vision-records';
   static const String visionRecordDetail = '/vision-record-detail';
   static const String documentViewer = '/document-viewer';
+  static const String uploadMedicalRecord = '/upload-medical-record';
+  static const String scanReports = '/scan-reports';
+  static const String ocrProcessingReport = '/ocr-processing-report';
+  static const String reviewHealthRecord = '/review-health-record';
+  static const String addHealthRecord = '/add-health-record';
+  static const String recordSavedSuccess = '/record-saved-success';
+  static const String familyDashboard = '/family-dashboard';
+  static const String familyMemberList = '/family-member-list';
+  static const String addFamilyMemberForm = '/add-family-member-form';
+  static const String addFamilyMemberAccess = '/add-family-member-access';
+  static const String addFamilyMemberReview = '/add-family-member-review';
+  static const String invitationSent = '/invitation-sent';
+  static const String familyConsentRequests = '/family-consent-requests';
+  static const String memberPermissionsSharing = '/member-permissions-sharing';
+  static const String sharedHealthCardDependent = '/shared-health-card-dependent';
+  static const String sharedMedicalRecords = '/shared-medical-records';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -106,5 +138,21 @@ class AppRoutes {
           final title = args is String ? args : null;
           return DocumentViewerPage(documentTitle: title);
         },
+        uploadMedicalRecord: (context) => const UploadMedicalRecordPage(),
+        scanReports: (context) => const ScanReportsPage(),
+        ocrProcessingReport: (context) => const OcrProcessingReportPage(),
+        reviewHealthRecord: (context) => const ReviewHealthRecordPage(),
+        addHealthRecord: (context) => const AddHealthRecordPage(),
+        recordSavedSuccess: (context) => const RecordSavedSuccessPage(),
+        familyDashboard: (context) => const FamilyDashboardPage(),
+        familyMemberList: (context) => const FamilyMemberListPage(),
+        addFamilyMemberForm: (context) => const AddFamilyMemberFormPage(),
+        addFamilyMemberAccess: (context) => const AddFamilyMemberAccessPage(),
+        addFamilyMemberReview: (context) => const AddFamilyMemberReviewPage(),
+        invitationSent: (context) => const InvitationSentPage(),
+        familyConsentRequests: (context) => const FamilyConsentRequestsPage(),
+        memberPermissionsSharing: (context) => const MemberPermissionsSharingPage(),
+        sharedHealthCardDependent: (context) => const SharedHealthCardDependentPage(),
+        sharedMedicalRecords: (context) => const SharedMedicalRecordsPage(),
       };
 }

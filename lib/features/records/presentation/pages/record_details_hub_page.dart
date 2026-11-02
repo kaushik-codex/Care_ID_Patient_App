@@ -86,7 +86,9 @@ class _RecordDetailsHubPageState extends State<RecordDetailsHubPage> {
                     description:
                         'Securely access and review synchronized medical, dental, and vision records for authorized family members and dependents under your Care ID account.',
                     bgImage: 'assets/images/family_records_family.png',
-                    onContinue: () => _showComingSoonSnackBar('Family Health Records'),
+                    onContinue: () {
+                      Navigator.of(context).pushNamed(AppRoutes.familyDashboard);
+                    },
                   ),
 
                   const SizedBox(height: 16),

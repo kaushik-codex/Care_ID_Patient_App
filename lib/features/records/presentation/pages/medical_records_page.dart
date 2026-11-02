@@ -84,13 +84,11 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.medication_rounded, color: Color(0xFF00696B)),
-                title: Text('Add Prescription', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600)),
+                leading: const Icon(Icons.document_scanner_rounded, color: Color(0xFF00696B)),
+                title: Text('Scan / Upload Health Record', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600)),
                 onTap: () {
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Prescription scanning opened.')),
-                  );
+                  Navigator.of(context).pushNamed(AppRoutes.uploadMedicalRecord);
                 },
               ),
             ],
