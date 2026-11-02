@@ -96,13 +96,11 @@ class _CareIDBottomNavBarState extends State<CareIDBottomNavBar>
 
   void _handleTabTap(int index) {
     _closeMenu();
-    if (widget.onTabSelected != null) {
-      widget.onTabSelected!(index);
-      return;
-    }
+    widget.onTabSelected?.call(index);
 
     // Default route handling
     if (index == 0) {
+      if (widget.currentIndex == 0) return;
       final currentRoute = ModalRoute.of(context)?.settings.name;
       if (currentRoute != AppRoutes.home) {
         if (Navigator.of(context).canPop()) {
@@ -112,16 +110,16 @@ class _CareIDBottomNavBarState extends State<CareIDBottomNavBar>
         }
       }
     } else if (index == 1) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Health Records opening...',
-            style: GoogleFonts.plusJakartaSans(fontSize: 13),
-          ),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 1),
-        ),
-      );
+      if (widget.currentIndex == 1) {
+        final currentRoute = ModalRoute.of(context)?.settings.name;
+        if (currentRoute == AppRoutes.recordDetailsHub) return;
+        Navigator.of(context).popUntil((route) => route.settings.name == AppRoutes.recordDetailsHub || route.isFirst);
+        return;
+      }
+      final currentRoute = ModalRoute.of(context)?.settings.name;
+      if (currentRoute != AppRoutes.recordDetailsHub) {
+        Navigator.of(context).pushNamed(AppRoutes.recordDetailsHub);
+      }
     } else if (index == 2) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

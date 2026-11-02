@@ -27,8 +27,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _activeNavIndex = 0;
-
   void _onCategoryTapped(String categoryName) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -125,15 +123,12 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // 3. Fixed Unified Bottom Navigation Bar with Central Floating QR Action
-          Positioned(
+          const Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: CareIDBottomNavBar(
-              currentIndex: _activeNavIndex,
-              onTabSelected: (index) {
-                setState(() => _activeNavIndex = index);
-              },
+              currentIndex: 0,
             ),
           ),
         ],

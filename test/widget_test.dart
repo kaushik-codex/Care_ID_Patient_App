@@ -22,6 +22,14 @@ import 'package:care_id_patient_app/features/qr/presentation/pages/share_options
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/health_info_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/privacy_consents_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/confirmed_screen_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/dental_record_detail_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/dental_records_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/document_viewer_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/health_records_landing_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/medical_records_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/record_details_hub_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/vision_record_detail_page.dart';
+import 'package:care_id_patient_app/features/records/presentation/pages/vision_records_page.dart';
 
 void main() {
   testWidgets('Splash page renders smoke test', (WidgetTester tester) async {
@@ -775,6 +783,27 @@ void main() {
     await tester.pump();
   });
 
+  testWidgets('Bottom nav bar tapping Records navigates to RecordDetailsHubPage', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        initialRoute: AppRoutes.home,
+        routes: AppRoutes.routes,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Record Details'), findsNothing);
+
+    // Tap Records tab in bottom nav
+    await tester.tap(find.text('Records'));
+    await tester.pumpAndSettle();
+
+    // Verify RecordDetailsHubPage is displayed
+    expect(find.text('Record Details'), findsOneWidget);
+    expect(find.text('CARE ID VERIFIED DIRECTORY'), findsOneWidget);
+    expect(find.text('My Health Records'), findsOneWidget);
+  });
+
   testWidgets('SmartDigitalHealthCardPage renders card, credentials, wallet buttons, and actions',
       (WidgetTester tester) async {
     await tester.pumpWidget(
@@ -1418,6 +1447,154 @@ void main() {
 
     expect(find.text('Taken Today'), findsOneWidget);
     expect(find.text('Dose marked as taken successfully!'), findsOneWidget);
+  });
+
+  // ==========================================
+  // PHASE 3: HEALTH RECORDS & VAULT (8 SCREENS)
+  // ==========================================
+
+  testWidgets('Page 24: RecordDetailsHubPage renders all cards and verified strip', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: RecordDetailsHubPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Record Details'), findsOneWidget);
+    expect(find.text('CARE ID VERIFIED DIRECTORY'), findsOneWidget);
+    expect(find.text('My Health Records'), findsOneWidget);
+    expect(find.text('Family Health Records'), findsOneWidget);
+    expect(find.text('Pet Records'), findsOneWidget);
+
+    // Verify continue button key
+    expect(find.byKey(const Key('record_hub_continue_my_health_records')), findsOneWidget);
+  });
+
+  testWidgets('Page 25: HealthRecordsLandingPage renders vault status and categories', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: HealthRecordsLandingPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('YOUR PROTECTED VITALITY'), findsOneWidget);
+    expect(find.text('My Health Records'), findsOneWidget);
+    expect(find.text('Care ID Encrypted Vault Status'), findsOneWidget);
+    expect(find.text('142'), findsOneWidget);
+    expect(find.text('CATEGORY 01'), findsOneWidget);
+    expect(find.text('CATEGORY 02'), findsOneWidget);
+    expect(find.text('CATEGORY 03'), findsOneWidget);
+    expect(find.text('Upload Record'), findsOneWidget);
+  });
+
+  testWidgets('Page 26: MedicalRecordsPage renders vault status, timeline and PDF actions', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MedicalRecordsPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Medical Records'), findsOneWidget);
+    expect(find.text('CARE ID VAULT'), findsOneWidget);
+    expect(find.text('Recent History'), findsOneWidget);
+    expect(find.text('Full Blood Count Analysis'), findsOneWidget);
+    expect(find.text('Chronic Allergy Prescription'), findsOneWidget);
+    expect(find.text('View PDF'), findsOneWidget);
+    expect(find.text('View Refill'), findsOneWidget);
+  });
+
+  testWidgets('Page 27: DentalRecordsPage renders dental visits and imaging links', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: DentalRecordsPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Dental Records'), findsOneWidget);
+    expect(find.text('Dental Panoramic X-Ray'), findsOneWidget);
+    expect(find.text('RCT Prescription'), findsOneWidget);
+    expect(find.text('View Imaging'), findsOneWidget);
+    expect(find.text('View Document'), findsOneWidget);
+  });
+
+  testWidgets('Page 28: DentalRecordDetailPage renders provider, clinical table, attachments and doctor notes', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: DentalRecordDetailPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Record Details'), findsOneWidget);
+    expect(find.text('Dental X-Ray'), findsOneWidget);
+    expect(find.text('Share Record'), findsOneWidget);
+    expect(find.text('Download PDF'), findsOneWidget);
+    expect(find.text('Dr. Michael Vance'), findsOneWidget);
+    expect(find.text('Dental Care Specialists'), findsOneWidget);
+    expect(find.text('Clinical Details'), findsOneWidget);
+    expect(find.text('Dental X-Ray Observations.pdf'), findsOneWidget);
+    expect(find.text("Doctor's Observations"), findsOneWidget);
+  });
+
+  testWidgets('Page 29: VisionRecordsPage renders OCT timeline and vault', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: VisionRecordsPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Vision Records'), findsOneWidget);
+    expect(find.text('Retinal Fundus OCT Scan'), findsOneWidget);
+    expect(find.text('VisionCare Optometry'), findsOneWidget);
+    expect(find.text('OCT Report'), findsOneWidget);
+  });
+
+  testWidgets('Page 30: VisionRecordDetailPage renders provider, dual scan and attachments', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: VisionRecordDetailPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Record Details'), findsOneWidget);
+    expect(find.text('Retinal Fundus\nOCT Scan'), findsOneWidget);
+    expect(find.text('Dr. Laura Zhao, OD'), findsOneWidget);
+    expect(find.text('VisionCare Eye Specialists'), findsOneWidget);
+    expect(find.text('Clinical Details'), findsOneWidget);
+    expect(find.text('Retinal_Scan_HighRes_OCT.pdf'), findsOneWidget);
+    expect(find.text("Doctor's Observations"), findsOneWidget);
+  });
+
+  testWidgets('Page 31: DocumentViewerPage renders controls, canvas, badge, and done button', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: DocumentViewerPage(
+          documentTitle: 'Dental X-Ray Report.pdf',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Dental X-Ray Report.pdf'), findsNWidgets(2)); // header and bottom badge
+    expect(find.text('Done'), findsOneWidget);
+    expect(find.text('100%'), findsOneWidget);
+    expect(find.byKey(const Key('document_viewer_download_fab')), findsOneWidget);
+
+    // Tap zoom in
+    await tester.tap(find.byIcon(Icons.add_rounded));
+    await tester.pumpAndSettle();
+    expect(find.text('125%'), findsOneWidget);
+
+    // Tap zoom out
+    await tester.tap(find.byIcon(Icons.remove_rounded));
+    await tester.pumpAndSettle();
+    expect(find.text('100%'), findsOneWidget);
   });
 }
 

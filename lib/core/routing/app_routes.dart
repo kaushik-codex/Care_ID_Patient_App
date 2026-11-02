@@ -13,6 +13,14 @@ import '../../features/home/presentation/pages/smart_digital_health_card_page.da
 import '../../features/medication/presentation/pages/medication_reminder_detail_page.dart';
 import '../../features/notifications/presentation/pages/notification_center_page.dart';
 import '../../features/onboarding/presentation/pages/add_insurance_page.dart';
+import '../../features/records/presentation/pages/dental_record_detail_page.dart';
+import '../../features/records/presentation/pages/dental_records_page.dart';
+import '../../features/records/presentation/pages/document_viewer_page.dart';
+import '../../features/records/presentation/pages/health_records_landing_page.dart';
+import '../../features/records/presentation/pages/medical_records_page.dart';
+import '../../features/records/presentation/pages/record_details_hub_page.dart';
+import '../../features/records/presentation/pages/vision_record_detail_page.dart';
+import '../../features/records/presentation/pages/vision_records_page.dart';
 import '../../features/qr/presentation/pages/access_history_page.dart';
 import '../../features/qr/presentation/pages/access_verification_page.dart';
 import '../../features/qr/presentation/pages/manage_shared_access_page.dart';
@@ -49,6 +57,14 @@ class AppRoutes {
   static const String notificationCenter = '/notification-center';
   static const String emergencyCenter = '/emergency-center';
   static const String medicationReminderDetail = '/medication-reminder-detail';
+  static const String recordDetailsHub = '/record-details-hub';
+  static const String healthRecordsLanding = '/health-records-landing';
+  static const String medicalRecords = '/medical-records';
+  static const String dentalRecords = '/dental-records';
+  static const String dentalRecordDetail = '/dental-record-detail';
+  static const String visionRecords = '/vision-records';
+  static const String visionRecordDetail = '/vision-record-detail';
+  static const String documentViewer = '/document-viewer';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -78,5 +94,17 @@ class AppRoutes {
         notificationCenter: (context) => const NotificationCenterPage(),
         emergencyCenter: (context) => const EmergencyCenterPage(),
         medicationReminderDetail: (context) => const MedicationReminderDetailPage(),
+        recordDetailsHub: (context) => const RecordDetailsHubPage(),
+        healthRecordsLanding: (context) => const HealthRecordsLandingPage(),
+        medicalRecords: (context) => const MedicalRecordsPage(),
+        dentalRecords: (context) => const DentalRecordsPage(),
+        dentalRecordDetail: (context) => const DentalRecordDetailPage(),
+        visionRecords: (context) => const VisionRecordsPage(),
+        visionRecordDetail: (context) => const VisionRecordDetailPage(),
+        documentViewer: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final title = args is String ? args : null;
+          return DocumentViewerPage(documentTitle: title);
+        },
       };
 }

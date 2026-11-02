@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
 
 /// Page 23: Medication Reminder Detail (Figma node 20:24101)
@@ -544,13 +543,8 @@ class _MedicationReminderDetailPageState extends State<MedicationReminderDetailP
       ),
 
       // Persistent Unified Bottom Navigation Bar (Figma node 20:24174)
-      bottomNavigationBar: CareIDBottomNavBar(
+      bottomNavigationBar: const CareIDBottomNavBar(
         currentIndex: 0,
-        onTabSelected: (index) {
-          if (index == 0) {
-            Navigator.of(context).pushReplacementNamed(AppRoutes.home);
-          }
-        },
       ),
     );
   }
