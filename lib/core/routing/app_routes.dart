@@ -10,6 +10,7 @@ import '../../features/auth/presentation/pages/welcome_page.dart';
 import '../../features/emergency/presentation/pages/emergency_center_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/home/presentation/pages/smart_digital_health_card_page.dart';
+import '../../features/medication/presentation/pages/medication_reminder_detail_page.dart';
 import '../../features/notifications/presentation/pages/notification_center_page.dart';
 import '../../features/onboarding/presentation/pages/add_insurance_page.dart';
 import '../../features/qr/presentation/pages/access_history_page.dart';
@@ -47,6 +48,7 @@ class AppRoutes {
   static const String accessVerification = '/access-verification';
   static const String notificationCenter = '/notification-center';
   static const String emergencyCenter = '/emergency-center';
+  static const String medicationReminderDetail = '/medication-reminder-detail';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -75,5 +77,6 @@ class AppRoutes {
         accessVerification: (context) => const AccessVerificationPage(),
         notificationCenter: (context) => const NotificationCenterPage(),
         emergencyCenter: (context) => const EmergencyCenterPage(),
+        medicationReminderDetail: (context) => const MedicationReminderDetailPage(),
       };
 }

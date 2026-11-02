@@ -141,18 +141,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Top App Bar (Frosted Glass, Avatar, Center Logo, Notification Bell)
+  /// Top App Bar (Frosted Glass, Center Logo, Notification Bell and Avatar on right)
   Widget _buildTopAppBar() {
+    final topPadding = MediaQuery.of(context).padding.top;
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
-          height: 64 + MediaQuery.of(context).padding.top,
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top,
-            left: 20,
-            right: 20,
-          ),
+          height: 64 + topPadding,
+          padding: EdgeInsets.only(top: topPadding),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.85),
             border: Border(
@@ -169,85 +166,97 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              // User Avatar with Online Badge
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/images/patient_avatar.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF22C55E),
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
-                      ),
-                    ),
-                  ),
-                ],
+              // Dead Center Logo: Exact same logo wordmark
+              Center(
+                child: Image.asset(
+                  'assets/images/care_id_logo_wordmark.png',
+                  height: 18,
+                  fit: BoxFit.contain,
+                ),
               ),
 
-              // Centered CareID Logo
-              Image.asset(
-                'assets/images/care_id_logo_wordmark.png',
-                height: 18,
-                fit: BoxFit.contain,
-              ),
-
-              // Notification Bell Button with Red Unread Dot
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-                },
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFE5EEFF),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/home_notification_bell.svg',
-                        width: 16,
-                        height: 20,
-                      ),
-                      Positioned(
-                        top: 8,
-                        right: 8,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFBA1A1A),
-                            shape: BoxShape.circle,
-                          ),
+              // Right End: Notification Bell + Avatar
+              Positioned(
+                right: 16,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Notification Bell Button with Red Unread Dot
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
+                      },
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFE5EEFF),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/home_notification_bell.svg',
+                              width: 16,
+                              height: 20,
+                            ),
+                            Positioned(
+                              top: 8,
+                              right: 8,
+                              child: Container(
+                                width: 8,
+                                height: 8,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFBA1A1A),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+
+                    const SizedBox(width: 8),
+
+                    // User Avatar with Online Badge
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
+                          ),
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/images/patient_avatar.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF22C55E),
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -324,7 +333,7 @@ class _HomePageState extends State<HomePage> {
               left: 40,
               top: 100,
               child: Opacity(
-                opacity: 0.22,
+                opacity: 0.25,
                 child: Image.asset(
                   'assets/images/home_card_watermark.png',
                   width: 312,
@@ -353,7 +362,7 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               'DIGITAL HEALTH ID',
                               style: GoogleFonts.plusJakartaSans(
-                                fontSize: 13,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 color: const Color(0xFFCFBDFF),
                                 letterSpacing: 0.7,
@@ -363,7 +372,7 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               'Richard\nMalouf',
                               style: GoogleFonts.plusJakartaSans(
-                                fontSize: 36,
+                                fontSize: 40,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white,
                                 letterSpacing: -1.0,
@@ -374,7 +383,7 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               'Member since 2021',
                               style: GoogleFonts.plusJakartaSans(
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w400,
                                 color: const Color(0xFFE8DDFF),
                               ),
@@ -420,7 +429,7 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFBA1A1A).withValues(alpha: 0.95),
+                              color: const Color(0xFFBA1A1A).withValues(alpha: 0.90),
                               borderRadius: BorderRadius.circular(9999),
                               boxShadow: const [
                                 BoxShadow(
@@ -445,7 +454,7 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 11,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
-                                    letterSpacing: 0.3,
+                                    letterSpacing: 0.28,
                                   ),
                                 ),
                               ],
@@ -460,7 +469,7 @@ class _HomePageState extends State<HomePage> {
 
                   // Glassmorphic Sub-card (DOB, Blood Group, QR Code, Add to Wallet)
                   Container(
-                    padding: const EdgeInsets.all(18),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(24),
@@ -480,7 +489,7 @@ class _HomePageState extends State<HomePage> {
                               'DOB',
                               style: GoogleFonts.plusJakartaSans(
                                 fontSize: 10,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w400,
                                 color: const Color(0xFFCFBDFF),
                                 letterSpacing: 0.5,
                               ),
@@ -489,8 +498,8 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               '15 May 1985',
                               style: GoogleFonts.plusJakartaSans(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.white,
                               ),
                             ),
@@ -499,7 +508,7 @@ class _HomePageState extends State<HomePage> {
                               'BLOOD GROUP',
                               style: GoogleFonts.plusJakartaSans(
                                 fontSize: 10,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w400,
                                 color: const Color(0xFFCFBDFF),
                                 letterSpacing: 0.5,
                               ),
@@ -509,7 +518,7 @@ class _HomePageState extends State<HomePage> {
                               'O Positive',
                               style: GoogleFonts.plusJakartaSans(
                                 fontSize: 16,
-                                fontWeight: FontWeight.w800,
+                                fontWeight: FontWeight.w700,
                                 color: const Color(0xFF83F3FF),
                               ),
                             ),

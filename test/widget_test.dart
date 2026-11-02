@@ -12,6 +12,7 @@ import 'package:care_id_patient_app/features/auth/presentation/pages/splash_page
 import 'package:care_id_patient_app/features/auth/presentation/pages/welcome_page.dart';
 import 'package:care_id_patient_app/features/home/presentation/pages/home_page.dart';
 import 'package:care_id_patient_app/features/home/presentation/pages/smart_digital_health_card_page.dart';
+import 'package:care_id_patient_app/features/medication/presentation/pages/medication_reminder_detail_page.dart';
 import 'package:care_id_patient_app/features/onboarding/presentation/pages/add_insurance_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/access_history_page.dart';
 import 'package:care_id_patient_app/features/qr/presentation/pages/manage_shared_access_page.dart';
@@ -1307,6 +1308,10 @@ void main() {
       findsOneWidget,
     );
 
+    // Scroll down to bring Share Emergency QR into view
+    await tester.drag(find.byKey(const Key('emergency_scroll_view')), const Offset(0, -300));
+    await tester.pumpAndSettle();
+
     // Tap "Share Emergency QR" -> opens bottom sheet
     await tester.tap(find.text('Share Emergency QR'));
     await tester.pumpAndSettle();
@@ -1317,6 +1322,102 @@ void main() {
     // Close bottom sheet
     await tester.tap(find.text('Done'));
     await tester.pumpAndSettle();
+  });
+
+  testWidgets('MedicationReminderDetailPage renders hero card, actions, pharmacy card, and handles interactions', (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MedicationReminderDetailPage(),
+      ),
+    );
+
+    // Verify Top App Bar
+    expect(find.text('Medication Reminder'), findsOneWidget);
+
+    // Verify Hero Medication Card
+    expect(find.text('Dr. Sarah Jenkins'), findsOneWidget);
+    expect(find.text('Cardiology & Internal Medicine'), findsOneWidget);
+    expect(find.textContaining('Collect by: 12/06'), findsOneWidget);
+    expect(find.text('Pending'), findsOneWidget);
+
+    // Verify Action Buttons
+    expect(find.text('Reschedule'), findsOneWidget);
+    expect(find.text('Skip Dose'), findsOneWidget);
+    expect(find.text('Mark as Taken'), findsOneWidget);
+
+    // Verify Pharmacy Info Card
+    expect(find.text('Pharmacy Info'), findsOneWidget);
+    expect(find.text('City Health Apothecary'), findsOneWidget);
+    expect(find.text('425 Clinical Way, Suite 200'), findsOneWidget);
+    expect(find.text('Request Refill'), findsOneWidget);
+
+    // Test Reschedule Bottom Sheet
+    await tester.tap(find.byKey(const Key('medication_reschedule_button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Reschedule Dose Reminder'), findsOneWidget);
+    expect(find.text('Confirm Reschedule'), findsOneWidget);
+
+    await tester.tap(find.text('Confirm Reschedule'));
+    await tester.pumpAndSettle();
+
+    // Test Request Refill modal
+    await tester.tap(find.byKey(const Key('medication_request_refill_button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Request Prescription Refill'), findsOneWidget);
+    expect(find.text('Submit Refill Request'), findsOneWidget);
+
+    await tester.tap(find.text('Submit Refill Request'));
+    await tester.pumpAndSettle();
+
+    // Test Skip Dose Dialog
+    await tester.tap(find.byKey(const Key('medication_skip_dose_button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Skip This Dose?'), findsOneWidget);
+    expect(find.text('Cancel'), findsOneWidget);
+
+    // Dismiss dialog with Cancel
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    // Test Directions button -> opens route dialog
+    await tester.ensureVisible(find.byKey(const Key('medication_pharmacy_directions_button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('medication_pharmacy_directions_button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Pharmacy Route Navigation'), findsOneWidget);
+    expect(find.text('Start Navigation'), findsOneWidget);
+
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Pharmacy Route Navigation'), findsNothing);
+
+    // Test Call Pharmacy button
+    await tester.ensureVisible(find.byKey(const Key('medication_call_pharmacy_button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('medication_call_pharmacy_button')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.textContaining('Dialing City Health Apothecary'), findsOneWidget);
+
+    // Test Mark as Taken Primary CTA
+    await tester.ensureVisible(find.byKey(const Key('medication_mark_as_taken_button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('medication_mark_as_taken_button')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.text('Taken Today'), findsOneWidget);
+    expect(find.text('Dose marked as taken successfully!'), findsOneWidget);
   });
 }
 

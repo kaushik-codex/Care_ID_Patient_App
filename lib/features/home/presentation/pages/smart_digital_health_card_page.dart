@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
 
 /// Page 14: Smart Digital Health Card (Figma node 20:19873)
@@ -168,18 +169,15 @@ class _SmartDigitalHealthCardPageState extends State<SmartDigitalHealthCardPage>
     );
   }
 
-  /// Top App Bar (Back navigation, Avatar, Center Wordmark Logo, Notification Bell)
+  /// Top App Bar (Back navigation at left end, Dead Center Wordmark Logo, Notification Bell and Avatar at right end)
   Widget _buildTopAppBar() {
+    final topPadding = MediaQuery.of(context).padding.top;
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
         child: Container(
-          height: 64 + MediaQuery.of(context).padding.top,
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top,
-            left: 16,
-            right: 16,
-          ),
+          height: 64 + topPadding,
+          padding: EdgeInsets.only(top: topPadding),
           decoration: BoxDecoration(
             color: const Color(0xFFF8F9FF).withValues(alpha: 0.85),
             border: Border(
@@ -196,116 +194,116 @@ class _SmartDigitalHealthCardPageState extends State<SmartDigitalHealthCardPage>
               ),
             ],
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              // Left Group: Patient Avatar + Back Arrow
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // User Avatar with Online Badge
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
+              // 1. Back Nav Arrow placed at the far left end (like other screens)
+              Positioned(
+                left: 16,
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    alignment: Alignment.centerLeft,
+                    child: SvgPicture.asset(
+                      'assets/icons/card_header_back.svg',
+                      width: 18,
+                      height: 18,
+                    ),
+                  ),
+                ),
+              ),
+
+              // 2. Dead Center Logo: Exact same logo as in dashboard screen
+              Center(
+                child: Image.asset(
+                  'assets/images/care_id_logo_wordmark.png',
+                  height: 18,
+                  fit: BoxFit.contain,
+                ),
+              ),
+
+              // 3. Right End: Notification Bell + Profile Avatar
+              Positioned(
+                right: 16,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Notification Bell Button
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
+                      },
+                      child: Container(
                         width: 40,
                         height: 40,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFE5EEFF),
                           shape: BoxShape.circle,
-                          border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
                         ),
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/images/patient_avatar.png',
-                            fit: BoxFit.cover,
-                          ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/home_notification_bell.svg',
+                              width: 16,
+                              height: 20,
+                            ),
+                            Positioned(
+                              top: 8,
+                              right: 8,
+                              child: Container(
+                                width: 8,
+                                height: 8,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFBA1A1A),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          width: 12,
-                          height: 12,
+                    ),
+
+                    const SizedBox(width: 8),
+
+                    // User Avatar with Online Badge
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF22C55E),
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 2),
+                            border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
+                          ),
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/images/patient_avatar.png',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(width: 8),
-
-                  // Back Arrow Button
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    behavior: HitTestBehavior.opaque,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SvgPicture.asset(
-                        'assets/icons/card_header_back.svg',
-                        width: 16,
-                        height: 16,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              // Centered CareID Logo
-              Image.asset(
-                'assets/images/care_id_logo_wordmark.png',
-                height: 18,
-                fit: BoxFit.contain,
-              ),
-
-              // Notification Bell Button
-              GestureDetector(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Notifications opening...',
-                        style: GoogleFonts.plusJakartaSans(fontSize: 13),
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      duration: const Duration(seconds: 1),
-                    ),
-                  );
-                },
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFE5EEFF),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/home_notification_bell.svg',
-                        width: 16,
-                        height: 20,
-                      ),
-                      Positioned(
-                        top: 8,
-                        right: 8,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFBA1A1A),
-                            shape: BoxShape.circle,
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF22C55E),
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],

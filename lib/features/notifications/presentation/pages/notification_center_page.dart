@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
 
 /// Page 21: Notification Center (Figma node 20:23812)
@@ -556,8 +557,12 @@ class _NotificationCenterPageState extends State<NotificationCenterPage> {
 
   /// Card 1: Medication Reminder Card (Figma node 20:23836)
   Widget _buildMedicationReminderCard() {
-    return Container(
-      width: double.infinity,
+    return GestureDetector(
+      key: const Key('medication_reminder_card'),
+      onTap: () => Navigator.of(context).pushNamed(AppRoutes.medicationReminderDetail),
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -767,6 +772,7 @@ class _NotificationCenterPageState extends State<NotificationCenterPage> {
           ],
         ),
       ),
+    ),
     );
   }
 
