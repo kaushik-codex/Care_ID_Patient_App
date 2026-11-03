@@ -123,13 +123,13 @@ class _CareIDBottomNavBarState extends State<CareIDBottomNavBar>
     } else if (index == 2) {
       if (widget.currentIndex == 2) {
         final currentRoute = ModalRoute.of(context)?.settings.name;
-        if (currentRoute == AppRoutes.familyDashboard) return;
-        Navigator.of(context).popUntil((route) => route.settings.name == AppRoutes.familyDashboard || route.isFirst);
+        if (currentRoute == AppRoutes.doctors) return;
+        Navigator.of(context).popUntil((route) => route.settings.name == AppRoutes.doctors || route.isFirst);
         return;
       }
       final currentRoute = ModalRoute.of(context)?.settings.name;
-      if (currentRoute != AppRoutes.familyDashboard) {
-        Navigator.of(context).pushNamed(AppRoutes.familyDashboard);
+      if (currentRoute != AppRoutes.doctors) {
+        Navigator.of(context).pushNamed(AppRoutes.doctors);
       }
     } else if (index == 3) {
       ScaffoldMessenger.of(context).showSnackBar(

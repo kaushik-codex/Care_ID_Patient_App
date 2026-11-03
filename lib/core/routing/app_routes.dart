@@ -46,6 +46,16 @@ import '../../features/family/presentation/pages/invitation_sent_page.dart';
 import '../../features/family/presentation/pages/member_permissions_sharing_page.dart';
 import '../../features/family/presentation/pages/shared_health_card_dependent_page.dart';
 import '../../features/family/presentation/pages/shared_medical_records_page.dart';
+import '../../features/appointments/presentation/pages/doctors_page.dart';
+import '../../features/appointments/presentation/pages/doctor_profile_page.dart';
+import '../../features/appointments/presentation/pages/book_appointment_type_page.dart';
+import '../../features/appointments/presentation/pages/book_appointment_date_time_page.dart';
+import '../../features/appointments/presentation/pages/review_appointment_page.dart';
+import '../../features/appointments/presentation/pages/appointment_confirmation_page.dart';
+import '../../features/appointments/presentation/pages/my_appointments_page.dart';
+import '../../features/appointments/presentation/pages/appointment_details_page.dart';
+import '../../features/appointments/presentation/pages/appointment_details_actions_page.dart';
+import '../../features/appointments/domain/models/appointment_models.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -97,6 +107,15 @@ class AppRoutes {
   static const String memberPermissionsSharing = '/member-permissions-sharing';
   static const String sharedHealthCardDependent = '/shared-health-card-dependent';
   static const String sharedMedicalRecords = '/shared-medical-records';
+  static const String doctors = '/doctors';
+  static const String doctorProfile = '/doctor-profile';
+  static const String bookAppointmentType = '/book-appointment-type';
+  static const String bookAppointmentDateTime = '/book-appointment-datetime';
+  static const String reviewAppointment = '/review-appointment';
+  static const String appointmentConfirmation = '/appointment-confirmation';
+  static const String myAppointments = '/my-appointments';
+  static const String appointmentDetails = '/appointment-details';
+  static const String appointmentDetailsActions = '/appointment-details-actions';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -154,5 +173,70 @@ class AppRoutes {
         memberPermissionsSharing: (context) => const MemberPermissionsSharingPage(),
         sharedHealthCardDependent: (context) => const SharedHealthCardDependentPage(),
         sharedMedicalRecords: (context) => const SharedMedicalRecordsPage(),
+        doctors: (context) => const DoctorsPage(),
+        doctorProfile: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final doc = args is Doctor ? args : null;
+          return DoctorProfilePage(doctor: doc);
+        },
+        bookAppointmentType: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final doc = args is Doctor ? args : null;
+          return BookAppointmentTypePage(doctor: doc);
+        },
+        bookAppointmentDateTime: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          Doctor? doc;
+          ConsultationOption? type;
+          if (args is Map<String, dynamic>) {
+            if (args['doctor'] is Doctor) doc = args['doctor'];
+            if (args['consultationType'] is ConsultationOption) {
+              type = args['consultationType'];
+            }
+          }
+          return BookAppointmentDateTimePage(
+            doctor: doc,
+            consultationType: type,
+          );
+        },
+        reviewAppointment: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          Doctor? doc;
+          ConsultationOption? type;
+          DateTime? date;
+          String? time;
+          if (args is Map<String, dynamic>) {
+            if (args['doctor'] is Doctor) doc = args['doctor'];
+            if (args['consultationType'] is ConsultationOption) {
+              type = args['consultationType'];
+            }
+            if (args['appointmentDate'] is DateTime) {
+              date = args['appointmentDate'];
+            }
+            if (args['timeSlot'] is String) time = args['timeSlot'];
+          }
+          return ReviewAppointmentPage(
+            doctor: doc,
+            consultationType: type,
+            appointmentDate: date,
+            timeSlot: time,
+          );
+        },
+        appointmentConfirmation: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final apt = args is PatientAppointment ? args : null;
+          return AppointmentConfirmationPage(appointment: apt);
+        },
+        myAppointments: (context) => const MyAppointmentsPage(),
+        appointmentDetails: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final apt = args is PatientAppointment ? args : null;
+          return AppointmentDetailsPage(appointment: apt);
+        },
+        appointmentDetailsActions: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final apt = args is PatientAppointment ? args : null;
+          return AppointmentDetailsActionsPage(appointment: apt);
+        },
       };
 }

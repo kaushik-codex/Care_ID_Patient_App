@@ -42,6 +42,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onQuickActionTapped(String actionName) {
+    if (actionName == 'Book Appointment') {
+      Navigator.of(context).pushNamed(AppRoutes.doctors);
+      return;
+    }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
@@ -1018,19 +1022,25 @@ class _HomePageState extends State<HomePage> {
                   color: const Color(0xFF0B1C30),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF3F6FF),
-                  borderRadius: BorderRadius.circular(9999),
-                  border: Border.all(color: const Color(0xFFE7EAF5)),
-                ),
-                child: Text(
-                  'View All',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFF28006D),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(AppRoutes.myAppointments);
+                },
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF3F6FF),
+                    borderRadius: BorderRadius.circular(9999),
+                    border: Border.all(color: const Color(0xFFE7EAF5)),
+                  ),
+                  child: Text(
+                    'View All',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xFF28006D),
+                    ),
                   ),
                 ),
               ),
@@ -1054,6 +1064,9 @@ class _HomePageState extends State<HomePage> {
             title: 'Dental Appointment',
             details: 'City Hospital · 9:00 AM',
             cardBg: const Color(0xFFF8F6FF),
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.appointmentDetails);
+            },
           ),
 
           const SizedBox(height: 12),
@@ -1071,6 +1084,9 @@ class _HomePageState extends State<HomePage> {
             title: 'Prescription Collection',
             details: 'Dr. Smith · 11:30 AM',
             cardBg: const Color(0xFFF0FAFA),
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.appointmentDetails);
+            },
           ),
         ],
       ),
@@ -1090,15 +1106,19 @@ class _HomePageState extends State<HomePage> {
     required String title,
     required String details,
     required Color cardBg,
+    VoidCallback? onTap,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: cardBg,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE7EAF5)),
-      ),
-      child: Row(
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: cardBg,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: const Color(0xFFE7EAF5)),
+        ),
+        child: Row(
         children: [
           // Date Badge
           Container(
@@ -1184,6 +1204,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+    ),
     );
   }
 }
