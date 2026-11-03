@@ -42,6 +42,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onQuickActionTapped(String actionName) {
+    if (actionName == 'Insurance Card') {
+      Navigator.of(context).pushNamed(AppRoutes.insuranceDashboard);
+      return;
+    }
     if (actionName == 'Book Appointment') {
       Navigator.of(context).pushNamed(AppRoutes.doctors);
       return;

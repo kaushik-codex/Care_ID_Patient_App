@@ -60,6 +60,14 @@ import '../../features/appointments/presentation/widgets/cancel_appointment_dial
 import '../../features/appointments/presentation/pages/live_chat_page.dart';
 import '../../features/appointments/presentation/pages/full_kiosk_pass_page.dart';
 import '../../features/appointments/domain/models/appointment_models.dart';
+import '../../features/insurance/presentation/pages/insurance_dashboard_page.dart';
+import '../../features/insurance/presentation/pages/add_insurance_select_method_page.dart';
+import '../../features/insurance/presentation/pages/insurance_camera_capture_page.dart';
+import '../../features/insurance/presentation/pages/insurance_ocr_processing_page.dart';
+import '../../features/insurance/presentation/pages/insurance_extraction_results_page.dart';
+import '../../features/insurance/presentation/pages/insurance_manual_review_page.dart';
+import '../../features/insurance/presentation/pages/insurance_card_details_page.dart';
+import '../../features/insurance/presentation/pages/insurance_financing_hub_page.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -124,6 +132,14 @@ class AppRoutes {
   static const String cancelAppointmentDialog = '/cancel-appointment-dialog';
   static const String liveChat = '/live-chat';
   static const String kioskPass = '/kiosk-pass';
+  static const String insuranceDashboard = '/insurance-dashboard';
+  static const String addInsuranceMethod = '/add-insurance-method';
+  static const String insuranceCameraCapture = '/insurance-camera-capture';
+  static const String insuranceOcrProcessing = '/insurance-ocr-processing';
+  static const String insuranceExtractionResults = '/insurance-extraction-results';
+  static const String insuranceManualReview = '/insurance-manual-review';
+  static const String insuranceCardDetails = '/insurance-card-details';
+  static const String insuranceFinancingHub = '/insurance-financing-hub';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -262,5 +278,13 @@ class AppRoutes {
           final apt = args is PatientAppointment ? args : null;
           return FullKioskPassPage(appointment: apt);
         },
+        insuranceDashboard: (context) => const InsuranceDashboardPage(),
+        addInsuranceMethod: (context) => const AddInsuranceSelectMethodPage(),
+        insuranceCameraCapture: (context) => const InsuranceCameraCapturePage(),
+        insuranceOcrProcessing: (context) => const InsuranceOcrProcessingPage(),
+        insuranceExtractionResults: (context) => const InsuranceExtractionResultsPage(),
+        insuranceManualReview: (context) => const InsuranceManualReviewPage(),
+        insuranceCardDetails: (context) => const InsuranceCardDetailsPage(),
+        insuranceFinancingHub: (context) => const InsuranceFinancingHubPage(),
       };
 }
