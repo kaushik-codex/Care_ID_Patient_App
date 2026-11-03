@@ -5,6 +5,7 @@ import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
 import '../../data/mock_appointments_repository.dart';
 import '../../domain/models/appointment_models.dart';
+import '../widgets/cancel_appointment_dialog.dart';
 
 /// Screen 9: Care ID - Appointment Details & Actions (`20:29860`)
 class AppointmentDetailsActionsPage extends StatefulWidget {
@@ -38,160 +39,22 @@ class _AppointmentDetailsActionsPageState
   }
 
   void _showCancelConfirmationDialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text(
-          'Cancel Appointment?',
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: const Color(0xFFBA1A1A),
+    CancelAppointmentDialog.show(
+      context,
+      appointment: _appointment,
+      onConfirmCancel: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Appointment ${_appointment.id} has been cancelled.',
+              style: GoogleFonts.plusJakartaSans(fontSize: 13),
+            ),
+            backgroundColor: const Color(0xFFBA1A1A),
+            behavior: SnackBarBehavior.floating,
           ),
-        ),
-        content: Text(
-          'Are you sure you want to cancel your consultation with ${_appointment.doctor.name} on Thursday, Nov ${_appointment.appointmentDate.day}?\n\nThis will release your reserved slot and kiosk check-in pass.',
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 14,
-            color: const Color(0xFF494552),
-            height: 1.45,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(
-              'Keep Appointment',
-              style: GoogleFonts.plusJakartaSans(
-                fontWeight: FontWeight.w600,
-                color: const Color(0xFF494552),
-              ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Appointment ${_appointment.id} has been cancelled.',
-                    style: GoogleFonts.plusJakartaSans(fontSize: 13),
-                  ),
-                  backgroundColor: const Color(0xFFBA1A1A),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-              Navigator.of(context).pushReplacementNamed(AppRoutes.myAppointments);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFBA1A1A),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            ),
-            child: Text(
-              'Yes, Cancel',
-              style: GoogleFonts.plusJakartaSans(
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showFullScreenKioskPass() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) => Container(
-        height: MediaQuery.of(ctx).size.height * 0.82,
-        decoration: const BoxDecoration(
-          color: Color(0xFF28006D),
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'CAREID KIOSK RECEPTION PASS',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: const Color(0xFF5AF8FB),
-                letterSpacing: 0.8,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              _appointment.doctor.clinic,
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            Container(
-              width: 200,
-              height: 200,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: const Icon(
-                Icons.qr_code_2,
-                size: 176,
-                color: Color(0xFF28006D),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              _appointment.id,
-              style: GoogleFonts.robotoMono(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: const Color(0xFF56F5F8),
-                letterSpacing: 1.0,
-              ),
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(ctx).pop(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF56F5F8),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9999)),
-                ),
-                child: Text(
-                  'Done / Dismiss',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xFF004F51),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+        );
+        Navigator.of(context).pushReplacementNamed(AppRoutes.myAppointments);
+      },
     );
   }
 
@@ -676,7 +539,12 @@ class _AppointmentDetailsActionsPageState
   /// Section - Fast Check-In Arrival Pass (QR Card)
   Widget _buildArrivalPassQrCard() {
     return GestureDetector(
-      onTap: _showFullScreenKioskPass,
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          AppRoutes.kioskPass,
+          arguments: _appointment,
+        );
+      },
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.all(20),
@@ -818,11 +686,8 @@ class _AppointmentDetailsActionsPageState
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushNamed(
-                    AppRoutes.bookAppointmentDateTime,
-                    arguments: {
-                      'doctor': _appointment.doctor,
-                      'consultationType': _appointment.consultationType,
-                    },
+                    AppRoutes.rescheduleAppointment,
+                    arguments: _appointment,
                   );
                 },
                 behavior: HitTestBehavior.opaque,

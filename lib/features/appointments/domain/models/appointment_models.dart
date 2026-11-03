@@ -94,5 +94,39 @@ class PatientAppointment {
     this.vaultRecordsSynced = 5,
     required this.qrPassRef,
   });
+
+  PatientAppointment copyWith({
+    String? id,
+    Doctor? doctor,
+    ConsultationOption? consultationType,
+    DateTime? appointmentDate,
+    String? timeSlot,
+    String? duration,
+    AppointmentStatus? status,
+    String? patientName,
+    String? careIdNumber,
+    String? reasonForVisit,
+    String? copay,
+    String? insuranceName,
+    int? vaultRecordsSynced,
+    String? qrPassRef,
+  }) {
+    return PatientAppointment(
+      id: id ?? this.id,
+      doctor: doctor ?? this.doctor,
+      consultationType: consultationType ?? this.consultationType,
+      appointmentDate: appointmentDate ?? this.appointmentDate,
+      timeSlot: timeSlot ?? this.timeSlot,
+      duration: duration ?? this.duration,
+      status: status ?? this.status,
+      patientName: patientName ?? this.patientName,
+      careIdNumber: careIdNumber ?? this.careIdNumber,
+      reasonForVisit: reasonForVisit ?? this.reasonForVisit,
+      copay: copay ?? this.copay,
+      insuranceName: insuranceName ?? this.insuranceName,
+      vaultRecordsSynced: vaultRecordsSynced ?? this.vaultRecordsSynced,
+      qrPassRef: qrPassRef ?? this.qrPassRef,
+    );
+  }
 }
 

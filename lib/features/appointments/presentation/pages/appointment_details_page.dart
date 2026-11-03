@@ -845,10 +845,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
         // Primary CTA: Chat with The Facility
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(
-              AppRoutes.appointmentDetailsActions,
-              arguments: _appointment,
-            );
+            Navigator.of(context).pushNamed(AppRoutes.liveChat);
           },
           behavior: HitTestBehavior.opaque,
           child: Container(

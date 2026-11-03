@@ -55,6 +55,10 @@ import '../../features/appointments/presentation/pages/appointment_confirmation_
 import '../../features/appointments/presentation/pages/my_appointments_page.dart';
 import '../../features/appointments/presentation/pages/appointment_details_page.dart';
 import '../../features/appointments/presentation/pages/appointment_details_actions_page.dart';
+import '../../features/appointments/presentation/pages/reschedule_appointment_page.dart';
+import '../../features/appointments/presentation/widgets/cancel_appointment_dialog.dart';
+import '../../features/appointments/presentation/pages/live_chat_page.dart';
+import '../../features/appointments/presentation/pages/full_kiosk_pass_page.dart';
 import '../../features/appointments/domain/models/appointment_models.dart';
 
 class AppRoutes {
@@ -116,6 +120,10 @@ class AppRoutes {
   static const String myAppointments = '/my-appointments';
   static const String appointmentDetails = '/appointment-details';
   static const String appointmentDetailsActions = '/appointment-details-actions';
+  static const String rescheduleAppointment = '/reschedule-appointment';
+  static const String cancelAppointmentDialog = '/cancel-appointment-dialog';
+  static const String liveChat = '/live-chat';
+  static const String kioskPass = '/kiosk-pass';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -237,6 +245,22 @@ class AppRoutes {
           final args = ModalRoute.of(context)?.settings.arguments;
           final apt = args is PatientAppointment ? args : null;
           return AppointmentDetailsActionsPage(appointment: apt);
+        },
+        rescheduleAppointment: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final apt = args is PatientAppointment ? args : null;
+          return RescheduleAppointmentPage(appointment: apt);
+        },
+        cancelAppointmentDialog: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final apt = args is PatientAppointment ? args : null;
+          return CancelAppointmentPage(appointment: apt);
+        },
+        liveChat: (context) => const LiveChatPage(),
+        kioskPass: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final apt = args is PatientAppointment ? args : null;
+          return FullKioskPassPage(appointment: apt);
         },
       };
 }
