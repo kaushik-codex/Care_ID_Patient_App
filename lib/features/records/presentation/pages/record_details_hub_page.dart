@@ -206,16 +206,7 @@ class _RecordDetailsHubPageState extends State<RecordDetailsHubPage> {
                   const SizedBox(width: 12),
                   GestureDetector(
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'User Profile: Sarah Jenkins',
-                            style: GoogleFonts.plusJakartaSans(fontSize: 13),
-                          ),
-                          behavior: SnackBarBehavior.floating,
-                          duration: const Duration(seconds: 1),
-                        ),
-                      );
+                      Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
                     },
                     child: Container(
                       width: 40,

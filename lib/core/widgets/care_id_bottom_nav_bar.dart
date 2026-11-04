@@ -69,21 +69,7 @@ class _CareIDBottomNavBarState extends State<CareIDBottomNavBar>
 
   void _onScanOcrTapped() {
     _closeMenu();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Opening CareID OCR Medical Scanner...',
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: const Color(0xFF006D76),
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    Navigator.of(context).pushNamed(AppRoutes.scanReports);
   }
 
   void _onShareQrTapped() {

@@ -143,22 +143,28 @@ class _InsuranceDashboardPageState extends State<InsuranceDashboardPage> {
                 ),
               ),
               const SizedBox(width: 8),
-              Container(
-                width: 40,
-                height: 40,
-                padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFFE8DDFF), width: 2),
-                ),
-                child: ClipOval(
-                  child: Image.asset(
-                    InsuranceAssets.avatarUser,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => const Icon(
-                      Icons.person,
-                      color: Color(0xFF28006D),
-                      size: 24,
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                },
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: const Color(0xFFE8DDFF), width: 2),
+                  ),
+                  child: ClipOval(
+                    child: Image.asset(
+                      InsuranceAssets.avatarUser,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => const Icon(
+                        Icons.person,
+                        color: Color(0xFF28006D),
+                        size: 24,
+                      ),
                     ),
                   ),
                 ),

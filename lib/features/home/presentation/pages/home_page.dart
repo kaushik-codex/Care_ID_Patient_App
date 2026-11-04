@@ -28,6 +28,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   void _onCategoryTapped(String categoryName) {
+    if (categoryName == 'Medical') {
+      Navigator.of(context).pushNamed(AppRoutes.medicalRecords);
+      return;
+    }
+    if (categoryName == 'Dental') {
+      Navigator.of(context).pushNamed(AppRoutes.dentalRecords);
+      return;
+    }
+    if (categoryName == 'Vision') {
+      Navigator.of(context).pushNamed(AppRoutes.visionRecords);
+      return;
+    }
+    if (categoryName == 'Pets') {
+      Navigator.of(context).pushNamed(AppRoutes.recordDetailsHub);
+      return;
+    }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
@@ -46,8 +62,16 @@ class _HomePageState extends State<HomePage> {
       Navigator.of(context).pushNamed(AppRoutes.insuranceDashboard);
       return;
     }
+    if (actionName == 'Add Family Member') {
+      Navigator.of(context).pushNamed(AppRoutes.addFamilyMemberForm);
+      return;
+    }
     if (actionName == 'Book Appointment') {
       Navigator.of(context).pushNamed(AppRoutes.doctors);
+      return;
+    }
+    if (actionName == 'Emergency') {
+      Navigator.of(context).pushNamed(AppRoutes.emergencyCenter);
       return;
     }
     ScaffoldMessenger.of(context).showSnackBar(
@@ -406,28 +430,34 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           // Frosted Shield Button
-                          Container(
-                            width: 48,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white.withValues(alpha: 0.10),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.20),
-                              ),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x0D000000),
-                                  blurRadius: 2,
-                                  offset: Offset(0, 1),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(AppRoutes.accessVerification);
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: Container(
+                              width: 48,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withValues(alpha: 0.10),
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.20),
                                 ),
-                              ],
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                'assets/icons/home_hero_shield.svg',
-                                width: 16,
-                                height: 20,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0x0D000000),
+                                    blurRadius: 2,
+                                    offset: Offset(0, 1),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  'assets/icons/home_hero_shield.svg',
+                                  width: 16,
+                                  height: 20,
+                                ),
                               ),
                             ),
                           ),
@@ -435,38 +465,44 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 12),
 
                           // ICE Active Red Badge
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFBA1A1A).withValues(alpha: 0.90),
-                              borderRadius: BorderRadius.circular(9999),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x26000000),
-                                  blurRadius: 6,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/icons/home_ice_star.svg',
-                                  width: 10,
-                                  height: 10,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  'ICE Active',
-                                  style: GoogleFonts.plusJakartaSans(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    letterSpacing: 0.28,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(AppRoutes.emergencyCenter);
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFBA1A1A).withValues(alpha: 0.90),
+                                borderRadius: BorderRadius.circular(9999),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0x26000000),
+                                    blurRadius: 6,
+                                    offset: Offset(0, 2),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/icons/home_ice_star.svg',
+                                    width: 10,
+                                    height: 10,
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'ICE Active',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      letterSpacing: 0.28,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -539,10 +575,16 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             // QR Code
-                            SvgPicture.asset(
-                              'assets/icons/home_qr_code.svg',
-                              width: 68,
-                              height: 68,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(AppRoutes.qrDashboard);
+                              },
+                              behavior: HitTestBehavior.opaque,
+                              child: SvgPicture.asset(
+                                'assets/icons/home_qr_code.svg',
+                                width: 68,
+                                height: 68,
+                              ),
                             ),
 
                             const SizedBox(height: 12),
