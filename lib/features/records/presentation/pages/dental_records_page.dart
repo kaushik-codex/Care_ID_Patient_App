@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 
 /// Page 27: Dental Records
 /// Figma node: 20:21111
@@ -301,28 +302,8 @@ class _DentalRecordsPageState extends State<DentalRecordsPage> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-                    },
-                    child: Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF2F5FF),
-                        shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xFFE7ECF6)),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/icons/home_bell.svg',
-                          width: 16,
-                          height: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
+                  const CareIDNotificationButton(),
+                  const SizedBox(width: 8),
                   Container(
                     width: 40,
                     height: 40,

@@ -200,40 +200,29 @@ class _PersonalDetailsIdentityPageState extends State<PersonalDetailsIdentityPag
                 ),
               ),
 
-              // Title
-              Text(
-                'Personal Details',
-                style: GoogleFonts.plusJakartaSans(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF28006D),
-                ),
-              ),
-
-              // Bell Notification Button
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-                },
-                borderRadius: BorderRadius.circular(9999),
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(0xFFCBC4D4).withOpacity(0.3),
+              // Title + Badge
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Personal Details',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF28006D),
                     ),
                   ),
-                  child: const Icon(
-                    Icons.notifications_none_rounded,
-                    size: 20,
-                    color: Color(0xFF28006D),
+                  const SizedBox(width: 8),
+                  Image.asset(
+                    'assets/images/card_id_badge.png',
+                    height: 20,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) => const SizedBox(),
                   ),
-                ),
+                ],
               ),
+
+              const SizedBox(width: 40),
             ],
           ),
         ),

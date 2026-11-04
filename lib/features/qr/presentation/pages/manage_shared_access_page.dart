@@ -288,6 +288,13 @@ class _ManageSharedAccessPageState extends State<ManageSharedAccessPage> {
                       letterSpacing: -0.2,
                     ),
                   ),
+                  const SizedBox(width: 8),
+                  Image.asset(
+                    'assets/images/card_id_badge.png',
+                    height: 20,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) => const SizedBox(),
+                  ),
                 ],
               ),
 

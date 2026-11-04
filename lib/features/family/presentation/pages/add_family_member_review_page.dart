@@ -351,31 +351,6 @@ class _AddFamilyMemberReviewPageState extends State<AddFamilyMemberReviewPage> {
                   errorBuilder: (_, __, ___) => const SizedBox(),
                 ),
                 const Spacer(),
-                const SizedBox(width: 12),
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.notifications_none_rounded,
-                          size: 24, color: Color(0xFF28006D)),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-                      },
-                    ),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                        width: 8,
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFFBA1A1A),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 GestureDetector(
                   onTap: () => Navigator.of(context).pushNamed(AppRoutes.smartHealthCard),
                   child: Container(

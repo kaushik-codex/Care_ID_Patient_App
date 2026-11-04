@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 
 /// Care ID - Live_chat_messeges (Figma Node 20:31689).
 class LiveChatPage extends StatefulWidget {
@@ -142,48 +143,7 @@ class _LiveChatPageState extends State<LiveChatPage> {
           ),
 
           // Notification Bell with Red Badge
-          Container(
-            width: 40,
-            height: 40,
-            decoration: const BoxDecoration(
-              color: Color(0xFFE5EEFF),
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0x0D000000),
-                  blurRadius: 2,
-                  offset: Offset(0, 1),
-                ),
-              ],
-            ),
-            alignment: Alignment.center,
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/f00c5380ebf6e9513983caeb296f75cfdda612bc.svg',
-                  width: 16,
-                  height: 20,
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xFF28006D),
-                    BlendMode.srcIn,
-                  ),
-                ),
-                Positioned(
-                  top: -2,
-                  right: -2,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFBA1A1A),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          const CareIDNotificationButton(),
         ],
       ),
     );

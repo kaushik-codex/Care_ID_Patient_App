@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 
 /// Page 23: Medication Reminder Detail (Figma node 20:24101)
 /// Canvas: Careid patient app (x: 10664, y: 0, width: 390, height: 862)
@@ -630,29 +631,36 @@ class _MedicationReminderDetailPageState extends State<MedicationReminderDetailP
               ),
               const SizedBox(width: 8),
 
-              // Right Group: Patient Avatar
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
-                },
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0xFFD3E4FE),
-                    border: Border.all(
-                      color: const Color(0xFFE8DDFF),
-                      width: 2.0,
+              // Right Group: Notification Bell + Patient Avatar
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CareIDNotificationButton(),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color(0xFFD3E4FE),
+                        border: Border.all(
+                          color: const Color(0xFFE8DDFF),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/patient_avatar.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
-                  child: ClipOval(
-                    child: Image.asset(
-                      'assets/images/patient_avatar.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                ],
               ),
             ],
           ),

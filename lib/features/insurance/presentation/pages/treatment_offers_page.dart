@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 import '../../data/mock_insurance_repository.dart';
 import '../../domain/models/insurance_models.dart';
 import '../widgets/insurance_assets.dart';
@@ -123,51 +124,7 @@ class _TreatmentOffersPageState extends State<TreatmentOffersPage> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE5EEFF),
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.04),
-                              blurRadius: 4,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            InsuranceAssets.notificationBadge,
-                            width: 20,
-                            height: 20,
-                            colorFilter: const ColorFilter.mode(Color(0xFF28006D), BlendMode.srcIn),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 8,
-                        right: 8,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFBA1A1A),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const CareIDNotificationButton(),
                 const SizedBox(width: 8),
                 GestureDetector(
                   onTap: () {

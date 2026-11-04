@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 
 /// Screen 78: Profile & Settings Hub
 /// Node ID: 20:24204
@@ -286,30 +287,7 @@ class _ProfileSettingsHubPageState extends State<ProfileSettingsHubPage> {
                 ],
               ),
 
-              // Bell Notification Button
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-                },
-                borderRadius: BorderRadius.circular(9999),
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(0xFFCBC4D4).withOpacity(0.3),
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.notifications_none_rounded,
-                    size: 20,
-                    color: Color(0xFF28006D),
-                  ),
-                ),
-              ),
+              const CareIDNotificationButton(),
             ],
           ),
         ),

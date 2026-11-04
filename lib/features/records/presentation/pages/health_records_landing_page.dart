@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 
 /// Page 25: Care ID - Health Records Landing (Refined)
 /// Figma node: 20:25209
@@ -461,37 +462,44 @@ class _HealthRecordsLandingPageState extends State<HealthRecordsLandingPage> {
                 ],
               ),
 
-              // Right: Profile Avatar
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
-                },
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  padding: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    border: Border.all(
-                      color: const Color(0xFF3F1D8B),
-                      width: 2,
-                    ),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x1428006D),
-                        blurRadius: 12,
-                        offset: Offset(0, 4),
+              // Right: Notification Bell + Profile Avatar
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CareIDNotificationButton(),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        border: Border.all(
+                          color: const Color(0xFF3F1D8B),
+                          width: 2,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0x1428006D),
+                            blurRadius: 12,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: ClipOval(
-                    child: Image.asset(
-                      'assets/images/patient_avatar.png',
-                      fit: BoxFit.cover,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/patient_avatar.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),

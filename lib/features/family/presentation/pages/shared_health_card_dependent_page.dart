@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 
 /// Page 46: Shared Health Card - Dependent View (Figma node 20:22459)
 /// Exact implementation matching Figma node 20:22459
@@ -234,35 +235,8 @@ class _SharedHealthCardDependentPageState
                   errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                 ),
                 const Spacer(),
-                const SizedBox(width: 12),
-                Stack(
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.notifications_none_rounded,
-                        color: Color(0xFF28006D),
-                        size: 24,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          AppRoutes.notificationCenter,
-                        );
-                      },
-                    ),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                        width: 8,
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFBA1A1A),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                const CareIDNotificationButton(),
+                const SizedBox(width: 8),
                 Container(
                   width: 40,
                   height: 40,

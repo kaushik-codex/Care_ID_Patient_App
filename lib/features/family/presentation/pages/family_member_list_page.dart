@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 
 /// Page 39: Family Member List (Figma node 20:21825)
 /// Exact implementation matching Figma node 20:21825
@@ -185,31 +186,8 @@ class _FamilyMemberListPageState extends State<FamilyMemberListPage> {
                   errorBuilder: (_, __, ___) => const SizedBox(),
                 ),
                 const Spacer(),
-                const SizedBox(width: 12),
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.notifications_none_rounded,
-                          size: 24, color: Color(0xFF28006D)),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-                      },
-                    ),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                        width: 8,
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFFBA1A1A),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                const CareIDNotificationButton(),
+                const SizedBox(width: 8),
                 GestureDetector(
                   onTap: () => Navigator.of(context).pushNamed(AppRoutes.smartHealthCard),
                   child: Container(

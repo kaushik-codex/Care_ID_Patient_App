@@ -391,73 +391,29 @@ class _NotificationCenterPageState extends State<NotificationCenterPage> {
                 ],
               ),
 
-              // Right Group: Notification Bell with Badge + Patient Avatar
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Bell Icon with Red Pill Counter (Figma node 20:23918)
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        width: 36,
-                        height: 36,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.transparent,
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            'assets/icons/notif_bell.svg',
-                            width: 18,
-                            height: 22,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 2,
-                        top: 2,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFBA1A1A),
-                            borderRadius: BorderRadius.circular(9999),
-                            border: Border.all(color: const Color(0xFFF8F9FF), width: 1.5),
-                          ),
-                          child: Text(
-                            '5',
-                            style: GoogleFonts.plusJakartaSans(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              height: 1.1,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 10),
-
-                  // Patient Avatar (Figma node 20:23923)
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: const Color(0xFFE8DDFF),
-                        width: 2.0,
-                      ),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/images/patient_avatar.png',
-                        fit: BoxFit.cover,
-                      ),
+              // Right Group: Patient Avatar
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                },
+                borderRadius: BorderRadius.circular(9999),
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFFE8DDFF),
+                      width: 2.0,
                     ),
                   ),
-                ],
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/images/patient_avatar.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

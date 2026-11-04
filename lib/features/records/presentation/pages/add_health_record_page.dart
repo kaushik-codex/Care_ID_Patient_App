@@ -533,28 +533,7 @@ class _AddHealthRecordPageState extends State<AddHealthRecordPage> {
                 ],
               ),
 
-              // Right: Notification Bell
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-                },
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF8FAFC),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: const Color(0xFFE2E8F0)),
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/icons/home_bell.svg',
-                      width: 16,
-                      height: 16,
-                    ),
-                  ),
-                ),
-              ),
+              const SizedBox(width: 36),
             ],
           ),
         ),

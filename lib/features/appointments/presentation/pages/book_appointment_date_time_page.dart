@@ -277,21 +277,7 @@ class _BookAppointmentDateTimePageState
               ),
             ],
           ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).pushNamed(AppRoutes.notificationCenter),
-            behavior: HitTestBehavior.opaque,
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE5EEFF),
-                shape: BoxShape.circle,
-              ),
-              child: const Center(
-                child: Icon(Icons.notifications_none_rounded, size: 20, color: Color(0xFF28006D)),
-              ),
-            ),
-          ),
+          const SizedBox(width: 36),
         ],
       ),
     );

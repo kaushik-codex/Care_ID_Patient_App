@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 
 /// Page 15: QR Dashboard (Figma node 20:22771)
 ///
@@ -248,23 +249,35 @@ class _QrDashboardPageState extends State<QrDashboardPage> {
                 ],
               ),
 
-              // Right Group: Patient Avatar with #E8DDFF border
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFFE8DDFF),
-                    width: 2,
+              // Right Group: Notification Bell + Patient Avatar
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CareIDNotificationButton(),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color(0xFFE8DDFF),
+                          width: 2,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/patient_avatar.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                child: ClipOval(
-                  child: Image.asset(
-                    'assets/images/patient_avatar.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                ],
               ),
             ],
           ),

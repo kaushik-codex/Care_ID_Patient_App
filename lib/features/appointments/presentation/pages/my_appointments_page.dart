@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
+import '../../../../core/widgets/care_id_notification_button.dart';
 import '../../data/mock_appointments_repository.dart';
 import '../../domain/models/appointment_models.dart';
 
@@ -214,21 +215,7 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
               ),
             ],
           ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).pushNamed(AppRoutes.notificationCenter),
-            behavior: HitTestBehavior.opaque,
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE5EEFF),
-                shape: BoxShape.circle,
-              ),
-              child: const Center(
-                child: Icon(Icons.notifications_none_rounded, size: 20, color: Color(0xFF28006D)),
-              ),
-            ),
-          ),
+          const CareIDNotificationButton(),
         ],
       ),
     );
