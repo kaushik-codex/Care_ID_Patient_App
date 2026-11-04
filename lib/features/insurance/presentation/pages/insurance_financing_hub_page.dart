@@ -681,43 +681,87 @@ class InsuranceFinancingHubPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Row(
-                    children: [
-                      const Icon(Icons.explore_outlined, size: 18, color: Color(0xFF28006D)),
-                      const SizedBox(width: 8),
-                      Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.uninsuredStatus);
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.shield_outlined, size: 18, color: Color(0xFF28006D)),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Uninsured Status',
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xFF0B1C30),
+                                ),
+                              ),
+                              Text(
+                                'State marketplace & discount vault',
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 11,
+                                  color: const Color(0xFF494552),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.uninsuredStatus);
+                      },
+                      behavior: HitTestBehavior.opaque,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        margin: const EdgeInsets.only(right: 6),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFDCE9FF),
+                          borderRadius: BorderRadius.circular(9999),
+                        ),
                         child: Text(
-                          'Explore employer or state marketplace plans',
+                          'View Status',
                           style: GoogleFonts.plusJakartaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF0B1C30),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFF28006D),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(AppRoutes.addInsuranceMethod);
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF28006D),
-                      borderRadius: BorderRadius.circular(9999),
                     ),
-                    child: Text(
-                      'Link Policy',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.addInsuranceMethod);
+                      },
+                      behavior: HitTestBehavior.opaque,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF28006D),
+                          borderRadius: BorderRadius.circular(9999),
+                        ),
+                        child: Text(
+                          'Link Policy',
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -831,40 +875,58 @@ class InsuranceFinancingHubPage extends StatelessWidget {
                   color: const Color(0xFF00696B),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Opening Treatment Financing Calculator...',
-                        style: GoogleFonts.plusJakartaSans(fontSize: 13),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.paymentOptions);
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      margin: const EdgeInsets.only(right: 8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF56F5F8),
+                        borderRadius: BorderRadius.circular(9999),
                       ),
-                      behavior: SnackBarBehavior.floating,
-                    ),
-                  );
-                },
-                behavior: HitTestBehavior.opaque,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF28006D),
-                    borderRadius: BorderRadius.circular(9999),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Calculate Plans',
+                      child: Text(
+                        'Payment Options',
                         style: GoogleFonts.plusJakartaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                          color: const Color(0xFF004D50),
                         ),
                       ),
-                      const SizedBox(width: 4),
-                      const Icon(Icons.arrow_forward_ios, size: 10, color: Colors.white),
-                    ],
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.financingOptionDetails);
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF28006D),
+                        borderRadius: BorderRadius.circular(9999),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Calculate Plans',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          const Icon(Icons.arrow_forward_ios, size: 10, color: Colors.white),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -1047,41 +1109,64 @@ class InsuranceFinancingHubPage extends StatelessWidget {
               ),
             ),
           ],
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Opening Treatment Offers Review...',
-                      style: GoogleFonts.plusJakartaSans(fontSize: 13),
-                    ),
-                    behavior: SnackBarBehavior.floating,
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.offerStatusHistory);
+                },
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE5EEFF),
+                    borderRadius: BorderRadius.circular(9999),
                   ),
-                );
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Review & Accept Quotes',
-                    style: GoogleFonts.plusJakartaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xFF28006D),
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.history, size: 14, color: Color(0xFF28006D)),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Offer History',
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF28006D),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 4),
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 10,
-                    color: Color(0xFF28006D),
-                  ),
-                ],
+                ),
               ),
-            ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.treatmentOffers);
+                },
+                behavior: HitTestBehavior.opaque,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Review & Accept Quotes',
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF28006D),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 10,
+                      color: Color(0xFF28006D),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -1212,15 +1297,7 @@ class InsuranceFinancingHubPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Direct Settlement Activated!',
-                          style: GoogleFonts.plusJakartaSans(fontSize: 13),
-                        ),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
+                    Navigator.pushNamed(context, AppRoutes.cashDiscountOptions);
                   },
                   behavior: HitTestBehavior.opaque,
                   child: Container(

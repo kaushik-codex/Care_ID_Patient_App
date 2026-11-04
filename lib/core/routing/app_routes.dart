@@ -68,6 +68,15 @@ import '../../features/insurance/presentation/pages/insurance_extraction_results
 import '../../features/insurance/presentation/pages/insurance_manual_review_page.dart';
 import '../../features/insurance/presentation/pages/insurance_card_details_page.dart';
 import '../../features/insurance/presentation/pages/insurance_financing_hub_page.dart';
+import '../../features/insurance/presentation/pages/uninsured_status_page.dart';
+import '../../features/insurance/presentation/pages/treatment_offers_page.dart';
+import '../../features/insurance/presentation/pages/offer_details_page.dart';
+import '../../features/insurance/presentation/pages/financing_option_details_page.dart';
+import '../../features/insurance/presentation/pages/cash_discount_options_page.dart';
+import '../../features/insurance/presentation/pages/payment_options_page.dart';
+import '../../features/insurance/presentation/pages/offer_accepted_confirmation_page.dart';
+import '../../features/insurance/presentation/pages/offer_rejected_confirmation_page.dart';
+import '../../features/insurance/presentation/pages/offer_status_history_page.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -140,6 +149,15 @@ class AppRoutes {
   static const String insuranceManualReview = '/insurance-manual-review';
   static const String insuranceCardDetails = '/insurance-card-details';
   static const String insuranceFinancingHub = '/insurance-financing-hub';
+  static const String uninsuredStatus = '/insurance-uninsured-status';
+  static const String treatmentOffers = '/insurance-treatment-offers';
+  static const String treatmentOfferDetails = '/insurance-offer-details';
+  static const String financingOptionDetails = '/insurance-financing-details';
+  static const String cashDiscountOptions = '/insurance-cash-discounts';
+  static const String paymentOptions = '/insurance-payment-options';
+  static const String offerAcceptedConfirmation = '/insurance-offer-accepted';
+  static const String offerRejectedConfirmation = '/insurance-offer-rejected';
+  static const String offerStatusHistory = '/insurance-offer-history';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -286,5 +304,14 @@ class AppRoutes {
         insuranceManualReview: (context) => const InsuranceManualReviewPage(),
         insuranceCardDetails: (context) => const InsuranceCardDetailsPage(),
         insuranceFinancingHub: (context) => const InsuranceFinancingHubPage(),
+        uninsuredStatus: (context) => const UninsuredStatusPage(),
+        treatmentOffers: (context) => const TreatmentOffersPage(),
+        treatmentOfferDetails: (context) => const OfferDetailsPage(),
+        financingOptionDetails: (context) => const FinancingOptionDetailsPage(),
+        cashDiscountOptions: (context) => const CashDiscountOptionsPage(),
+        paymentOptions: (context) => const PaymentOptionsPage(),
+        offerAcceptedConfirmation: (context) => const OfferAcceptedConfirmationPage(),
+        offerRejectedConfirmation: (context) => const OfferRejectedConfirmationPage(),
+        offerStatusHistory: (context) => const OfferStatusHistoryPage(),
       };
 }

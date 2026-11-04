@@ -110,21 +110,83 @@ class InsuranceActivityItem {
 
 class TreatmentOfferItem {
   final String id;
+  final String category;
   final String providerName;
   final String title;
   final String subtitle;
+  final String doctorAttribution;
+  final String doctorAvatar;
   final double amount;
+  final double originalAmount;
   final String discountBadge;
-  final bool isPending;
+  final String status; // 'Pending', 'Accepted', 'Declined'
+  final String validUntil;
+  final String? monthlyInstallment;
+  final String referenceCode;
 
   const TreatmentOfferItem({
     required this.id,
+    this.category = 'Dental Plan',
     required this.providerName,
     required this.title,
     required this.subtitle,
+    this.doctorAttribution = 'City Dental Care • Dr. Julian Vance, DDS',
+    this.doctorAvatar = '',
     required this.amount,
+    this.originalAmount = 1850.0,
     required this.discountBadge,
-    this.isPending = true,
+    this.status = 'Pending',
+    this.validUntil = 'Nov 30, 2023',
+    this.monthlyInstallment,
+    this.referenceCode = '#TX-88410',
+  });
+}
+
+class CashDiscountOption {
+  final String id;
+  final String title;
+  final String description;
+  final double standardRate;
+  final double finalPrice;
+  final double savingsAmount;
+  final int discountPercent;
+  final List<String> acceptedChannels;
+  final bool isFeatured;
+
+  const CashDiscountOption({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.standardRate,
+    required this.finalPrice,
+    required this.savingsAmount,
+    required this.discountPercent,
+    required this.acceptedChannels,
+    this.isFeatured = false,
+  });
+}
+
+class FinancingPlan {
+  final String id;
+  final String planName;
+  final double monthlyAmount;
+  final int termMonths;
+  final double apr;
+  final double totalFinanced;
+  final double downPayment;
+  final String treatmentTitle;
+  final String clinicName;
+
+  const FinancingPlan({
+    required this.id,
+    this.planName = '0% APR Interest-Free',
+    required this.monthlyAmount,
+    this.termMonths = 12,
+    this.apr = 0.0,
+    required this.totalFinanced,
+    this.downPayment = 0.0,
+    this.treatmentTitle = 'Dental Implant & Crown',
+    this.clinicName = 'City Dental Care • Dr. A. Morgan',
   });
 }
 
@@ -143,4 +205,35 @@ class PartnerHospital {
     required this.imageAsset,
   });
 }
+
+class HistoricalOfferItem {
+  final String id;
+  final String title;
+  final String clinic;
+  final String category; // 'dental', 'vision', 'therapy'
+  final String status; // 'Accepted', 'Declined', 'Completed', 'Expired'
+  final String date;
+  final String referenceCode;
+  final double amount;
+  final double? savedAmount;
+  final double? originalAmount;
+  final String? badgeText;
+  final String amountLabel;
+
+  const HistoricalOfferItem({
+    required this.id,
+    required this.title,
+    required this.clinic,
+    required this.category,
+    required this.status,
+    required this.date,
+    required this.referenceCode,
+    required this.amount,
+    this.savedAmount,
+    this.originalAmount,
+    this.badgeText,
+    this.amountLabel = 'Total Amount',
+  });
+}
+
 

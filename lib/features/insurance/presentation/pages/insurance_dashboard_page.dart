@@ -209,39 +209,78 @@ class _InsuranceDashboardPageState extends State<InsuranceDashboardPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Active Pill
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(9999),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.3),
-                      width: 1,
+                // Active Pill + Uninsured Status direct link
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(9999),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF58D8E4),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            policy.status,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF58D8E4),
-                          shape: BoxShape.circle,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.uninsuredStatus);
+                      },
+                      behavior: HitTestBehavior.opaque,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.18),
+                          borderRadius: BorderRadius.circular(9999),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.3),
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.shield_outlined, color: Color(0xFF56F5F8), size: 14),
+                            const SizedBox(width: 5),
+                            Text(
+                              'Uninsured Status',
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            const Icon(Icons.arrow_forward_ios, color: Colors.white70, size: 10),
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        policy.status,
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 32),
                 Text(
@@ -690,7 +729,73 @@ class _InsuranceDashboardPageState extends State<InsuranceDashboardPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Claim History',
+                      'Financing Hub',
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF28006D),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // 5. Payment Options
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRoutes.paymentOptions);
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFDCE9FF),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.credit_card_rounded,
+                      color: Color(0xFF28006D),
+                      size: 24,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Payment Options',
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF28006D),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // 6. Offer History
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRoutes.offerStatusHistory);
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFDCE9FF),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.receipt_long_rounded,
+                      color: Color(0xFF28006D),
+                      size: 24,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Offer History',
                       style: GoogleFonts.plusJakartaSans(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
