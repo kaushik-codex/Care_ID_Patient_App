@@ -238,57 +238,57 @@ class _BookAppointmentDateTimePageState
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       color: const Color(0xFFF8F9FF),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              behavior: HitTestBehavior.opaque,
-              child: Container(
-                width: 36,
-                height: 36,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(Icons.arrow_back_ios_new, size: 16, color: Color(0xFF28006D)),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  width: 36,
+                  height: 36,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Center(
+                    child: Icon(Icons.arrow_back_ios_new, size: 16, color: Color(0xFF28006D)),
+                  ),
                 ),
               ),
-            ),
-          ),
-          Center(
-            child: Image.asset(
-              'assets/images/care_id_logo_wordmark.png',
-              height: 18,
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => Text(
-                'CareID',
+              const SizedBox(width: 8),
+              Text(
+                'Select Date & Time',
                 style: GoogleFonts.plusJakartaSans(
                   fontSize: 18,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w700,
                   color: const Color(0xFF28006D),
                 ),
               ),
-            ),
+              const SizedBox(width: 8),
+              Image.asset(
+                'assets/images/card_id_badge.png',
+                height: 20,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => const SizedBox(),
+              ),
+            ],
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(AppRoutes.notificationCenter),
-              behavior: HitTestBehavior.opaque,
-              child: Container(
-                width: 36,
-                height: 36,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFE5EEFF),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(Icons.notifications_none_rounded, size: 20, color: Color(0xFF28006D)),
-                ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed(AppRoutes.notificationCenter),
+            behavior: HitTestBehavior.opaque,
+            child: Container(
+              width: 36,
+              height: 36,
+              decoration: const BoxDecoration(
+                color: Color(0xFFE5EEFF),
+                shape: BoxShape.circle,
+              ),
+              child: const Center(
+                child: Icon(Icons.notifications_none_rounded, size: 20, color: Color(0xFF28006D)),
               ),
             ),
           ),

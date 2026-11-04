@@ -283,6 +283,12 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
                       letterSpacing: -0.2,
                     ),
                   ),
+                  const SizedBox(width: 8),
+                  Image.asset(
+                    'assets/images/card_id_badge.png',
+                    height: 20,
+                    fit: BoxFit.contain,
+                  ),
                 ],
               ),
 

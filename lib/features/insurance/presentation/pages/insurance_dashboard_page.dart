@@ -103,6 +103,12 @@ class _InsuranceDashboardPageState extends State<InsuranceDashboardPage> {
                   color: const Color(0xFF28006D),
                 ),
               ),
+              const SizedBox(width: 8),
+              Image.asset(
+                'assets/images/card_id_badge.png',
+                height: 20,
+                fit: BoxFit.contain,
+              ),
             ],
           ),
           Row(

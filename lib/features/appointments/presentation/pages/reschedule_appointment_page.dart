@@ -177,40 +177,48 @@ class _RescheduleAppointmentPageState extends State<RescheduleAppointmentPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            behavior: HitTestBehavior.opaque,
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: const BoxDecoration(
-                color: Color(0xFFEFF4FF),
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                'assets/icons/37500812cdc62f8eaa2f7d69a7b64e1888d2dc0a.svg',
-                width: 16,
-                height: 16,
-                colorFilter: const ColorFilter.mode(
-                  Color(0xFF28006D),
-                  BlendMode.srcIn,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  width: 36,
+                  height: 36,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFEFF4FF),
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset(
+                    'assets/icons/37500812cdc62f8eaa2f7d69a7b64e1888d2dc0a.svg',
+                    width: 16,
+                    height: 16,
+                    colorFilter: const ColorFilter.mode(
+                      Color(0xFF28006D),
+                      BlendMode.srcIn,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          Image.asset(
-            'assets/images/care_id_logo_wordmark.png',
-            height: 20,
-            fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Text(
-              'CareID',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xFF28006D),
+              const SizedBox(width: 8),
+              Text(
+                'Reschedule Visit',
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF28006D),
+                ),
               ),
-            ),
+              const SizedBox(width: 8),
+              Image.asset(
+                'assets/images/card_id_badge.png',
+                height: 20,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => const SizedBox(),
+              ),
+            ],
           ),
           Container(
             width: 36,

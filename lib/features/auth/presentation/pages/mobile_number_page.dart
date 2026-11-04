@@ -226,9 +226,8 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
           // Dead Center: CareID Logo (CareIDlogo 1, node 20:30894)
           Center(
             child: Image.asset(
-              'assets/images/care_id_logo_wordmark.png',
-              width: 79,
-              height: 18,
+              'assets/images/card_id_badge.png',
+              height: 24,
               fit: BoxFit.contain,
             ),
           ),

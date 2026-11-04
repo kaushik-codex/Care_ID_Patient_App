@@ -141,21 +141,6 @@ class _LiveChatPageState extends State<LiveChatPage> {
             ],
           ),
 
-          // CareID Wordmark Logo
-          Image.asset(
-            'assets/images/care_id_logo_wordmark.png',
-            height: 20,
-            fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Text(
-              'CareID',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xFF28006D),
-              ),
-            ),
-          ),
-
           // Notification Bell with Red Badge
           Container(
             width: 40,
@@ -249,6 +234,13 @@ class _LiveChatPageState extends State<LiveChatPage> {
                           letterSpacing: -0.6,
                           color: const Color(0xFF28006D),
                         ),
+                      ),
+                      const SizedBox(width: 8),
+                      Image.asset(
+                        'assets/images/card_id_badge.png',
+                        height: 20,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => const SizedBox(),
                       ),
                       const SizedBox(width: 8),
                       Container(

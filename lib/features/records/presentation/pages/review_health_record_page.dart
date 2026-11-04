@@ -140,34 +140,46 @@ class ReviewHealthRecordPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Left: Back button
-              GestureDetector(
-                key: const Key('review_record_back_button'),
-                onTap: () => Navigator.of(context).pop(),
-                behavior: HitTestBehavior.opaque,
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF8FAFC),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/icons/qr_preview_back.svg',
-                      width: 16,
-                      height: 16,
+              // Left: Back button + Title + Badge
+              Row(
+                children: [
+                  GestureDetector(
+                    key: const Key('review_record_back_button'),
+                    onTap: () => Navigator.of(context).pop(),
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFF8FAFC),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/qr_preview_back.svg',
+                          width: 16,
+                          height: 16,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-
-              // Dead Center: CareID Logo Wordmark
-              Image.asset(
-                'assets/images/care_id_logo_wordmark.png',
-                width: 79,
-                height: 18,
-                fit: BoxFit.contain,
+                  const SizedBox(width: 8),
+                  Text(
+                    'Review Record',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF28006D),
+                      letterSpacing: -0.2,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Image.asset(
+                    'assets/images/card_id_badge.png',
+                    height: 20,
+                    fit: BoxFit.contain,
+                  ),
+                ],
               ),
 
               // Right: Notification Bell

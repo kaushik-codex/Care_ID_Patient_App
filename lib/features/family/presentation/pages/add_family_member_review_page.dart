@@ -331,7 +331,7 @@ class _AddFamilyMemberReviewPageState extends State<AddFamilyMemberReviewPage> {
                   ),
                 ),
                 const SizedBox(width: 6),
-                Expanded(
+                Flexible(
                   child: Text(
                     'Add Family Member',
                     style: GoogleFonts.plusJakartaSans(
@@ -340,13 +340,17 @@ class _AddFamilyMemberReviewPageState extends State<AddFamilyMemberReviewPage> {
                       color: const Color(0xFF28006D),
                       letterSpacing: -0.3,
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                const SizedBox(width: 8),
                 Image.asset(
-                  'assets/images/care_id_logo_wordmark.png',
+                  'assets/images/card_id_badge.png',
                   height: 20,
+                  fit: BoxFit.contain,
                   errorBuilder: (_, __, ___) => const SizedBox(),
                 ),
+                const Spacer(),
                 const SizedBox(width: 12),
                 Stack(
                   clipBehavior: Clip.none,

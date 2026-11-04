@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/widgets/care_id_bottom_nav_bar.dart';
 
 /// Page 23: Medication Reminder Detail (Figma node 20:24101)
@@ -581,7 +582,7 @@ class _MedicationReminderDetailPageState extends State<MedicationReminderDetailP
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Left Group: Back Chevron + "Medication Reminder" Title
+              // Left Group: Back Chevron + "Medication Reminder" Title + Badge
               Expanded(
                 child: Row(
                   children: [
@@ -606,7 +607,7 @@ class _MedicationReminderDetailPageState extends State<MedicationReminderDetailP
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
+                    Flexible(
                       child: Text(
                         'Medication Reminder',
                         style: GoogleFonts.plusJakartaSans(
@@ -618,41 +619,40 @@ class _MedicationReminderDetailPageState extends State<MedicationReminderDetailP
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
+                    const SizedBox(width: 8),
+                    Image.asset(
+                      'assets/images/card_id_badge.png',
+                      height: 20,
+                      fit: BoxFit.contain,
+                    ),
                   ],
                 ),
               ),
               const SizedBox(width: 8),
 
-              // Right Group: Small Logo + Patient Avatar
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(
-                    'assets/images/care_id_logo_wordmark.png',
-                    width: 25,
-                    height: 17,
-                    fit: BoxFit.contain,
-                  ),
-                  const SizedBox(width: 14),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: const Color(0xFFD3E4FE),
-                      border: Border.all(
-                        color: const Color(0xFFE8DDFF),
-                        width: 2.0,
-                      ),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/images/patient_avatar.png',
-                        fit: BoxFit.cover,
-                      ),
+              // Right Group: Patient Avatar
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color(0xFFD3E4FE),
+                    border: Border.all(
+                      color: const Color(0xFFE8DDFF),
+                      width: 2.0,
                     ),
                   ),
-                ],
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/images/patient_avatar.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

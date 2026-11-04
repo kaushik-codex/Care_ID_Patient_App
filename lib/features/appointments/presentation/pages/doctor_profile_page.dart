@@ -154,53 +154,54 @@ class _DoctorProfilePageState extends State<DoctorProfilePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Back Button
-              InkWell(
-                onTap: () {
-                  if (Navigator.of(context).canPop()) {
-                    Navigator.of(context).pop();
-                  } else {
-                    Navigator.of(context).pushReplacementNamed(AppRoutes.doctors);
-                  }
-                },
-                borderRadius: BorderRadius.circular(9999),
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(0xFFCBC4D4).withOpacity(0.3),
+              // Back Button + Title + Badge
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      if (Navigator.of(context).canPop()) {
+                        Navigator.of(context).pop();
+                      } else {
+                        Navigator.of(context).pushReplacementNamed(AppRoutes.doctors);
+                      }
+                    },
+                    borderRadius: BorderRadius.circular(9999),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color(0xFFCBC4D4).withOpacity(0.3),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 16,
+                        color: Color(0xFF28006D),
+                      ),
                     ),
                   ),
-                  child: const Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 16,
-                    color: Color(0xFF28006D),
-                  ),
-                ),
-              ),
-
-              // CareID Center Wordmark Logo
-              Image.asset(
-                'assets/images/care_id_logo_wordmark.png',
-                height: 18,
-                fit: BoxFit.contain,
-                errorBuilder: (ctx, err, stack) => Image.asset(
-                  'assets/images/969db9d40b73845a8402f9eece1153f5566a42ee.png',
-                  height: 18,
-                  fit: BoxFit.contain,
-                  errorBuilder: (ctx, err, stack) => Text(
-                    'CareID',
+                  const SizedBox(width: 8),
+                  Text(
+                    'Doctor Profile',
                     style: GoogleFonts.plusJakartaSans(
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       color: const Color(0xFF28006D),
                     ),
                   ),
-                ),
+                  const SizedBox(width: 8),
+                  Image.asset(
+                    'assets/images/card_id_badge.png',
+                    height: 20,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) => const SizedBox(),
+                  ),
+                ],
               ),
 
               // Notification Bell Button

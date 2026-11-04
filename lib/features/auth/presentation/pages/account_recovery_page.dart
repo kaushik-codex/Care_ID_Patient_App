@@ -147,8 +147,8 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
             // Centered CareID Logo
             Center(
               child: Image.asset(
-                'assets/images/care_id_logo_wordmark.png',
-                height: 18,
+                'assets/images/card_id_badge.png',
+                height: 24,
                 fit: BoxFit.contain,
               ),
             ),

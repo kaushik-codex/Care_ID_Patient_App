@@ -382,10 +382,10 @@ class _NotificationCenterPageState extends State<NotificationCenterPage> {
                       letterSpacing: -0.2,
                     ),
                   ),
-                  const SizedBox(width: 6),
+                  const SizedBox(width: 8),
                   Image.asset(
-                    'assets/images/care_id_logo_small.png',
-                    height: 16,
+                    'assets/images/card_id_badge.png',
+                    height: 20,
                     fit: BoxFit.contain,
                   ),
                 ],

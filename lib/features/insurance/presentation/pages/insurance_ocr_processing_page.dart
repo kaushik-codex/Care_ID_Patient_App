@@ -134,39 +134,46 @@ class _InsuranceOcrProcessingPageState extends State<InsuranceOcrProcessingPage>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            behavior: HitTestBehavior.opaque,
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: SvgPicture.asset(
-                  InsuranceAssets.backArrow,
-                  width: 16,
-                  height: 16,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  width: 36,
+                  height: 36,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      InsuranceAssets.backArrow,
+                      width: 16,
+                      height: 16,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          Image.asset(
-            InsuranceAssets.careIdLogo1,
-            width: 80,
-            height: 24,
-            fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Text(
-              'CareID',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xFF28006D),
+              const SizedBox(width: 8),
+              Text(
+                'OCR Processing',
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF28006D),
+                ),
               ),
-            ),
+              const SizedBox(width: 8),
+              Image.asset(
+                'assets/images/card_id_badge.png',
+                height: 20,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => const SizedBox(),
+              ),
+            ],
           ),
           Container(
             width: 36,

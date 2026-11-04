@@ -62,57 +62,57 @@ class OfferAcceptedConfirmationPage extends StatelessWidget {
           ),
         ),
       ),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Left: Back Nav Button
-          Align(
-            alignment: Alignment.centerLeft,
-            child: InkWell(
-              onTap: () {
-                if (Navigator.of(context).canPop()) {
-                  Navigator.of(context).pop();
-                } else {
-                  Navigator.of(context).pushReplacementNamed(AppRoutes.insuranceDashboard);
-                }
-              },
-              borderRadius: BorderRadius.circular(9999),
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFEFF4FF),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(Icons.arrow_back_ios_new, size: 16, color: Color(0xFF28006D)),
+          // Left: Back Nav Button + Title + Badge
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () {
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
+                  } else {
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.insuranceDashboard);
+                  }
+                },
+                borderRadius: BorderRadius.circular(9999),
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFEFF4FF),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Center(
+                    child: Icon(Icons.arrow_back_ios_new, size: 16, color: Color(0xFF28006D)),
+                  ),
                 ),
               ),
-            ),
-          ),
-
-          // Center: Logo Wordmark
-          Center(
-            child: Image.asset(
-              InsuranceAssets.careIdLogo4,
-              height: 24,
-              errorBuilder: (_, __, ___) => Text(
-                'CareID',
+              const SizedBox(width: 8),
+              Text(
+                'Offer Accepted',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
                   color: const Color(0xFF28006D),
                 ),
               ),
-            ),
+              const SizedBox(width: 8),
+              Image.asset(
+                'assets/images/card_id_badge.png',
+                height: 20,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => const SizedBox(),
+              ),
+            ],
           ),
 
           // Right: Notification Bell + Profile Avatar
-          Align(
-            alignment: Alignment.centerRight,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
@@ -200,7 +200,6 @@ class OfferAcceptedConfirmationPage extends StatelessWidget {
                 ),
               ],
             ),
-          ),
         ],
       ),
     );

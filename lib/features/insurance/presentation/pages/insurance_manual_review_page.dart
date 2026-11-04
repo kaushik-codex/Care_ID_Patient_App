@@ -160,30 +160,26 @@ class _InsuranceManualReviewPageState extends State<InsuranceManualReviewPage> {
                   color: const Color(0xFF28006D),
                 ),
               ),
-            ],
-          ),
-          Row(
-            children: [
+              const SizedBox(width: 8),
               Image.asset(
-                InsuranceAssets.careIdLogo4,
-                width: 25,
-                height: 18,
+                'assets/images/card_id_badge.png',
+                height: 20,
+                fit: BoxFit.contain,
                 errorBuilder: (_, __, ___) => const SizedBox(),
               ),
-              const SizedBox(width: 12),
-              Container(
-                width: 36,
-                height: 36,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.more_vert,
-                  color: Color(0xFF494552),
-                  size: 20,
-                ),
-              ),
             ],
+          ),
+          Container(
+            width: 36,
+            height: 36,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.more_vert,
+              color: Color(0xFF494552),
+              size: 20,
+            ),
           ),
         ],
       ),

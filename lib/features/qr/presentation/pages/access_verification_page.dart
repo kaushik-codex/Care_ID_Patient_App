@@ -181,32 +181,45 @@ class _AccessVerificationPageState extends State<AccessVerificationPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Left: Back Chevron with consistent 16x16 icon in 40x40 tap area
-              GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                behavior: HitTestBehavior.opaque,
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                    color: Colors.transparent,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/icons/qr_preview_back.svg',
-                      width: 16,
-                      height: 16,
+              // Left: Back Chevron + Title + Badge
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/qr_preview_back.svg',
+                          width: 16,
+                          height: 16,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-
-              // Center: CareID Logo Wordmark (Figma node 20:23750)
-              Image.asset(
-                'assets/images/care_id_logo_small.png',
-                height: 20,
-                fit: BoxFit.contain,
+                  const SizedBox(width: 8),
+                  Text(
+                    'Access Verification',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF28006D),
+                      letterSpacing: -0.2,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Image.asset(
+                    'assets/images/card_id_badge.png',
+                    height: 20,
+                    fit: BoxFit.contain,
+                  ),
+                ],
               ),
 
               // Right: Patient Avatar (Figma node 20:23751)

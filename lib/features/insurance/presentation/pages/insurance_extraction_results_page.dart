@@ -91,28 +91,24 @@ class InsuranceExtractionResultsPage extends StatelessWidget {
                   color: const Color(0xFF28006D),
                 ),
               ),
-            ],
-          ),
-          Row(
-            children: [
+              const SizedBox(width: 8),
               Image.asset(
-                InsuranceAssets.careIdLogo4,
-                width: 25,
-                height: 18,
+                'assets/images/card_id_badge.png',
+                height: 20,
+                fit: BoxFit.contain,
                 errorBuilder: (_, __, ___) => const SizedBox(),
               ),
-              const SizedBox(width: 12),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.insuranceManualReview);
-                },
-                child: const Icon(
-                  Icons.edit_outlined,
-                  color: Color(0xFF494552),
-                  size: 20,
-                ),
-              ),
             ],
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.insuranceManualReview);
+            },
+            child: const Icon(
+              Icons.edit_outlined,
+              color: Color(0xFF494552),
+              size: 20,
+            ),
           ),
         ],
       ),

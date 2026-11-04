@@ -209,7 +209,7 @@ class _SharedMedicalRecordsPageState extends State<SharedMedicalRecordsPage> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Expanded(
+                Flexible(
                   child: Text(
                     'Shared Records',
                     style: GoogleFonts.plusJakartaSans(
@@ -218,14 +218,17 @@ class _SharedMedicalRecordsPageState extends State<SharedMedicalRecordsPage> {
                       color: const Color(0xFF28006D),
                       letterSpacing: -0.3,
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                const SizedBox(width: 8),
                 Image.asset(
-                  'assets/images/care_id_logo_wordmark.png',
+                  'assets/images/card_id_badge.png',
                   height: 20,
                   fit: BoxFit.contain,
                   errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                 ),
+                const Spacer(),
                 const SizedBox(width: 12),
                 Stack(
                   children: [

@@ -129,9 +129,8 @@ class _AddInsurancePageState extends State<AddInsurancePage> {
             // Dead Center: CareID Logo (CareIDlogo 1, node 20:33070)
             Center(
               child: Image.asset(
-                'assets/images/care_id_logo_wordmark.png',
-                width: 79,
-                height: 18,
+                'assets/images/card_id_badge.png',
+                height: 24,
                 fit: BoxFit.contain,
               ),
             ),
