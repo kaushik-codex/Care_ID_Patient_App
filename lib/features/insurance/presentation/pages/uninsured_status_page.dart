@@ -59,106 +59,20 @@ class UninsuredStatusPage extends StatelessWidget {
           ),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          Stack(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
-                ),
-                child: ClipOval(
-                  child: Image.asset(
-                    InsuranceAssets.avatarUserHub,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => const Icon(Icons.person, color: Color(0xFF3F1D8B)),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF22C55E),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Image.asset(
-            InsuranceAssets.careIdLogo4,
-            height: 22,
-            fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Text(
-              'CareID',
-              style: GoogleFonts.plusJakartaSans(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: const Color(0xFF28006D),
-              ),
-            ),
-          ),
-          Stack(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE5EEFF),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: SvgPicture.asset(
-                    InsuranceAssets.notificationBadge,
-                    width: 20,
-                    height: 20,
-                    colorFilter: const ColorFilter.mode(Color(0xFF28006D), BlendMode.srcIn),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFBA1A1A),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildContextBar(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            InkWell(
-              onTap: () => Navigator.pop(context),
+          // Left: Back Nav Button
+          Align(
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              onTap: () {
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.of(context).pushReplacementNamed(AppRoutes.insuranceDashboard);
+                }
+              },
               borderRadius: BorderRadius.circular(9999),
               child: Container(
                 width: 40,
@@ -172,27 +86,146 @@ class UninsuredStatusPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+
+          // Center: Logo Wordmark
+          Center(
+            child: Image.asset(
+              InsuranceAssets.careIdLogo4,
+              height: 22,
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => Text(
+                'CareID',
+                style: GoogleFonts.plusJakartaSans(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: const Color(0xFF28006D),
+                ),
+              ),
+            ),
+          ),
+
+          // Right: Notification Bell + Profile Avatar
+          Align(
+            alignment: Alignment.centerRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Insurance Status',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                    color: const Color(0xFF28006D),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE5EEFF),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.04),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            InsuranceAssets.notificationBadge,
+                            width: 20,
+                            height: 20,
+                            colorFilter: const ColorFilter.mode(Color(0xFF28006D), BlendMode.srcIn),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFBA1A1A),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Text(
-                  'Policy Management',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 13,
-                    color: const Color(0xFF494552),
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            InsuranceAssets.avatarUserHub,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => const Icon(Icons.person, color: Color(0xFF3F1D8B)),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          width: 12,
+                          height: 12,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF22C55E),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 2),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContextBar(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Insurance Status',
+              style: GoogleFonts.plusJakartaSans(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                color: const Color(0xFF28006D),
+              ),
+            ),
+            Text(
+              'Policy Management',
+              style: GoogleFonts.plusJakartaSans(
+                fontWeight: FontWeight.w400,
+                fontSize: 13,
+                color: const Color(0xFF494552),
+              ),
             ),
           ],
         ),

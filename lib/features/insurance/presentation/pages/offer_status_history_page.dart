@@ -105,99 +105,140 @@ class _OfferStatusHistoryPageState extends State<OfferStatusHistoryPage> {
           ),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          // User Avatar with Online Badge
-          Stack(
-            children: [
-              Container(
+          // Left: Back Nav Button
+          Align(
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              onTap: () {
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.of(context).pushReplacementNamed(AppRoutes.insuranceFinancingHub);
+                }
+              },
+              borderRadius: BorderRadius.circular(9999),
+              child: Container(
                 width: 40,
                 height: 40,
-                padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
+                  color: Color(0xFFEFF4FF),
                   shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
                 ),
-                child: ClipOval(
-                  child: Image.asset(
-                    InsuranceAssets.avatarUserHub,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => const Icon(
-                      Icons.person,
-                      color: Color(0xFF28006D),
-                      size: 24,
-                    ),
-                  ),
+                child: const Center(
+                  child: Icon(Icons.arrow_back_ios_new, size: 16, color: Color(0xFF28006D)),
                 ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF22C55E),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          // Logo Wordmark
-          Image.asset(
-            InsuranceAssets.careIdLogo1,
-            width: 80,
-            height: 24,
-            fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Text(
-              'CareID',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xFF28006D),
               ),
             ),
           ),
 
-          // Notification Bell
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-            },
-            behavior: HitTestBehavior.opaque,
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE5EEFF),
-                shape: BoxShape.circle,
+          // Center: Logo Wordmark
+          Center(
+            child: Image.asset(
+              InsuranceAssets.careIdLogo1,
+              width: 80,
+              height: 24,
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => Text(
+                'CareID',
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: const Color(0xFF28006D),
+                ),
               ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  SvgPicture.asset(
-                    InsuranceAssets.bellIcon,
-                    width: 16,
-                    height: 20,
-                  ),
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFBA1A1A),
-                        shape: BoxShape.circle,
-                      ),
+            ),
+          ),
+
+          // Right: Notification Bell + Profile Avatar
+          Align(
+            alignment: Alignment.centerRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFE5EEFF),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          InsuranceAssets.bellIcon,
+                          width: 16,
+                          height: 20,
+                        ),
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: Container(
+                            width: 8,
+                            height: 8,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFBA1A1A),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            InsuranceAssets.avatarUserHub,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => const Icon(
+                              Icons.person,
+                              color: Color(0xFF28006D),
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          width: 12,
+                          height: 12,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF22C55E),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -209,63 +250,26 @@ class _OfferStatusHistoryPageState extends State<OfferStatusHistoryPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GestureDetector(
-              onTap: () {
-                if (Navigator.of(context).canPop()) {
-                  Navigator.of(context).pop();
-                } else {
-                  Navigator.of(context).pushReplacementNamed(AppRoutes.insuranceFinancingHub);
-                }
-              },
-              behavior: HitTestBehavior.opaque,
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE5EEFF),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 1,
-                      offset: const Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 16,
-                    color: Color(0xFF28006D),
-                  ),
-                ),
+            Text(
+              'Offer History',
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.6,
+                color: const Color(0xFF28006D),
               ),
             ),
-            const SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Offer History',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: -0.6,
-                    color: const Color(0xFF28006D),
-                  ),
-                ),
-                Text(
-                  'Care ID Estimates &\nPlans',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    height: 1.25,
-                    color: const Color(0xFF494552),
-                  ),
-                ),
-              ],
+            Text(
+              'Care ID Estimates &\nPlans',
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                height: 1.25,
+                color: const Color(0xFF494552),
+              ),
             ),
           ],
         ),

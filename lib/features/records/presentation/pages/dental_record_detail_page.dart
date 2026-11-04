@@ -74,11 +74,6 @@ class _DentalRecordDetailPageState extends State<DentalRecordDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Security & Verified Verification Strip (Figma node 20:25658)
-                  _buildSecurityStrip(),
-
-                  const SizedBox(height: 16),
-
                   // Hero Panoramic X-Ray Document Card (Figma node 20:25667)
                   _buildHeroImageCard(),
 
@@ -106,6 +101,11 @@ class _DentalRecordDetailPageState extends State<DentalRecordDetailPage> {
 
                   // Patient Notes Card: Doctor's Observations (Figma node 20:25833)
                   _buildDoctorObservationsCard(),
+
+                  const SizedBox(height: 16),
+
+                  // Security & Verified Verification Strip (Figma node 20:25658)
+                  _buildSecurityStrip(),
                 ],
               ),
             ),

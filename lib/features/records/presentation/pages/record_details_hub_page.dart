@@ -64,11 +64,6 @@ class _RecordDetailsHubPageState extends State<RecordDetailsHubPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Status Strip: CARE ID VERIFIED DIRECTORY (Figma node 20:30523)
-                  _buildStatusStrip(),
-
-                  const SizedBox(height: 16),
-
                   // Card 1: My Health Records (Figma node 20:30533)
                   _buildRecordHubCard(
                     title: 'My Health Records',
@@ -254,87 +249,6 @@ class _RecordDetailsHubPageState extends State<RecordDetailsHubPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  /// Status Strip (Figma node 20:30523)
-  Widget _buildStatusStrip() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.85),
-        borderRadius: BorderRadius.circular(9999),
-        border: Border.all(
-          color: const Color(0xFFE7ECF6),
-          width: 1,
-        ),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x08000000),
-            blurRadius: 2,
-            offset: Offset(0, 1),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Left: Shield + CARE ID VERIFIED DIRECTORY
-          Row(
-            children: [
-              Container(
-                width: 20,
-                height: 20,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF56F5F8),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.verified_user_rounded,
-                    color: Color(0xFF00696B),
-                    size: 13,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                'CARE ID VERIFIED DIRECTORY',
-                style: GoogleFonts.plusJakartaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.35,
-                  color: const Color(0xFF494552),
-                ),
-              ),
-            ],
-          ),
-
-          // Right: Notification Bell
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.notificationCenter);
-            },
-            child: Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: const Color(0xFFF2F5FF),
-                shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFFE7ECF6)),
-              ),
-              child: Center(
-                child: SvgPicture.asset(
-                  'assets/icons/home_bell.svg',
-                  width: 15,
-                  height: 15,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

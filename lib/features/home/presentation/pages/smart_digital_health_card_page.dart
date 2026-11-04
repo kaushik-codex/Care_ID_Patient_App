@@ -629,10 +629,10 @@ class _SmartDigitalHealthCardPageState extends State<SmartDigitalHealthCardPage>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/images/gpay_g_logo.png',
-                  height: 22,
-                  fit: BoxFit.contain,
+                SvgPicture.asset(
+                  'assets/icons/google-tile.svg',
+                  height: 24,
+                  width: 24,
                 ),
                 const SizedBox(width: 8),
                 Text(

@@ -74,11 +74,6 @@ class _VisionRecordDetailPageState extends State<VisionRecordDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Security & Verified Verification Strip (Figma node 20:25414)
-                  _buildSecurityStrip(),
-
-                  const SizedBox(height: 16),
-
                   // Hero Retinal Fundus OCT Scan Document Card (Figma node 20:25423)
                   _buildHeroImageCard(),
 
@@ -106,6 +101,11 @@ class _VisionRecordDetailPageState extends State<VisionRecordDetailPage> {
 
                   // Patient Notes Card: Doctor's Observations (Figma node 20:25589)
                   _buildDoctorObservationsCard(),
+
+                  const SizedBox(height: 16),
+
+                  // Security & Verified Verification Strip (Figma node 20:25414)
+                  _buildSecurityStrip(),
                 ],
               ),
             ),
