@@ -77,6 +77,10 @@ import '../../features/insurance/presentation/pages/payment_options_page.dart';
 import '../../features/insurance/presentation/pages/offer_accepted_confirmation_page.dart';
 import '../../features/insurance/presentation/pages/offer_rejected_confirmation_page.dart';
 import '../../features/insurance/presentation/pages/offer_status_history_page.dart';
+import '../../features/profile/presentation/pages/profile_settings_hub_page.dart';
+import '../../features/profile/presentation/pages/medical_information_summary_page.dart';
+import '../../features/profile/presentation/pages/personal_details_identity_page.dart';
+import '../../features/profile/presentation/pages/security_privacy_controls_page.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -158,6 +162,10 @@ class AppRoutes {
   static const String offerAcceptedConfirmation = '/insurance-offer-accepted';
   static const String offerRejectedConfirmation = '/insurance-offer-rejected';
   static const String offerStatusHistory = '/insurance-offer-history';
+  static const String profileSettingsHub = '/profile-settings-hub';
+  static const String profileMedicalSummary = '/profile-medical-summary';
+  static const String profilePersonalDetails = '/profile-personal-details';
+  static const String profileSecurityPrivacy = '/profile-security-privacy';
 
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashPage(),
@@ -313,5 +321,9 @@ class AppRoutes {
         offerAcceptedConfirmation: (context) => const OfferAcceptedConfirmationPage(),
         offerRejectedConfirmation: (context) => const OfferRejectedConfirmationPage(),
         offerStatusHistory: (context) => const OfferStatusHistoryPage(),
+        profileSettingsHub: (context) => const ProfileSettingsHubPage(),
+        profileMedicalSummary: (context) => const MedicalInformationSummaryPage(),
+        profilePersonalDetails: (context) => const PersonalDetailsIdentityPage(),
+        profileSecurityPrivacy: (context) => const SecurityPrivacyControlsPage(),
       };
 }

@@ -226,38 +226,44 @@ class _HomePageState extends State<HomePage> {
 
                     const SizedBox(width: 8),
 
-                    // User Avatar with Online Badge
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
-                          ),
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/patient_avatar.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            width: 12,
-                            height: 12,
+                    // User Avatar with Online Badge (navigates to Profile Hub)
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+                      },
+                      borderRadius: BorderRadius.circular(9999),
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
                             decoration: BoxDecoration(
-                              color: const Color(0xFF22C55E),
                               shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 2),
+                              border: Border.all(color: const Color(0xFF3F1D8B), width: 2),
+                            ),
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/images/patient_avatar.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              width: 12,
+                              height: 12,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF22C55E),
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Colors.white, width: 2),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

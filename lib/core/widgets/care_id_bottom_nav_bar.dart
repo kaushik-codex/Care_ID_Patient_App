@@ -132,16 +132,16 @@ class _CareIDBottomNavBarState extends State<CareIDBottomNavBar>
         Navigator.of(context).pushNamed(AppRoutes.doctors);
       }
     } else if (index == 3) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Profile & Settings opening...',
-            style: GoogleFonts.plusJakartaSans(fontSize: 13),
-          ),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 1),
-        ),
-      );
+      if (widget.currentIndex == 3) {
+        final currentRoute = ModalRoute.of(context)?.settings.name;
+        if (currentRoute == AppRoutes.profileSettingsHub) return;
+        Navigator.of(context).popUntil((route) => route.settings.name == AppRoutes.profileSettingsHub || route.isFirst);
+        return;
+      }
+      final currentRoute = ModalRoute.of(context)?.settings.name;
+      if (currentRoute != AppRoutes.profileSettingsHub) {
+        Navigator.of(context).pushNamed(AppRoutes.profileSettingsHub);
+      }
     }
   }
 
