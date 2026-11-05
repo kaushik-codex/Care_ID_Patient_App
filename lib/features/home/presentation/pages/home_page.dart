@@ -1196,6 +1196,8 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 4),
                 Text(
                   title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
@@ -1205,6 +1207,8 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 2),
                 Text(
                   details,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,

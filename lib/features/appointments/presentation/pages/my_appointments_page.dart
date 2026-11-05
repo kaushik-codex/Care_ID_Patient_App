@@ -66,18 +66,23 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          _selectedTabIndex == 0
-                              ? 'Scheduled Visits'
-                              : (_selectedTabIndex == 1
-                                  ? 'Past Completed Visits'
-                                  : 'Cancelled Appointments'),
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF0B1C30),
+                        Expanded(
+                          child: Text(
+                            _selectedTabIndex == 0
+                                ? 'Scheduled Visits'
+                                : (_selectedTabIndex == 1
+                                    ? 'Past Completed Visits'
+                                    : 'Cancelled Appointments'),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF0B1C30),
+                            ),
                           ),
                         ),
+                        const SizedBox(width: 8),
                         Text(
                           '${appointments.length} Active',
                           style: GoogleFonts.plusJakartaSans(
@@ -179,42 +184,49 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                behavior: HitTestBehavior.opaque,
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Center(
-                    child: Icon(Icons.arrow_back_ios_new, size: 16, color: Color(0xFF28006D)),
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    width: 36,
+                    height: 36,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: Icon(Icons.arrow_back_ios_new, size: 16, color: Color(0xFF28006D)),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                'My Appointments',
-                style: GoogleFonts.plusJakartaSans(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFF28006D),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    'My Appointments',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF28006D),
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Image.asset(
-                'assets/images/card_id_badge.png',
-                height: 20,
-                fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const SizedBox(),
-              ),
-            ],
+                const SizedBox(width: 8),
+                Image.asset(
+                  'assets/images/card_id_badge.png',
+                  height: 20,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => const SizedBox(),
+                ),
+              ],
+            ),
           ),
+          const SizedBox(width: 8),
           const CareIDNotificationButton(),
         ],
       ),
@@ -226,30 +238,36 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'PATIENT PORTAL',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: const Color(0xFF00696B),
-                letterSpacing: 0.7,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'PATIENT PORTAL',
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF00696B),
+                  letterSpacing: 0.7,
+                ),
               ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              'Manage scheduled healthcare visits',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: const Color(0xFF494552),
+              const SizedBox(height: 2),
+              Text(
+                'Manage scheduled healthcare visits',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xFF494552),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        const SizedBox(width: 8),
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: 40,
@@ -371,12 +389,16 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      'Upcoming Consultation',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFF00696B),
+                    Flexible(
+                      child: Text(
+                        'Upcoming Consultation',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF00696B),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -400,6 +422,8 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                 const SizedBox(height: 3),
                 Text(
                   apt.doctor.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
@@ -411,12 +435,16 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                   children: [
                     const Icon(Icons.location_on_outlined, size: 12, color: Color(0xFF494552)),
                     const SizedBox(width: 4),
-                    Text(
-                      '${apt.doctor.clinic} • Suite 400',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xFF494552),
+                    Expanded(
+                      child: Text(
+                        '${apt.doctor.clinic} • Suite 400',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF494552),
+                        ),
                       ),
                     ),
                   ],
@@ -452,35 +480,42 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFDCE9FF),
-                  borderRadius: BorderRadius.circular(9999),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF00696B),
-                        shape: BoxShape.circle,
+              Flexible(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFDCE9FF),
+                    borderRadius: BorderRadius.circular(9999),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF00696B),
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      'Confirmed • Upcoming',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFF00696B),
+                      const SizedBox(width: 6),
+                      Flexible(
+                        child: Text(
+                          'Confirmed • Upcoming',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFF00696B),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
+              const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
@@ -539,6 +574,8 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                   children: [
                     Text(
                       apt.doctor.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.plusJakartaSans(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -548,6 +585,8 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                     const SizedBox(height: 2),
                     Text(
                       apt.doctor.specialty,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.plusJakartaSans(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -559,12 +598,16 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                       children: [
                         const Icon(Icons.location_on_outlined, size: 12, color: Color(0xFF494552)),
                         const SizedBox(width: 4),
-                        Text(
-                          '${apt.doctor.clinic} • Suite 400',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF494552),
+                        Expanded(
+                          child: Text(
+                            '${apt.doctor.clinic} • Suite 400',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFF494552),
+                            ),
                           ),
                         ),
                       ],
@@ -589,32 +632,44 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.access_time_rounded, size: 14, color: Color(0xFF28006D)),
-                        const SizedBox(width: 6),
-                        Text(
-                          apt.timeSlot,
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF0B1C30),
+                    Flexible(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.access_time_rounded, size: 14, color: Color(0xFF28006D)),
+                          const SizedBox(width: 6),
+                          Flexible(
+                            child: Text(
+                              apt.timeSlot,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xFF0B1C30),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFDCE9FF),
-                        borderRadius: BorderRadius.circular(9999),
+                        ],
                       ),
-                      child: Text(
-                        'In-Person Consultation',
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF5B14B8),
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFDCE9FF),
+                          borderRadius: BorderRadius.circular(9999),
+                        ),
+                        child: Text(
+                          'In-Person Consultation',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFF5B14B8),
+                          ),
                         ),
                       ),
                     ),
@@ -625,12 +680,16 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                   children: [
                     const Icon(Icons.verified_outlined, size: 13, color: Color(0xFF00696B)),
                     const SizedBox(width: 6),
-                    Text(
-                      'Care ID Coverage verified & checked-in',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xFF494552),
+                    Expanded(
+                      child: Text(
+                        'Care ID Coverage verified & checked-in',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF494552),
+                        ),
                       ),
                     ),
                   ],
@@ -663,12 +722,16 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                       children: [
                         const Icon(Icons.calendar_month_outlined, size: 15, color: Color(0xFF0B1C30)),
                         const SizedBox(width: 6),
-                        Text(
-                          'Reschedule',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF0B1C30),
+                        Flexible(
+                          child: Text(
+                            'Reschedule',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF0B1C30),
+                            ),
                           ),
                         ),
                       ],
@@ -702,12 +765,16 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'View Details',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                        Flexible(
+                          child: Text(
+                            'View Details',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 6),

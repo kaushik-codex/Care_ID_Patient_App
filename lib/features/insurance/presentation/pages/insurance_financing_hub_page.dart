@@ -539,15 +539,20 @@ class InsuranceFinancingHubPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          'FINANCING & COVERAGE HUB',
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 0.6,
-            color: const Color(0xFF494552),
+        Expanded(
+          child: Text(
+            'FINANCING & COVERAGE HUB',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.plusJakartaSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.6,
+              color: const Color(0xFF494552),
+            ),
           ),
         ),
+        const SizedBox(width: 8),
         Text(
           '4 Modules Available',
           style: GoogleFonts.plusJakartaSans(
@@ -757,7 +762,7 @@ class InsuranceFinancingHubPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xFFCBC4D4).withOpacity(0.4)),
+        border: Border.all(color: const Color(0xFFCBC4D4).withValues(alpha: 0.4)),
         boxShadow: const [
           BoxShadow(
             color: Color(0x0A000000),
@@ -792,12 +797,16 @@ class InsuranceFinancingHubPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          'Treatment Financing',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF0B1C30),
+                        Flexible(
+                          child: Text(
+                            'Treatment Financing',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF0B1C30),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -844,32 +853,43 @@ class InsuranceFinancingHubPage extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'No paperwork required',
-                style: GoogleFonts.plusJakartaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF00696B),
+              const Icon(Icons.check_circle_outline, size: 14, color: Color(0xFF00696B)),
+              const SizedBox(width: 4),
+              Expanded(
+                child: Text(
+                  'No paperwork required • Instant Soft Pull',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF00696B),
+                  ),
                 ),
               ),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.paymentOptions);
-                    },
-                    behavior: HitTestBehavior.opaque,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      margin: const EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF56F5F8),
-                        borderRadius: BorderRadius.circular(9999),
-                      ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.paymentOptions);
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF56F5F8),
+                      borderRadius: BorderRadius.circular(9999),
+                    ),
+                    child: Center(
                       child: Text(
                         'Payment Options',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.plusJakartaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -878,34 +898,43 @@ class InsuranceFinancingHubPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.financingOptionDetails);
-                    },
-                    behavior: HitTestBehavior.opaque,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF28006D),
-                        borderRadius: BorderRadius.circular(9999),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.financingOptionDetails);
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF28006D),
+                      borderRadius: BorderRadius.circular(9999),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child: Text(
                             'Calculate Plans',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.plusJakartaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.arrow_forward_ios, size: 10, color: Colors.white),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.arrow_forward_ios, size: 10, color: Colors.white),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             ],
           ),
@@ -990,12 +1019,16 @@ class InsuranceFinancingHubPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          'Treatment Offers',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF0B1C30),
+                        Flexible(
+                          child: Text(
+                            'Treatment Offers',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF0B1C30),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -1208,12 +1241,16 @@ class InsuranceFinancingHubPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          'Cash Discount Options',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF0B1C30),
+                        Flexible(
+                          child: Text(
+                            'Cash Discount Options',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF0B1C30),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
